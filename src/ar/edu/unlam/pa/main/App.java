@@ -13,7 +13,7 @@ public class App {
 		
 //		AvionVerdeChiquito a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
 //		a1.moverEnDireccion(90);
-		      	   
+		System.out.println("test");
 	}
 
 }
