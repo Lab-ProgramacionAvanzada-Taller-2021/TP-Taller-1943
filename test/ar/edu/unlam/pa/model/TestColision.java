@@ -28,7 +28,7 @@ public class TestColision {
 	@Test
 	public void colisionFallidaXBando() {
 		e1 = new Elemento(new Hitbox(new Punto2D(0, 0), 1), Elemento.AMERICANO, 0);
-		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 1), Elemento.JAPONES, 0);
+		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 1), Elemento.AMERICANO, 0);
 		assertFalse(e1.colisionaCon(e2));
 	}
 
