@@ -24,7 +24,12 @@ public class Hitbox {
 		return posicion;
 	}
 	
-	public double sumarRadios(Double radio) {
+	/**
+	 * 
+	 * @param radio_de_otro_hitbox.
+	 * @return suma_de_radios.
+	 */
+	public double sumaDeRadios(Double radio) {
 		return this.radio + radio;
 	}
 
@@ -34,7 +39,7 @@ public class Hitbox {
 	 * @return Si_colisionan_o_no.
 	 */
 	public boolean colisionaCon(Hitbox otro) {
-		return this.sumarRadios(otro.radio) >= this.posicion.distancia(otro.posicion);
+		return this.sumaDeRadios(otro.radio) >= this.posicion.distancia(otro.posicion);
 	}
 
 	@Override
@@ -43,7 +48,7 @@ public class Hitbox {
 	}
 
 	public void moverPunto(Double desplazamientoY, Double desplazamientoX) {
-		this.posicion.desplazar(desplazamientoY, desplazamientoX);
+		this.posicion.desplazar(desplazamientoX, desplazamientoY);
 	}
 
 }
