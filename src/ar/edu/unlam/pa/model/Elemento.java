@@ -6,6 +6,9 @@ import static java.lang.Math.toRadians;
 
 import ar.edu.unlam.pa.servicios.Movimiento;
 
+/*
+ * Esta clase emula cualquier objeto que se este en mapa del juego y que puede interactuar con otros.
+ * */
 public class Elemento implements Movimiento {
 
 	protected Hitbox hitbox;
@@ -14,11 +17,13 @@ public class Elemento implements Movimiento {
 
 	public static final int AMERICANO = 1;
 	public static final int JAPONES = 2;
+	public static final int VELOCIDAD_UNO = 1;
 
 	public Elemento(Hitbox hitbox, int bando, double velocidad) {
 		this.hitbox = hitbox;
 		this.bando = bando;
-		this.velocidad = velocidad;
+		// En futuro se multiplicara con la velocidad dependiendo de cada avion
+		this.velocidad = VELOCIDAD_UNO;
 	}
 
 	public Punto2D getPosicion() {
@@ -46,8 +51,10 @@ public class Elemento implements Movimiento {
 
 		Double anguloRadianes = toRadians(angulo);
 
-		getPosicion().setY(hitbox.getPosicion().getY() + sin(anguloRadianes) * velocidad);
-		getPosicion().setX(hitbox.getPosicion().getX() + cos(anguloRadianes) * velocidad);
+		double desplazamientoY = sin(anguloRadianes);
+		double desplazamientoX = cos(anguloRadianes);
+
+		hitbox.moverPunto(desplazamientoY, desplazamientoX);
 
 		return true;
 	}

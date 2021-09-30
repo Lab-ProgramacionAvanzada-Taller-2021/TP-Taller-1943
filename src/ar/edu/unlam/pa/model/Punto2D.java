@@ -1,12 +1,13 @@
 package ar.edu.unlam.pa.model;
 
-import static java.lang.Math.*;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
-public class Punto2D{
-	
+public class Punto2D {
+
 	private double x;
 	private double y;
-	
+
 	public Punto2D(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -29,9 +30,9 @@ public class Punto2D{
 	}
 
 	private double distancia(Punto2D otro) {
-		return sqrt(pow(x-otro.x,2)+pow(y-otro.y,2));
+		return sqrt(pow(x - otro.x, 2) + pow(y - otro.y, 2));
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -42,12 +43,18 @@ public class Punto2D{
 			return false;
 		Punto2D other = (Punto2D) obj;
 
-		return distancia(other)<0.00001;
-}
+		return distancia(other) < 0.00001;
+	}
 
 	@Override
 	public String toString() {
-		return "("+x+" , "+y+")";
+		return "(" + x + " , " + y + ")";
 	}
-	
+
+	public void desplazar(Double desplazamientoY, Double desplazamientoX) {
+		this.y += desplazamientoY;
+		this.x += desplazamientoX;
+
+	}
+
 }

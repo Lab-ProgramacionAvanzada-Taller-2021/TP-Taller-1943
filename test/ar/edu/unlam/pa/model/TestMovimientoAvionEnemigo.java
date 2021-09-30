@@ -14,8 +14,8 @@ public class TestMovimientoAvionEnemigo {
 		// hacia la derecha equivale a un angulo de 0 grados
 		a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
 		a1.moverEnDireccion(0);
-
-		assertEquals(new Punto2D(2, 0), a1.getPosicion());
+		// Cada avion sabe cuanto se debe mover estan como estaticos en cada clase
+		assertEquals(new Punto2D(1, 0), a1.getPosicion());
 	}
 
 	@Test
@@ -24,7 +24,7 @@ public class TestMovimientoAvionEnemigo {
 		a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
 		a1.moverEnDireccion(90);
 
-		assertEquals(new Punto2D(0, 2), a1.getPosicion());
+		assertEquals(new Punto2D(0, 1), a1.getPosicion());
 	}
 
 	@Test
@@ -33,7 +33,7 @@ public class TestMovimientoAvionEnemigo {
 		a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
 		a1.moverEnDireccion(180);
 
-		assertEquals(new Punto2D(-2, 0), a1.getPosicion());
+		assertEquals(new Punto2D(-1, 0), a1.getPosicion());
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class TestMovimientoAvionEnemigo {
 		a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
 		a1.moverEnDireccion(270);
 
-		assertEquals(new Punto2D(0, -2), a1.getPosicion());
+		assertEquals(new Punto2D(0, -1), a1.getPosicion());
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class TestMovimientoAvionEnemigo {
 		a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
 		a1.moverEnDireccion(45);
 
-		assertEquals(new Punto2D(Math.cos(Math.toRadians(45)) * 2, Math.sin(Math.toRadians(45)) * 2), a1.getPosicion());
+		assertEquals(new Punto2D(Math.cos(Math.toRadians(45)), Math.sin(Math.toRadians(45))), a1.getPosicion());
 	}
 
 	@After

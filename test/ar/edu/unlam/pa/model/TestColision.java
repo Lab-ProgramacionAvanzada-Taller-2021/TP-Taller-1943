@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Test;
 
 public class TestColision {
-
+//	Serian cualquiel personaje del juego 
 	Elemento e1;
 	Elemento e2;
 
@@ -19,14 +19,14 @@ public class TestColision {
 	}
 
 	@Test
-	public void colisionFallidaXDistancia() {
+	public void colisionFallidaPorEstarDistanciaAjana() {
 		e1 = new Elemento(new Hitbox(new Punto2D(3, 3), 1), Elemento.AMERICANO, 0);
 		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 1), Elemento.JAPONES, 0);
 		assertFalse(e1.colisionaCon(e2));
 	}
 
 	@Test
-	public void colisionFallidaXBando() {
+	public void colisionFallidaPorSerDelMismoBando() {
 		e1 = new Elemento(new Hitbox(new Punto2D(0, 0), 1), Elemento.AMERICANO, 0);
 		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 1), Elemento.AMERICANO, 0);
 		assertFalse(e1.colisionaCon(e2));

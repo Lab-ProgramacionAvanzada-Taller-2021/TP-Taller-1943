@@ -1,8 +1,6 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.servicios.Movimiento;
-
-public class AvionVerdeChiquito extends Avion implements Movimiento {
+public class AvionVerdeChiquito extends Avion {
 
 	private static double VELOCIDAD_MOVIMIENTO = 2;
 	private static double RADIO_COLISION = 1;
