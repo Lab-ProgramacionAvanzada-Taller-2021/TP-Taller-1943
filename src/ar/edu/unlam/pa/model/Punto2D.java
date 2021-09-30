@@ -1,7 +1,6 @@
 package ar.edu.unlam.pa.model;
 
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.hypot;
 
 public class Punto2D {
 
@@ -30,7 +29,7 @@ public class Punto2D {
 	}
 
 	private double distancia(Punto2D otro) {
-		return sqrt(pow(x - otro.x, 2) + pow(y - otro.y, 2));
+		return hypot(this.x - otro.x, this.y - otro.y);
 	}
 
 	@Override
