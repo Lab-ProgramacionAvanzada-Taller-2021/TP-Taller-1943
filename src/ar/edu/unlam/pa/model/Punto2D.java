@@ -28,7 +28,7 @@ public class Punto2D {
 		this.y = y;
 	}
 
-	private double distancia(Punto2D otro) {
+	public double distancia(Punto2D otro) {
 		return hypot(this.x - otro.x, this.y - otro.y);
 	}
 

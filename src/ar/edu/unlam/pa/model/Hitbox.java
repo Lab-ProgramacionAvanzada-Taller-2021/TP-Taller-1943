@@ -3,7 +3,7 @@ package ar.edu.unlam.pa.model;
 import static java.lang.Math.pow;
 
 /*
- * Esta clase representa a las  cajas delimitadoras o cajas de colisión entre los objetos del juego.
+ * Esta clase representa a las  cajas delimitadoras o cajas de colisiï¿½n entre los objetos del juego.
  * */
 public class Hitbox {
 
@@ -23,18 +23,18 @@ public class Hitbox {
 	public Punto2D getPosicion() {
 		return posicion;
 	}
+	
+	public double sumarRadios(Double radio) {
+		return this.radio + radio;
+	}
 
+	/***
+	 * 
+	 * @param Hitbox_de_otro_elemento.
+	 * @return Si_colisionan_o_no.
+	 */
 	public boolean colisionaCon(Hitbox otro) {
-
-		double x1 = posicion.getX();
-		double y1 = posicion.getY();
-		double x2 = otro.posicion.getX();
-		double y2 = otro.posicion.getY();
-
-		double sumaDeRadiosAlCuadrado = pow(radio + otro.radio, 2);
-		double distanciaEntreCentrosAlCuadrado = pow(x2 - x1, 2) + pow(y2 - y1, 2);
-
-		return sumaDeRadiosAlCuadrado >= distanciaEntreCentrosAlCuadrado;
+		return this.sumarRadios(otro.radio) >= this.posicion.distancia(otro.posicion);
 	}
 
 	@Override
