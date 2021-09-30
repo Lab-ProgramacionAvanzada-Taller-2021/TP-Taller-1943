@@ -51,10 +51,9 @@ public class Punto2D {
 		return "(" + x + " , " + y + ")";
 	}
 
-	public void desplazar(Double desplazamientoY, Double desplazamientoX) {
-		this.y += desplazamientoY;
+	public void desplazar(Double desplazamientoX, Double desplazamientoY) {
 		this.x += desplazamientoX;
-
+		this.y += desplazamientoY;
 	}
 
 }
