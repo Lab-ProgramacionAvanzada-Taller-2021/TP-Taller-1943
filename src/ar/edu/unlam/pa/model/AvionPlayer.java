@@ -1,6 +1,7 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.model.estadosAvion.AvionNormal;
+import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
+import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
 
 public class AvionPlayer extends Avion implements MovimientoPlayer {

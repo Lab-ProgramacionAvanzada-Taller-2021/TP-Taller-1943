@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Test;
 
-public class TestMovimientoAvionEnemigo {
+public class MovimientoAvionEnemigoTest {
 
 	AvionVerdeChiquito a1;
 

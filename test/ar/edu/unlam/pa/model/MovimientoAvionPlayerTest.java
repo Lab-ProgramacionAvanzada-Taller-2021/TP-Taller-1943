@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Test;
 
-public class TestMovimientoAvionPlayer {
+public class MovimientoAvionPlayerTest {
 
 	AvionPlayer e1;
 

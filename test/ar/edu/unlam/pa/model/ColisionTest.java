@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Test;
 
-public class TestColision {
+public class ColisionTest {
 //	Serian cualquiel personaje del juego 
 	Elemento e1;
 	Elemento e2;

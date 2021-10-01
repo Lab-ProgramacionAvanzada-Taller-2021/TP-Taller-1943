@@ -1,4 +1,4 @@
-package ar.edu.unlam.pa.model;
+package ar.edu.unlam.pa.model.estados.avion;
 
 public abstract class EstadoAvion {
 	private int duracion = 32;

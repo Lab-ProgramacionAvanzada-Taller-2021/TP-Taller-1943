@@ -1,6 +1,4 @@
-package ar.edu.unlam.pa.model.estadosAvion;
-
-import ar.edu.unlam.pa.model.EstadoAvion;
+package ar.edu.unlam.pa.model.estados.avion;
 
 public class AvionNormal extends EstadoAvion{
 	

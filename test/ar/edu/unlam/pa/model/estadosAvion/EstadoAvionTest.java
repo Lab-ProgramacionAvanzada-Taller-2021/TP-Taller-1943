@@ -1,9 +1,12 @@
-package ar.edu.unlam.pa.model;
+package ar.edu.unlam.pa.model.estadosAvion;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import ar.edu.unlam.pa.model.AvionPlayer;
+import ar.edu.unlam.pa.model.Punto2D;
 
 public class EstadoAvionTest {
 
