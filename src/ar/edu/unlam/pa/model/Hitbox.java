@@ -1,7 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import static java.lang.Math.pow;
-
 /*
  * Esta clase representa a las  cajas delimitadoras o cajas de colisi�n entre los objetos del juego.
  * */

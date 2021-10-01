@@ -1,9 +1,8 @@
 package ar.edu.unlam.pa.model;
 
 public class Avion extends Elemento {
-
-	protected double vidaMaxima;
-	protected double vidaActual;
+	private double vidaMaxima;
+	private double vidaActual;
 	
 	public Avion(Hitbox hitbox, int bando, double vidaMaxima,double velocidad) {
 		super(hitbox, bando, velocidad);
