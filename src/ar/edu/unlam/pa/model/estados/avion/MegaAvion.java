@@ -4,11 +4,12 @@ public class MegaAvion extends EstadoAvion {
 
 	@Override
 	public void disparar() {
-		//Dispara mega proyectiles.
+		getBala().setCantidadTiros(4);
 	}
 
 	@Override
 	public EstadoAvion terminaPowerUp() {
+
 		return new SuperAvion();
 	}
 
