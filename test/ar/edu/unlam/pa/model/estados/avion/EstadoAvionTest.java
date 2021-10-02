@@ -53,7 +53,13 @@ public class EstadoAvionTest {
 		avion.agarraPowerUP();
 		avion.agarraPowerUP();
 
-		for (int i = 0; i++ < 64;) {
+		for (int i = 0; i++ < 32;) {
+			avion.decrementarContadorPowerUP();
+		}
+
+		Assert.assertEquals("SuperAvion", avion.toStringEstado());
+
+		for (int i = 0; i++ < 32;) {
 			avion.decrementarContadorPowerUP();
 		}
 

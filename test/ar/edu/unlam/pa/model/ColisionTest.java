@@ -8,40 +8,48 @@ import org.junit.Test;
 
 public class ColisionTest {
 //	Serian cualquiel personaje del juego 
-	Elemento e1;
-	Elemento e2;
+	AvionPlayer player1;
+	AvionPlayer player2;
+	AvionVerdeChiquito enemigo1;
+	AvionVerdeChiquito enemigo2;
 
 	@Test
 	public void colisionExitosa() {
-		e1 = new Elemento(new Hitbox(new Punto2D(0, 0), 1), Elemento.AMERICANO, 0);
-		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 1), Elemento.JAPONES, 0);
-		assertTrue(e1.colisionaCon(e2));
+
+		player1 = new AvionPlayer(new Punto2D(0, 0));
+		enemigo1 = new AvionVerdeChiquito(new Punto2D(1, 1));
+		assertTrue(player1.colisionaCon(enemigo1));
 	}
 
 	@Test
 	public void colisionFallidaPorEstarDistanciaAjana() {
-		e1 = new Elemento(new Hitbox(new Punto2D(3, 3), 1), Elemento.AMERICANO, 0);
-		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 1), Elemento.JAPONES, 0);
-		assertFalse(e1.colisionaCon(e2));
+		player1 = new AvionPlayer(new Punto2D(3, 3));
+		enemigo1 = new AvionVerdeChiquito(new Punto2D(1, 1));
+
+		assertFalse(player1.colisionaCon(enemigo1));
 	}
 
 	@Test
 	public void colisionFallidaPorSerDelMismoBando() {
-		e1 = new Elemento(new Hitbox(new Punto2D(0, 0), 2), Elemento.AMERICANO, 0);
-		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 2), Elemento.AMERICANO, 0);
-		assertFalse(e1.colisionaCon(e2));
+
+		player1 = new AvionPlayer(new Punto2D(0, 0));
+		player2 = new AvionPlayer(new Punto2D(1, 1));
+		assertFalse(player1.colisionaCon(player2));
 	}
+
 	@Test
 	public void colisionFallidaPorSerDelMismoBandoJapones() {
-		e1 = new Elemento(new Hitbox(new Punto2D(0, 0), 2), Elemento.JAPONES, 0);
-		e2 = new Elemento(new Hitbox(new Punto2D(1, 1), 2), Elemento.JAPONES, 0);
-		assertFalse(e1.colisionaCon(e2));
+		enemigo1 = new AvionVerdeChiquito(new Punto2D(0, 0));
+		enemigo2 = new AvionVerdeChiquito(new Punto2D(1, 1));
+		assertFalse(enemigo1.colisionaCon(enemigo2));
 	}
 
 	@After
 	public void annihilate() {
-		e1 = null;
-		e2 = null;
+		player1 = null;
+		player2 = null;
+		enemigo1 = null;
+		enemigo2 = null;
 	}
 
 }
