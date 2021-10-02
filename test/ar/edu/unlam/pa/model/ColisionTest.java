@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Test;
 
 public class ColisionTest {
-//	Serian cualquiel personaje del juego 
+	
 	AvionPlayer player1;
 	AvionPlayer player2;
 	AvionVerdeChiquito enemigo1;
