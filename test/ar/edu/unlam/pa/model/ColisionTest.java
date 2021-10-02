@@ -8,6 +8,9 @@ import org.junit.Test;
 
 public class ColisionTest {
 //	Serian cualquiel personaje del juego 
+
+//	Serian cualquiel personaje del juego //	Serian cualquiel personaje del juego 4
+
 	AvionPlayer player1;
 	AvionPlayer player2;
 	AvionVerdeChiquito enemigo1;
