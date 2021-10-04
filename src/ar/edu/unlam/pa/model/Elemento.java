@@ -35,10 +35,13 @@ public class Elemento implements Movimiento {
 	}
 
 	public boolean colisionaCon(Elemento otro) {
-		if (esEnemigo(otro) == true)
-			return hitbox.colisionaCon(otro.hitbox);
-		else
-			return false;
+//		if (esEnemigo(otro) == true)
+//			return hitbox.colisionaCon(otro.hitbox);
+//		else
+//			return false;
+//		
+//		
+		return esEnemigo(otro) && hitbox.colisionaCon(otro.hitbox);
 	}
 
 	@Override
@@ -46,6 +49,8 @@ public class Elemento implements Movimiento {
 		return "Posicion= " + hitbox + ", bando=" + bando + "]";
 	}
 
+//recibir una direccion que implique los gr multiplos de 45 (sur este oeste ) emulen el teclado
+//  tiene q tener la velocidad
 	@Override
 	public boolean moverEnDireccion(double angulo) {
 

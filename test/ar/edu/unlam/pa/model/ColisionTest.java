@@ -24,7 +24,7 @@ public class ColisionTest {
 	}
 
 	@Test
-	public void colisionFallidaPorEstarDistanciaAjana() {
+	public void colisionFallidaPorEstarDistanciaLejana() {
 		player1 = new AvionPlayer(new Punto2D(3, 3));
 		enemigo1 = new AvionVerdeChiquito(new Punto2D(1, 1));
 
