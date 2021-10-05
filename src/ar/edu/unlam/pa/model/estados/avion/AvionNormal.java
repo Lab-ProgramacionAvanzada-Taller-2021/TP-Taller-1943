@@ -9,7 +9,6 @@ public class AvionNormal extends EstadoAvion {
 
 	@Override
 	public EstadoAvion agarraPowerUp() {
-
 		return new SuperAvion();
 	}
 

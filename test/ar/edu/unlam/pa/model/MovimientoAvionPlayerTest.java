@@ -53,7 +53,7 @@ public class MovimientoAvionPlayerTest {
 
 		e1.moverArribaIzquierda();
 
-		assertEquals(new Punto2D(-sqrt(0.5), sqrt(0.5)), e1.getPosicion());
+		assertEquals(new Punto2D(-0.707, 0.707), e1.getPosicion());
 	}
 
 	@After

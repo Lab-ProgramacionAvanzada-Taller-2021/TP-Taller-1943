@@ -17,42 +17,37 @@ public class MovimientoAvionEnemigoTest {
 
 	@Test
 	public void mueveHaciaDerecha() {
-		// hacia la derecha equivale a un angulo de 0 grados
-		a1.moverEnDireccion(0);
-		// Cada avion sabe cuanto se debe mover estan como estaticos en cada clase
+		a1.moverEnDireccion(1, 0); 
+		
 		assertEquals(new Punto2D(1, 0), a1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaArriba() {
-		// hacia arriba equivale a un angulo de 90 grados
-		a1.moverEnDireccion(90);
+		a1.moverEnDireccion(0, 1);
 
 		assertEquals(new Punto2D(0, 1), a1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaIzquierda() {
-		// hacia arriba equivale a un angulo de 180 grados
-		a1.moverEnDireccion(180);
-
+		a1.moverEnDireccion(-1, 0);
+		
 		assertEquals(new Punto2D(-1, 0), a1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaAbajo() {
-		// hacia arriba equivale a un angulo de 270 grados
-		a1.moverEnDireccion(270);
+		a1.moverEnDireccion(0, -1);
 
 		assertEquals(new Punto2D(0, -1), a1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaArribaDerecha() {
-		// hacia arriba-derecha equivale a un angulo de 45 grados
-		a1.moverEnDireccion(45);
+		a1.moverEnDireccion(0.707, 0.707);
 
-		assertEquals(new Punto2D(Math.cos(Math.toRadians(45)), Math.sin(Math.toRadians(45))), a1.getPosicion());
+		assertEquals(new Punto2D(0.707, 0.707), a1.getPosicion());
 	}
 
 	@After

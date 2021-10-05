@@ -1,13 +1,11 @@
 package ar.edu.unlam.pa.servicios;
 
 public interface Movimiento {
-	/*
-	 * Movimiento generico del cualquier elemento , hay que tener en cuenta la
-	 * velocidad
+	/***
 	 * 
-	 * @param angulo en decimal
-	 * 
-	 * @return true porque no sabemos el tamaño del mapa
+	 * @param desplazamientoX_del_elemento.
+	 * @param desplazamientoY_del_elemento.
+	 * @return Si_se_movio_o_no
 	 */
-	public boolean moverEnDireccion(double angulo);
+	public boolean moverEnDireccion(double desplazamientoX, double desplazamientoY);
 }

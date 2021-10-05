@@ -45,7 +45,7 @@ public class Hitbox {
 		return posicion + ", r=" + radio;
 	}
 
-	public void moverPunto(Double desplazamientoY, Double desplazamientoX) {
+	public void moverPunto(Double desplazamientoX, Double desplazamientoY) {
 		this.posicion.desplazar(desplazamientoX, desplazamientoY);
 	}
 

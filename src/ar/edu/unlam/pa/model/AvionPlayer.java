@@ -4,6 +4,7 @@ import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
 
+
 public class AvionPlayer extends Avion implements MovimientoPlayer {
 
 	private EstadoAvion estado = new AvionNormal();
@@ -37,42 +38,42 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 	}
 
 	public boolean moverArriba() {
-		moverEnDireccion(90);
+		moverEnDireccion(0, MovimientoPlayer.DESPLAZAMIENTO_LINEAL);
 		return true;
 	}
 
 	public boolean moverAbajo() {
-		moverEnDireccion(270);
+		moverEnDireccion(0, -MovimientoPlayer.DESPLAZAMIENTO_LINEAL);
 		return true;
 	}
 
 	public boolean moverDerecha() {
-		moverEnDireccion(0);
+		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_LINEAL, 0);
 		return true;
 	}
 
 	public boolean moverIzquierda() {
-		moverEnDireccion(180);
+		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_LINEAL, 0);
 		return true;
 	}
 
 	public boolean moverArribaDerecha() {
-		moverEnDireccion(45);
+		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL, MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL);
 		return true;
 	}
 
 	public boolean moverArribaIzquierda() {
-		moverEnDireccion(135);
+		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL, MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL);
 		return true;
 	}
 
 	public boolean moverAbajoDerecha() {
-		moverEnDireccion(315);
+		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL, -MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL);
 		return true;
 	}
 
 	public boolean moverAbajoIzquierda() {
-		moverEnDireccion(225);
+		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL, -MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL);
 		return true;
 	}
 

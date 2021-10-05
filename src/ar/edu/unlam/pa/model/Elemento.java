@@ -52,14 +52,9 @@ public class Elemento implements Movimiento {
 //recibir una direccion que implique los gr multiplos de 45 (sur este oeste ) emulen el teclado
 //  tiene q tener la velocidad
 	@Override
-	public boolean moverEnDireccion(double angulo) {
+	public boolean moverEnDireccion(double desplazamientoX, double desplazamientoY) {
 
-		Double anguloRadianes = toRadians(angulo);
-
-		double desplazamientoY = sin(anguloRadianes);
-		double desplazamientoX = cos(anguloRadianes);
-
-		hitbox.moverPunto(desplazamientoY, desplazamientoX);
+		hitbox.moverPunto(desplazamientoX, desplazamientoY);
 
 		return true;
 	}

@@ -2,7 +2,7 @@ package ClasesQueTodaviaNoSeUsan;
 
 public class Usuario {
 	private String nombreUsuario;
-	private String Contraseña;
+	private String Contrasena;
 	private int idUsuario;
 	Sala salaActual;
 	
