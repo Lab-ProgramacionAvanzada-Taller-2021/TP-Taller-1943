@@ -1,5 +1,7 @@
 package ar.edu.unlam.pa.main;
 
+import ar.edu.unlam.pa.graficos.Ventana;
+
 public class App {
 
 	public static void main(String[] args) {
@@ -13,6 +15,8 @@ public class App {
 		
 //		AvionVerdeChiquito a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
 //		a1.moverEnDireccion(90);
+		
+		Ventana Juego = new Ventana();
 		      	   
 	}
 
