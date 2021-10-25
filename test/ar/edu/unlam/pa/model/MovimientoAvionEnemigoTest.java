@@ -8,11 +8,11 @@ import org.junit.Test;
 
 public class MovimientoAvionEnemigoTest {
 
-	AvionVerdeChiquito a1;
+	AvionEnemigo a1;
 
 	@Before
 	public void setUp() {
-		a1 = new AvionVerdeChiquito(new Punto2D(0, 0));
+		a1 = new AvionEnemigo(0, 0);
 	}
 
 	@Test

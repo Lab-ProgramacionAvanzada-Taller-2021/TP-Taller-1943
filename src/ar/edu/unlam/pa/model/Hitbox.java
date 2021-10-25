@@ -7,6 +7,11 @@ public class Hitbox {
 
 	private Punto2D posicion;
 	private double radio;
+	
+	public Hitbox(double x, double y, double radio) {
+		this.posicion = new Punto2D(x, y);
+		this.radio = radio;
+	}
 
 	public Hitbox(Punto2D posicion, double radio) {
 		this.posicion = posicion;
@@ -17,9 +22,21 @@ public class Hitbox {
 		this.posicion = otro.posicion;
 		this.radio = otro.radio;
 	}
+	
+	public double getX() {
+		return this.posicion.getX();
+	}
+	
+	public double getY() {
+		return this.posicion.getY();
+	}
 
 	public Punto2D getPosicion() {
 		return posicion;
+	}
+	
+	public double getRadio() {
+		return radio;
 	}
 	
 	/**

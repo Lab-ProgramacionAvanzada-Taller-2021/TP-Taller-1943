@@ -1,8 +1,11 @@
 package ar.edu.unlam.pa.model;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static java.lang.Math.toRadians;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import ar.edu.unlam.pa.servicios.Movimiento;
 
@@ -10,20 +13,23 @@ import ar.edu.unlam.pa.servicios.Movimiento;
  * Esta clase emula cualquier objeto que se este en mapa del juego y que puede interactuar con otros.
  * */
 public class Elemento implements Movimiento {
-
-	protected Hitbox hitbox;
+	private Hitbox hitbox;
 	private int bando;
-	protected double velocidad;
+	private double velocidad;
+	
+	private BufferedImage imagen;
 
 	public static final int AMERICANO = 1;
 	public static final int JAPONES = 2;
 	public static final int VELOCIDAD_UNO = 1;
 
-	public Elemento(Hitbox hitbox, int bando, double velocidad) {
+	public Elemento(Hitbox hitbox, int bando, double velocidad, String ruta) {
 		this.hitbox = hitbox;
 		this.bando = bando;
 		// En futuro se multiplicara con la velocidad dependiendo de cada avion
 		this.velocidad = VELOCIDAD_UNO;
+		
+		this.cargarImagen(ruta);
 	}
 
 	public Punto2D getPosicion() {
@@ -35,12 +41,6 @@ public class Elemento implements Movimiento {
 	}
 
 	public boolean colisionaCon(Elemento otro) {
-//		if (esEnemigo(otro) == true)
-//			return hitbox.colisionaCon(otro.hitbox);
-//		else
-//			return false;
-//		
-//		
 		return esEnemigo(otro) && hitbox.colisionaCon(otro.hitbox);
 	}
 
@@ -57,6 +57,23 @@ public class Elemento implements Movimiento {
 		hitbox.moverPunto(desplazamientoX, desplazamientoY);
 
 		return true;
+	}
+
+	public void dibujar(Graphics2D g2) {
+		g2.drawImage(this.imagen, (int)(this.hitbox.getX() - this.hitbox.getRadio()) , 
+				(int)(this.hitbox.getY() - this.hitbox.getRadio()) , 
+				(int)(this.hitbox.getRadio()) * 2, (int)(this.hitbox.getRadio()) * 2 ,
+				null);
+	}
+	
+	public void actualizar(double dt) {}
+
+	public void cargarImagen(String ruta) {
+		try {
+			this.imagen = ImageIO.read(new File(ruta));
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 }

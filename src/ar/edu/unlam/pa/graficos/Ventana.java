@@ -1,50 +1,59 @@
 package ar.edu.unlam.pa.graficos;
 
+import java.awt.Dimension;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import ar.edu.unlam.pa.model.AvionPlayer;
+import ar.edu.unlam.pa.model.Escenario;
 
 public class Ventana extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
 	
-	/***
-	 * Constantes_de_la_pantalla.
-	 */
-	private final int CUADRADO_X = 4; //16
-	private final int CUADRADO_Y = 3; //9
-	
-	/***
-	 * Constantes_del_GameLoop
-	 */
+	//Constantes_del_GameLoop
 	private final int SECOND = 1000;
 	private final int FRAMES_PER_SECOND = 60;
 	private final int SKIP_FRAMES = SECOND / FRAMES_PER_SECOND;
-	private final int TICKS_PER_SECOND = 120;
+	private final int TICKS_PER_SECOND = 60;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	
 	private Pantalla pantalla;
 	private boolean enEjecucion;
+	
+	private Escenario escenario;
+	private AvionPlayer avion;
 
 	public Ventana() {
 		setTitle("1943 Midway");
 		
-		this.pantalla = new Pantalla(CUADRADO_X, CUADRADO_Y);
-		
+		this.pantalla = new Pantalla(640, 512);
 		this.setContentPane(this.pantalla);
+		
+		setResizable(false);
 		
 		pack();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		setVisible(true);
-		
-		setFocusable(true);
-		requestFocusInWindow();
-		
-		this.enEjecucion = true;
 	}
 	
-	/***
-	 * GameLoop_de_la_catedra.
-	 */
+	public void init() {
+		this.avion = new AvionPlayer(304, 320);
+		this.escenario = new Escenario();
+		this.escenario.agregarElemento(avion);
+		
+		addKeyListener(avion);
+		this.enEjecucion = true;
+		
+		setVisible(true);
+		setFocusable(true);
+		requestFocusInWindow();
+	}
+	
+	// GameLoop_de_la_catedra.
 	@Override
 	public void run() {
 		long next_game_tick = System.currentTimeMillis();
@@ -67,7 +76,34 @@ public class Ventana extends JFrame implements Runnable{
 	}
 	
 	public void actualizar() {
-		
+		this.escenario.actualizar(1.0 / TICKS_PER_SECOND);
 	}
 	
+	private class Pantalla extends JPanel{
+		private static final long serialVersionUID = 1L;
+		
+		private final int ANCHO;
+		private final int ALTO;
+		
+		public Pantalla(int ancho, int alto) {
+			this.ANCHO = ancho;
+			this.ALTO = alto;
+			
+			setLayout(null);
+		}
+
+		@Override
+		public Dimension getPreferredSize() {
+			return new Dimension(ANCHO, ALTO);
+		}
+		
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			
+			Graphics2D g2 = (Graphics2D) g;
+		
+			escenario.dibujar(g2);;
+		}
+	}
 }

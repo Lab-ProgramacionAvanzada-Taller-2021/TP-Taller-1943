@@ -14,7 +14,7 @@ public class EstadoAvionTest {
 
 	@Before
 	public void Arrage() {
-		avion = new AvionPlayer(new Punto2D(2, 3));
+		avion = new AvionPlayer(2, 3);
 	}
 
 	@Test

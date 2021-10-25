@@ -2,22 +2,21 @@ package ar.edu.unlam.pa.servicios;
 
 public interface MovimientoPlayer {
 	public final Double DESPLAZAMIENTO_DIAGONAL  = 0.707;
-	public final Double DESPLAZAMIENTO_LINEAL = 1.000;
 	
-	public boolean moverArriba();
+	public void moverArriba(double dt);
 
-	public boolean moverAbajo();
+	public void moverAbajo(double dt);
 
-	public boolean moverDerecha();
+	public void moverDerecha(double dt);
 
-	public boolean moverIzquierda();
+	public void moverIzquierda(double dt);
 
-	public boolean moverArribaDerecha();
+	public void moverArribaDerecha(double dt);
 
-	public boolean moverArribaIzquierda();
+	public void moverArribaIzquierda(double dt);
 
-	public boolean moverAbajoDerecha();
+	public void moverAbajoDerecha(double dt);
 
-	public boolean moverAbajoIzquierda();
+	public void moverAbajoIzquierda(double dt);
 
 }

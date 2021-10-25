@@ -12,21 +12,21 @@ public class ColisionTest {
 
 	AvionPlayer player1;
 	AvionPlayer player2;
-	AvionVerdeChiquito enemigo1;
-	AvionVerdeChiquito enemigo2;
+	AvionEnemigo enemigo1;
+	AvionEnemigo enemigo2;
 
 	@Test
 	public void colisionExitosa() {
 
-		player1 = new AvionPlayer(new Punto2D(0, 0));
-		enemigo1 = new AvionVerdeChiquito(new Punto2D(1, 1));
+		player1 = new AvionPlayer(0, 0);
+		enemigo1 = new AvionEnemigo(1, 1);
 		assertTrue(player1.colisionaCon(enemigo1));
 	}
 
 	@Test
 	public void colisionFallidaPorEstarDistanciaLejana() {
-		player1 = new AvionPlayer(new Punto2D(3, 3));
-		enemigo1 = new AvionVerdeChiquito(new Punto2D(1, 1));
+		player1 = new AvionPlayer(3, 3);
+		enemigo1 = new AvionEnemigo(1, 1);
 
 		assertFalse(player1.colisionaCon(enemigo1));
 	}
@@ -34,15 +34,15 @@ public class ColisionTest {
 	@Test
 	public void colisionFallidaPorSerDelMismoBando() {
 
-		player1 = new AvionPlayer(new Punto2D(0, 0));
-		player2 = new AvionPlayer(new Punto2D(1, 1));
+		player1 = new AvionPlayer(0, 0);
+		player2 = new AvionPlayer(1, 1);
 		assertFalse(player1.colisionaCon(player2));
 	}
 
 	@Test
 	public void colisionFallidaPorSerDelMismoBandoJapones() {
-		enemigo1 = new AvionVerdeChiquito(new Punto2D(0, 0));
-		enemigo2 = new AvionVerdeChiquito(new Punto2D(1, 1));
+		enemigo1 = new AvionEnemigo(0, 0);
+		enemigo2 = new AvionEnemigo(1, 1);
 		assertFalse(enemigo1.colisionaCon(enemigo2));
 	}
 

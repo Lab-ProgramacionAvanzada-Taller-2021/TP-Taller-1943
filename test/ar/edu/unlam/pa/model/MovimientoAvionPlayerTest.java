@@ -13,47 +13,47 @@ public class MovimientoAvionPlayerTest {
 
 	@Before
 	public void setUp() {
-		e1 = new AvionPlayer(new Punto2D(0, 0));
+		e1 = new AvionPlayer(0, 0);
 	}
 
 	@Test
 	public void mueveHaciaArriba() {
 
-		e1.moverArriba();
+		e1.moverArriba(1.0);
 
-		assertEquals(new Punto2D(0, 1), e1.getPosicion());
+		assertEquals(new Punto2D(0, -150), e1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaAbajo() {
 
-		e1.moverAbajo();
+		e1.moverAbajo(1.0);
 
-		assertEquals(new Punto2D(0, -1), e1.getPosicion());
+		assertEquals(new Punto2D(0, 150), e1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaDerecha() {
 
-		e1.moverDerecha();
+		e1.moverDerecha(1.0);
 
-		assertEquals(new Punto2D(1, 0), e1.getPosicion());
+		assertEquals(new Punto2D(150, 0), e1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaIzquierda() {
 
-		e1.moverIzquierda();
+		e1.moverIzquierda(1.0);
 
-		assertEquals(new Punto2D(-1, 0), e1.getPosicion());
+		assertEquals(new Punto2D(-150, 0), e1.getPosicion());
 	}
 
 	@Test
 	public void mueveHaciaArribaIzquierda() {
 
-		e1.moverArribaIzquierda();
+		e1.moverArribaIzquierda(1.0);
 
-		assertEquals(new Punto2D(-0.707, 0.707), e1.getPosicion());
+		assertEquals(new Punto2D(-106.05, -106.05), e1.getPosicion());
 	}
 
 	@After
