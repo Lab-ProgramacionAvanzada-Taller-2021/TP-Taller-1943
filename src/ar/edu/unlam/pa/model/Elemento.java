@@ -55,10 +55,8 @@ public class Elemento implements Movimiento {
 	}
 
 	public void dibujar(Graphics2D g2) {
-		g2.drawImage(this.imagen, (int)(this.hitbox.getX() - this.hitbox.getRadio()) , 
-				(int)(this.hitbox.getY() - this.hitbox.getRadio()) , 
-				(int)(this.hitbox.getRadio()) * 2, (int)(this.hitbox.getRadio()) * 2 ,
-				null);
+		g2.drawImage(this.imagen, (int)(this.hitbox.getExtremoIzq()), (int)(this.hitbox.getExtremoSup()) , 
+				(int)this.hitbox.getDiametro(), (int)this.hitbox.getDiametro(), null);
 	}
 	
 	public void actualizar(double dt) {}

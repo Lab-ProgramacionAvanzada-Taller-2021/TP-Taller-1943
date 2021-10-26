@@ -24,12 +24,24 @@ public class Hitbox {
 		this.radio = otro.radio;
 	}
 	
-	public double getX() {
-		return this.posicion.getX();
+	public double getExtremoIzq() {
+		return this.posicion.getX() - this.radio;
 	}
 	
-	public double getY() {
-		return this.posicion.getY();
+	public double getExtremoDer() {
+		return this.posicion.getX() + this.radio;
+	}
+	
+	public double getExtremoSup() {
+		return this.posicion.getY() - this.radio;
+	}
+	
+	public double getExtremoInf() {
+		return this.posicion.getY() + this.radio;
+	}
+	
+	public double getDiametro() {
+		return this.radio * 2;
 	}
 
 	public Punto2D getPosicion() {
@@ -62,9 +74,10 @@ public class Hitbox {
 	}
 
 	public void moverPunto(Double desplazamientoX, Double desplazamientoY) {
-		if(!this.posicion.esPosicionDesbordada(this.radio-desplazamientoX, Ventana.ANCHO-this.radio-desplazamientoX, 
-				this.radio-desplazamientoY, Ventana.ALTO-this.radio-desplazamientoY))
+		if(!(this.getExtremoIzq()+desplazamientoX < 0 || this.getExtremoDer()+desplazamientoX > Ventana.ANCHO ||
+				this.getExtremoSup()+desplazamientoY < 0 || this.getExtremoInf()+desplazamientoY > Ventana.ALTO))
 			this.posicion.desplazar(desplazamientoX, desplazamientoY);
 	}
+	
 
 }
