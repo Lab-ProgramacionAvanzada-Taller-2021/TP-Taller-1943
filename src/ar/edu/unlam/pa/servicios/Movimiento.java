@@ -5,7 +5,7 @@ public interface Movimiento {
 	 * 
 	 * @param desplazamientoX_del_elemento.
 	 * @param desplazamientoY_del_elemento.
-	 * @return Si_se_movio_o_no
+	 * @return void
 	 */
-	public boolean moverEnDireccion(double desplazamientoX, double desplazamientoY);
+	public void moverEnDireccion(double desplazamientoX, double desplazamientoY);
 }

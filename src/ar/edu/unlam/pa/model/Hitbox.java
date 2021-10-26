@@ -1,10 +1,11 @@
 package ar.edu.unlam.pa.model;
 
+import ar.edu.unlam.pa.graficos.Ventana;
+
 /*
  * Esta clase representa a las  cajas delimitadoras o cajas de colisi�n entre los objetos del juego.
  * */
 public class Hitbox {
-
 	private Punto2D posicion;
 	private double radio;
 	
@@ -40,7 +41,6 @@ public class Hitbox {
 	}
 	
 	/**
-	 * 
 	 * @param radio_de_otro_hitbox.
 	 * @return suma_de_radios.
 	 */
@@ -49,7 +49,6 @@ public class Hitbox {
 	}
 
 	/***
-	 * 
 	 * @param Hitbox_de_otro_elemento.
 	 * @return Si_colisionan_o_no.
 	 */
@@ -63,7 +62,9 @@ public class Hitbox {
 	}
 
 	public void moverPunto(Double desplazamientoX, Double desplazamientoY) {
-		this.posicion.desplazar(desplazamientoX, desplazamientoY);
+		if(!this.posicion.esPosicionDesbordada(this.radio-desplazamientoX, Ventana.ANCHO-this.radio-desplazamientoX, 
+				this.radio-desplazamientoY, Ventana.ALTO-this.radio-desplazamientoY))
+			this.posicion.desplazar(desplazamientoX, desplazamientoY);
 	}
 
 }

@@ -49,14 +49,9 @@ public class Elemento implements Movimiento {
 		return "Posicion= " + hitbox + ", bando=" + bando + "]";
 	}
 
-//recibir una direccion que implique los gr multiplos de 45 (sur este oeste ) emulen el teclado
-//  tiene q tener la velocidad
 	@Override
-	public boolean moverEnDireccion(double desplazamientoX, double desplazamientoY) {
-
+	public void moverEnDireccion(double desplazamientoX, double desplazamientoY) {
 		hitbox.moverPunto(desplazamientoX, desplazamientoY);
-
-		return true;
 	}
 
 	public void dibujar(Graphics2D g2) {

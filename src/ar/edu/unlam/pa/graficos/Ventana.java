@@ -21,6 +21,9 @@ public class Ventana extends JFrame implements Runnable{
 	private final int TICKS_PER_SECOND = 60;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	
+	public static int ANCHO = 640;
+	public static int ALTO = 512;
+	
 	private Pantalla pantalla;
 	private boolean enEjecucion;
 	
@@ -30,7 +33,7 @@ public class Ventana extends JFrame implements Runnable{
 	public Ventana() {
 		setTitle("1943 Midway");
 		
-		this.pantalla = new Pantalla(640, 512);
+		this.pantalla = new Pantalla();
 		this.setContentPane(this.pantalla);
 		
 		setResizable(false);
@@ -82,13 +85,7 @@ public class Ventana extends JFrame implements Runnable{
 	private class Pantalla extends JPanel{
 		private static final long serialVersionUID = 1L;
 		
-		private final int ANCHO;
-		private final int ALTO;
-		
-		public Pantalla(int ancho, int alto) {
-			this.ANCHO = ancho;
-			this.ALTO = alto;
-			
+		public Pantalla() {
 			setLayout(null);
 		}
 

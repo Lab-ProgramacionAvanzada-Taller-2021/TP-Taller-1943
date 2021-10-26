@@ -10,13 +10,13 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 
 public class Escenario {
-
 	private List<Elemento> listaElementos;
 	private final String RUTA_IMAGEN = "Recursos/Imagenes/fondo.png";
-	private BufferedImage imagen;
-	private double desplazamientoY;
 	private final int DESPLAZAMIENTO = 64;
 	private final int VELOCIDAD_Y = 100;
+	
+	private BufferedImage imagen;
+	private double desplazamientoY;
 	
 	public Escenario() {
 		listaElementos = new LinkedList<Elemento>();

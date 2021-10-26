@@ -100,8 +100,6 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	public void dibujar(Graphics2D g2) {
 		super.dibujar(g2);
 		
-		
-		
 		double porcentajeVida = super.getVidaActual()/super.getVidaMaxima();
 		g2.setColor((porcentajeVida>0.66) ? Color.GREEN : (porcentajeVida>0.33) ? Color.YELLOW : Color.RED);
 		g2.fillRect(32, 480, (int)(128*porcentajeVida), 16);
@@ -114,14 +112,14 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		if(teclasPresionadas.contains(KeyEvent.VK_W)) {
 			if(teclasPresionadas.contains(KeyEvent.VK_A))
 				moverArribaIzquierda(dt);
-			if(teclasPresionadas.contains(KeyEvent.VK_D))
+			else if(teclasPresionadas.contains(KeyEvent.VK_D))
 				moverArribaDerecha(dt);
 			else
 				moverArriba(dt);
 		}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
 			if(teclasPresionadas.contains(KeyEvent.VK_A))
 				moverAbajoIzquierda(dt);
-			if(teclasPresionadas.contains(KeyEvent.VK_D))
+			else if(teclasPresionadas.contains(KeyEvent.VK_D))
 				moverAbajoDerecha(dt);
 			else
 				moverAbajo(dt);

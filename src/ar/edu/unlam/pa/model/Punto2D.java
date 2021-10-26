@@ -2,6 +2,8 @@ package ar.edu.unlam.pa.model;
 
 import static java.lang.Math.hypot;
 
+import ar.edu.unlam.pa.graficos.Ventana;
+
 public class Punto2D {
 
 	private double x;
@@ -49,8 +51,13 @@ public class Punto2D {
 	public String toString() {
 		return "(" + x + " , " + y + ")";
 	}
-
+	
+	public boolean esPosicionDesbordada(double minX, double maxX, double minY, double maxY) {
+		return (this.x < minX || this.x > maxX || this.y < minY || this.y > maxY);
+	}
+	
 	public void desplazar(Double desplazamientoX, Double desplazamientoY) {
+		
 		this.x += desplazamientoX;
 		this.y += desplazamientoY;
 	}
