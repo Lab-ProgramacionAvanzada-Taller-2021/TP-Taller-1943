@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import ar.edu.unlam.pa.archivos.LectorArchivos;
 import ar.edu.unlam.pa.servicios.Movimiento;
 
 /*
@@ -29,7 +30,7 @@ public class Elemento implements Movimiento {
 		// En futuro se multiplicara con la velocidad dependiendo de cada avion
 		this.velocidad = VELOCIDAD_UNO;
 		
-		this.cargarImagen(ruta);
+		this.imagen = LectorArchivos.leerImagen(ruta);
 	}
 
 	public Punto2D getPosicion() {
@@ -48,6 +49,10 @@ public class Elemento implements Movimiento {
 	public String toString() {
 		return "Posicion= " + hitbox + ", bando=" + bando + "]";
 	}
+	
+	protected boolean puedeMoverEnDireccion(double desplazamientoX, double desplazamientoY) {
+		return hitbox.puedeMover(desplazamientoX, desplazamientoY);
+	}
 
 	@Override
 	public void moverEnDireccion(double desplazamientoX, double desplazamientoY) {
@@ -60,13 +65,5 @@ public class Elemento implements Movimiento {
 	}
 	
 	public void actualizar(double dt) {}
-
-	public void cargarImagen(String ruta) {
-		try {
-			this.imagen = ImageIO.read(new File(ruta));
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-	}
 
 }

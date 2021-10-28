@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+
+import ar.edu.unlam.pa.archivos.LectorArchivos;
+
 import java.awt.Graphics2D;
 
 public class Escenario {
@@ -23,7 +26,7 @@ public class Escenario {
 		
 		this.desplazamientoY = 0;
 		
-		this.cargarImagen();
+		this.imagen = LectorArchivos.leerImagen(RUTA_IMAGEN);
 	}
 	
 	public void cargarImagen() {
