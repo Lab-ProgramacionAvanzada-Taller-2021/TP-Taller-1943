@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
+import ar.edu.unlam.pa.model.AvionEnemigo;
 
 public class Ventana extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -29,6 +30,7 @@ public class Ventana extends JFrame implements Runnable{
 	
 	private Escenario escenario;
 	private AvionPlayer avion;
+	private AvionEnemigo avionEnemigo;
 
 	public Ventana() {
 		setTitle("1943 Midway");
@@ -45,8 +47,10 @@ public class Ventana extends JFrame implements Runnable{
 	
 	public void init() {
 		this.avion = new AvionPlayer(304, 320);
+		this.avionEnemigo = new AvionEnemigo(100, 10);
 		this.escenario = new Escenario();
 		this.escenario.agregarElemento(avion);
+		this.escenario.agregarElemento(avionEnemigo);
 		
 		addKeyListener(avion);
 		this.enEjecucion = true;
@@ -80,6 +84,9 @@ public class Ventana extends JFrame implements Runnable{
 	
 	public void actualizar() {
 		this.escenario.actualizar(1.0 / TICKS_PER_SECOND);
+		this.avion.actualizar(1.0 / TICKS_PER_SECOND);
+		this.avionEnemigo.actualizar(20.0 / TICKS_PER_SECOND);
+		
 	}
 	
 	private class Pantalla extends JPanel{

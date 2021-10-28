@@ -6,7 +6,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
+import ar.edu.unlam.pa.elementos.Bala;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
@@ -19,6 +21,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	private static double RADIO_COLISION = 16;
 	private static double VIDA_MAXIMA = 100;
 	private static double VELOCIDAD_MOVIMIENTO = 150;
+	//ArrayList<Bala> bala = new ArrayList<Bala>();
 	
 	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
 
