@@ -4,7 +4,7 @@ public class Avion extends Elemento{
 	protected double vidaMaxima;
 	protected double vidaActual;
 	
-	public Avion(Hitbox hitbox, int bando, double vidaMaxima, double velocidad, String ruta) {
+	public Avion(Hitbox hitbox, BANDO bando, double vidaMaxima, double velocidad, String ruta) {
 		super(hitbox, bando, velocidad, ruta);
 		
 		this.vidaMaxima = vidaMaxima;

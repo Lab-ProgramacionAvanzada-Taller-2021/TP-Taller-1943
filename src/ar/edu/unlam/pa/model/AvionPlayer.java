@@ -23,7 +23,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
 
 	public AvionPlayer(double x, double y) {
-		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.AMERICANO, VIDA_MAXIMA, 
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.AMERICANO, VIDA_MAXIMA, 
 				VELOCIDAD_MOVIMIENTO, RUTA);
 	}
 
@@ -50,46 +50,46 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 
 	@Override
 	public void moverArriba(double dt) {
-		moverEnDireccion(0, -dt*VELOCIDAD_MOVIMIENTO);
+		moverEnDireccion(0, -dt);
 	}
 
 	@Override
 	public void moverAbajo(double dt) {
-		moverEnDireccion(0, dt*VELOCIDAD_MOVIMIENTO);
+		moverEnDireccion(0, dt);
 	}
 
 	@Override
 	public void moverDerecha(double dt) {
-		moverEnDireccion(dt*VELOCIDAD_MOVIMIENTO, 0);
+		moverEnDireccion(dt, 0);
 	}
 
 	@Override
 	public void moverIzquierda(double dt) {
-		moverEnDireccion(-dt*VELOCIDAD_MOVIMIENTO, 0);
+		moverEnDireccion(-dt, 0);
 	}
 
 	@Override
 	public void moverArribaDerecha(double dt) {
-		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
-				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
+				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
 	}
 
 	@Override
 	public void moverArribaIzquierda(double dt) {
-		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
-				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
+				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
 	}
 
 	@Override
 	public void moverAbajoDerecha(double dt) {
-		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
-				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
+				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
 	}
 
 	@Override
 	public void moverAbajoIzquierda(double dt) {
-		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
-				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
+				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
 	}
 
 	public EstadoAvion getEstado() {

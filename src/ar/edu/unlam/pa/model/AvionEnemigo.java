@@ -9,7 +9,7 @@ public class AvionEnemigo extends Avion {
 	private static int PUNTOS = 10;
 
 	public AvionEnemigo(double x, double y) {
-		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
 	}
 	
 	
