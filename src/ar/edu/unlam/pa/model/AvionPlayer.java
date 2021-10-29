@@ -2,6 +2,9 @@ package ar.edu.unlam.pa.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.swing.text.AttributeSet.ColorAttribute;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -21,10 +24,13 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	private static double VELOCIDAD_MOVIMIENTO = 150;
 	
 	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
+	
+	private int puntos;
 
 	public AvionPlayer(double x, double y) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.AMERICANO, VIDA_MAXIMA, 
 				VELOCIDAD_MOVIMIENTO, RUTA);
+		this.puntos = 0;
 	}
 
 	public void disparar() {
@@ -101,6 +107,8 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		super.dibujar(g2);
 		
 		double porcentajeVida = vidaActual/vidaMaxima;
+		g2.setColor(Color.WHITE);
+		g2.drawString("Jugador 1", 38, 472);
 		g2.setColor((porcentajeVida>0.66) ? Color.GREEN : (porcentajeVida>0.33) ? Color.YELLOW : Color.RED);
 		g2.fillRect(32, 480, (int)(128*porcentajeVida), 16);
 		g2.setColor(Color.BLACK);

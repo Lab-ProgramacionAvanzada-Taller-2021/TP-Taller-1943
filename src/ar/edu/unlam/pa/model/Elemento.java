@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import ar.edu.unlam.pa.archivos.LectorArchivos;
+import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.servicios.Movimiento;
 
 
@@ -11,18 +12,20 @@ public class Elemento implements Movimiento {
 	private Hitbox hitbox;
 	private BANDO bando;
 	private double velocidad;
+	private boolean eliminado = false;
 	
 	private BufferedImage imagen;
 
 	public static enum BANDO{
 		AMERICANO,
-		JAPONES,
+		JAPONES
 	}
 
 	public Elemento(Hitbox hitbox, BANDO bando, double velocidad, String ruta) {
 		this.hitbox = hitbox;
 		this.bando = bando;
 		this.velocidad = velocidad;
+		
 		
 		this.imagen = LectorArchivos.leerImagen(ruta);
 	}
@@ -37,6 +40,20 @@ public class Elemento implements Movimiento {
 
 	public boolean colisionaCon(Elemento otro) {
 		return esEnemigo(otro) && hitbox.colisionaCon(otro.hitbox);
+	}
+	
+	public void colisiono(Elemento otro) {
+	}
+	
+	public boolean estaEliminado() {
+		return this.eliminado;
+	}
+	
+	public boolean estaFueraDeRango() {
+		return (hitbox.getExtremoIzq() > Ventana.ANCHO || 
+				hitbox.getExtremoDer() < 0 ||
+				hitbox.getExtremoSup() > Ventana.ALTO ||
+				hitbox.getExtremoInf() < 0);
 	}
 
 	@Override
