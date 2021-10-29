@@ -10,4 +10,8 @@ public class Avion extends Elemento{
 		this.vidaMaxima = vidaMaxima;
 		this.vidaActual = vidaMaxima;
 	}
+	
+	public Bala[] disparar() {
+		return null;
+	}
 }

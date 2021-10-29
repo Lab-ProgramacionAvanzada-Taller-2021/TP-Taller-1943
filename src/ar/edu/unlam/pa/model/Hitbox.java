@@ -45,7 +45,7 @@ public class Hitbox {
 	}
 
 	public Punto2D getPosicion() {
-		return posicion;
+		return new Punto2D(posicion);
 	}
 	
 	public double getRadio() {

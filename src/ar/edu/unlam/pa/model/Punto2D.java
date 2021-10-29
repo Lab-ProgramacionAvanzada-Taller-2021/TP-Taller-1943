@@ -13,6 +13,11 @@ public class Punto2D {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Punto2D(Punto2D punto) {
+		this.x = punto.x;
+		this.y = punto.y;
+	}
 
 	public double getX() {
 		return x;

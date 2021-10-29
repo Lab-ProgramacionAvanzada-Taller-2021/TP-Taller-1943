@@ -18,7 +18,7 @@ public class Ventana extends JFrame implements Runnable{
 	private final int SECOND = 1000;
 	private final int FRAMES_PER_SECOND = 60;
 	private final int SKIP_FRAMES = SECOND / FRAMES_PER_SECOND;
-	private final int TICKS_PER_SECOND = 60;
+	private final int TICKS_PER_SECOND = 120;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	
 	public static int ANCHO = 512;
@@ -46,7 +46,7 @@ public class Ventana extends JFrame implements Runnable{
 	public void init() {
 		this.avion = new AvionPlayer(ANCHO / 2.1, ALTO / 1.2);
 		this.escenario = new Escenario();
-		this.escenario.agregarElemento(avion);
+		this.escenario.agregarJugador(avion);
 		
 		addKeyListener(avion);
 		this.enEjecucion = true;

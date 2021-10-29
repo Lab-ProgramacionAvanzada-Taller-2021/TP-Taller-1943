@@ -12,8 +12,8 @@ public class Elemento implements Movimiento {
 	private Hitbox hitbox;
 	private BANDO bando;
 	private double velocidad;
-	private boolean eliminado = false;
-	
+	private boolean destruido = false;
+	private boolean fueraDeRango = false;
 	private BufferedImage imagen;
 
 	public static enum BANDO{
@@ -25,8 +25,7 @@ public class Elemento implements Movimiento {
 		this.hitbox = hitbox;
 		this.bando = bando;
 		this.velocidad = velocidad;
-		
-		
+	
 		this.imagen = LectorArchivos.leerImagen(ruta);
 	}
 
@@ -34,7 +33,7 @@ public class Elemento implements Movimiento {
 		return hitbox.getPosicion();
 	}
 
-	private boolean esEnemigo(Elemento otro) {
+	public boolean esEnemigo(Elemento otro) {
 		return bando != otro.bando;
 	}
 
@@ -43,10 +42,23 @@ public class Elemento implements Movimiento {
 	}
 	
 	public void colisiono(Elemento otro) {
+		destruir();
 	}
 	
-	public boolean estaEliminado() {
-		return this.eliminado;
+	public int darPuntos() {
+		return 0;
+	}
+	
+	public void destruir() {
+		this.destruido = true;
+	}
+	
+	public boolean estaDestruido() {
+		return this.destruido;
+	}
+	
+	public void fueraDeRango() {
+		this.fueraDeRango = true;
 	}
 	
 	public boolean estaFueraDeRango() {
