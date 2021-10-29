@@ -23,7 +23,7 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 	//private static double VELOCIDAD_MOVIMIENTO = 150;
 
 	public AvionEnemigo(double x, double y) {
-		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
 	}
 	
 	

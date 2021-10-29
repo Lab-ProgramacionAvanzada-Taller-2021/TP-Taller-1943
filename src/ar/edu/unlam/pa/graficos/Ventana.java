@@ -22,7 +22,7 @@ public class Ventana extends JFrame implements Runnable{
 	private final int TICKS_PER_SECOND = 60;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	
-	public static int ANCHO = 640;
+	public static int ANCHO = 512;
 	public static int ALTO = 512;
 	
 	private Pantalla pantalla;
@@ -46,7 +46,7 @@ public class Ventana extends JFrame implements Runnable{
 	}
 	
 	public void init() {
-		this.avion = new AvionPlayer(304, 320);
+		this.avion = new AvionPlayer(ANCHO / 2.1, ALTO / 1.2);
 		this.avionEnemigo = new AvionEnemigo(100, 10);
 		this.escenario = new Escenario();
 		this.escenario.agregarElemento(avion);

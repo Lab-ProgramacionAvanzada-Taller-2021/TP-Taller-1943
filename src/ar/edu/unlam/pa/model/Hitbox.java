@@ -72,11 +72,16 @@ public class Hitbox {
 	public String toString() {
 		return posicion + ", r=" + radio;
 	}
+	
+	public boolean puedeMover(double desplazamientoX, double desplazamientoY) {
+		return !(this.getExtremoIzq()+desplazamientoX < 0 || 
+				this.getExtremoDer()+desplazamientoX > Ventana.ANCHO ||
+				this.getExtremoSup()+desplazamientoY < 0 || 
+				this.getExtremoInf()+desplazamientoY > Ventana.ALTO);
+	}
 
-	public void moverPunto(Double desplazamientoX, Double desplazamientoY) {
-		if(!(this.getExtremoIzq()+desplazamientoX < 0 || this.getExtremoDer()+desplazamientoX > Ventana.ANCHO ||
-				this.getExtremoSup()+desplazamientoY < 0 || this.getExtremoInf()+desplazamientoY > Ventana.ALTO))
-			this.posicion.desplazar(desplazamientoX, desplazamientoY);
+	public void moverPunto(double desplazamientoX, double desplazamientoY) {
+		this.posicion.desplazar(desplazamientoX, desplazamientoY);
 	}
 	
 
