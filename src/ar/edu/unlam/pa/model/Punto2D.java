@@ -2,8 +2,6 @@ package ar.edu.unlam.pa.model;
 
 import static java.lang.Math.hypot;
 
-import ar.edu.unlam.pa.graficos.Ventana;
-
 public class Punto2D {
 
 	private double x;
