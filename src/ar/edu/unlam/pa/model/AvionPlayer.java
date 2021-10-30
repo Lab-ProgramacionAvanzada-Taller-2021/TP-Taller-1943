@@ -7,11 +7,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
-
+import ar.edu.unlam.pa.model.Bala;
 
 public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener {
 	private EstadoAvion estado = new AvionNormal();

@@ -1,24 +1,125 @@
 package ar.edu.unlam.pa.model;
 
-public class AvionEnemigo extends Avion {
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import ar.edu.unlam.pa.servicios.MovimientoPlayer;
+
+public class AvionEnemigo extends Avion implements MovimientoPlayer {
+
 	private static String RUTA = "Recursos/Imagenes/enemigo.png";
-	private static double VELOCIDAD_MOVIMIENTO = 180;
+	private static double VELOCIDAD_MOVIMIENTO = 10;
 	private static double RADIO_COLISION = 8;
 	private static double VIDA_MAXIMA = 10;
 	private static int PUNTOS = 10;
+	private static double INTERVALO_DISPARO = 3; // lalalla
+	private int tipo;
+	private int comportamiento;
+	private Random aleatorio = new Random();
+	private double tiempoDisparo = -1;
+	private boolean disparo = false;
+	private Escenario escenario;
 
-	public AvionEnemigo(double x, double y) {
+	
+	public AvionEnemigo(double x, double y, int comportamiento, Escenario _escenario) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
+
+		this.comportamiento = comportamiento;
+		this.escenario = _escenario;
 	}
 	
+	@Override
+	public void moverArriba(double dt) {
+		moverEnDireccion(0, -dt*VELOCIDAD_MOVIMIENTO);
+	}
+
+	@Override
+	public void moverAbajo(double dt) {
+		moverEnDireccion(0, dt*VELOCIDAD_MOVIMIENTO);
+	}
+
+	@Override
+	public void moverDerecha(double dt) {
+		moverEnDireccion(dt*VELOCIDAD_MOVIMIENTO, 0);
+	}
+
+	@Override
+	public void moverIzquierda(double dt) {
+		moverEnDireccion(-dt*VELOCIDAD_MOVIMIENTO, 0);
+	}
+
+	@Override
+	public void moverArribaDerecha(double dt) {
+		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
+				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+	}
+
+	@Override
+	public void moverArribaIzquierda(double dt) {
+		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
+				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+	}
+
+	@Override
+	public void moverAbajoDerecha(double dt) {
+		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
+				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+	}
+
+	@Override
+	public void moverAbajoIzquierda(double dt) {
+		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO, 
+				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt*VELOCIDAD_MOVIMIENTO);
+	}
+	
+	@Override
+	public void dibujar(Graphics2D g2) {
+		super.dibujar(g2);
+		
+		double porcentajeVida = vidaActual/vidaMaxima;
+		g2.setColor((porcentajeVida>0.66) ? Color.GREEN : (porcentajeVida>0.33) ? Color.YELLOW : Color.RED);
+		g2.fillRect(32, 480, (int)(128*porcentajeVida), 16);
+		g2.setColor(Color.BLACK);
+		g2.drawRect(32, 480, 128, 16);
+	}
+
 	@Override
 	public int darPuntos() {
 		return PUNTOS;
 	}
+		
+	public Bala[] disparar() {
+		tiempoDisparo = INTERVALO_DISPARO;
+		disparo = false;
+		this.escenario.agregarElementos(new Bala[]{ new BalaEnemiga(getPosicion()) });
+		return null;
+	}
+	
+	private void dispara(double dt) {
+		if(tiempoDisparo > 0)
+			tiempoDisparo -= dt;
+		else
+			disparo = true;
+		if (this.disparo)
+			this.disparar();
+	}
 	
 	@Override
 	public void actualizar(double dt) {
-		this.moverEnDireccion(0, dt);
+		switch (this.comportamiento) {
+		case 0: // se mueve de izquierda a derecha
+			moverAbajoDerecha(dt);
+			break;
+		case 1: // se mueve por el centro hacia abajo
+			moverAbajo(dt);
+			break;
+		case 2: // se mueve de derecha a izquierda
+			moverAbajoIzquierda(dt);
+			break;
+		}
+		dispara(dt);
+		//this.moverEnDireccion(0, dt);
 	}
-
 }
