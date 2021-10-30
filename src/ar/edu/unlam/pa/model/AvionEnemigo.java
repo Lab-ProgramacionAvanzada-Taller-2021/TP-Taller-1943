@@ -7,38 +7,28 @@ import java.util.Random;
 
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
 
-//import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
-//import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
-
 public class AvionEnemigo extends Avion implements MovimientoPlayer {
 
-	//private static String RUTA = "";
 	private static String RUTA = "Recursos/Imagenes/enemigo.png";
 	private static double VELOCIDAD_MOVIMIENTO = 10;
-
 	private static double RADIO_COLISION = 8;
 	private static double VIDA_MAXIMA = 10;
 	private static int PUNTOS = 10;
+	private static double INTERVALO_DISPARO = 3; // lalalla
 	private int tipo;
 	private int comportamiento;
-	
 	private Random aleatorio = new Random();
-	
-	//private static double RADIO_COLISION = 16;
-	//private static double VIDA_MAXIMA = 100;
-	//private static double VELOCIDAD_MOVIMIENTO = 150;
+	private double tiempoDisparo = -1;
+	private boolean disparo = false;
+	private Escenario escenario;
 
-	public AvionEnemigo(double x, double y) {
-		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
-	}
 	
-
-	public AvionEnemigo(double x, double y, int comportamiento) {
+	public AvionEnemigo(double x, double y, int comportamiento, Escenario _escenario) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
 
 		this.comportamiento = comportamiento;
+		this.escenario = _escenario;
 	}
-	
 	
 	@Override
 	public void moverArriba(double dt) {
@@ -99,6 +89,22 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 	public int darPuntos() {
 		return PUNTOS;
 	}
+		
+	public Bala[] disparar() {
+		tiempoDisparo = INTERVALO_DISPARO;
+		disparo = false;
+		this.escenario.agregarElementos(new Bala[]{ new BalaEnemiga(getPosicion()) });
+		return null;
+	}
+	
+	private void dispara(double dt) {
+		if(tiempoDisparo > 0)
+			tiempoDisparo -= dt;
+		else
+			disparo = true;
+		if (this.disparo)
+			this.disparar();
+	}
 	
 	@Override
 	public void actualizar(double dt) {
@@ -113,7 +119,7 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 			moverAbajoIzquierda(dt);
 			break;
 		}
+		dispara(dt);
 		//this.moverEnDireccion(0, dt);
 	}
-
 }

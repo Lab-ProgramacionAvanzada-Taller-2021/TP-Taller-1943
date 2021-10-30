@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-//import ar.edu.unlam.pa.elementos.Bala;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;

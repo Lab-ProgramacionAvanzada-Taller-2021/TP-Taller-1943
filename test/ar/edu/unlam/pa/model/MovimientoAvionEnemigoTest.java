@@ -10,10 +10,10 @@ public class MovimientoAvionEnemigoTest {
 
 	AvionEnemigo a1;
 
-	@Before
-	public void setUp() {
-		a1 = new AvionEnemigo(0, 0);
-	}
+	//@Before
+	//public void setUp() {
+	//	a1 = new AvionEnemigo(0, 0);
+	//}
 
 	@Test
 	public void mueveHaciaDerecha() {

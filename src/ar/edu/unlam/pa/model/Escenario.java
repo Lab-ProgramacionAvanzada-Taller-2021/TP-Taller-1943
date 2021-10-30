@@ -5,10 +5,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import ar.edu.unlam.pa.archivos.LectorArchivos;
 import ar.edu.unlam.pa.graficos.Ventana;
+import ar.edu.unlam.pa.model.AvionEnemigo;
 
 public class Escenario {
 	private final String RUTA_IMAGEN = "Recursos/Imagenes/oceano.png";
@@ -16,6 +18,7 @@ public class Escenario {
 	private final int VELOCIDAD_Y = 80;
 	private final double INTERVALO_CREAR_ENEMIGO = 1;
 	private final double INTERVALO_SUBIR_NIVEL = 50;
+	public static final int INTERVALO_CREACION_DE_ENEMIGO = 4000;
 	
 	private ConcurrentLinkedDeque<AvionPlayer> listaJugadores;
 	private ConcurrentLinkedDeque<Elemento> listaElementos;
@@ -25,6 +28,8 @@ public class Escenario {
 	private double tiempoProximoNivel = INTERVALO_SUBIR_NIVEL;
 	private int maximaPuntuacion = 100;
 	private int nivel = 1;
+	private Random aleatorio;
+	private long intervaloEnemigos;
 	
 	public Escenario() {
 		listaJugadores = new ConcurrentLinkedDeque<AvionPlayer>();
@@ -71,10 +76,11 @@ public class Escenario {
 	
 	public void actualizar(double dt) {
 		this.desplazamientoY = (this.desplazamientoY+dt*VELOCIDAD_Y)%DESPLAZAMIENTO;
-		
+
+		aleatorio = new Random();
 		subirNivelEscenario(dt);
 		
-		generarEnemigo(dt);
+		generarEnemigos();
 		
 		for(AvionPlayer jugador : this.listaJugadores) {
 			jugador.actualizar(dt);
@@ -139,22 +145,63 @@ public class Escenario {
 		}
 	}
 	
-	private void generarEnemigo(double dt) {
-		if(tiempoProximoEnemigo < 0) {
-			switch(nivel) {
-				case 1:
-					agregarElemento(new AvionEnemigo( Math.random() * (Ventana.ANCHO-8), -8));
-					break;
-				case 2: 
-					agregarElemento(new AvionEnemigo( Math.random() * (Ventana.ANCHO-8), -8));
-					agregarElemento(new AvionEnemigoMedio( Math.random() * (Ventana.ANCHO-8), Ventana.ALTO));
-					break;
-				default:
-					break;
+	//private void generarEnemigo(double dt) {
+	//	if(tiempoProximoEnemigo < 0) {
+	//		switch(nivel) {
+	//			case 1:
+	//				agregarElemento(new AvionEnemigo( Math.random() * (Ventana.ANCHO-8), -8));
+	//				break;
+	//			case 2: 
+	//				agregarElemento(new AvionEnemigo( Math.random() * (Ventana.ANCHO-8), -8));
+	//				agregarElemento(new AvionEnemigoMedio( Math.random() * (Ventana.ANCHO-8), Ventana.ALTO));
+	//				break;
+	//			default:
+	//				break;
+	//		}
+	//		tiempoProximoEnemigo = INTERVALO_CREAR_ENEMIGO;
+	//	}else {
+	//		tiempoProximoEnemigo -= dt;
+	//	}
+	//}
+	
+	
+	private void generarEnemigos() {
+		if (System.currentTimeMillis() - intervaloEnemigos >= INTERVALO_CREACION_DE_ENEMIGO) {
+			int cant_aviones = aleatorio.nextInt(3) + 2;
+			int direccion = aleatorio.nextInt(99);  
+			double desp_x = 0;
+			double desp_y = 0;
+			int aparece = 0;
+			int dist_aviones = 50;
+			for(int i = 0; i < cant_aviones; i ++) {
+				
+				if (direccion < 33) { // aparece de izquierda
+					desp_x = 0; 
+					desp_y = i*dist_aviones;
+					aparece = 0;
+				}else if (direccion < 66) {  // aparece de centro
+					desp_x = 181 + i*dist_aviones; 
+					desp_y = 0;
+					aparece = 1;
+				} else { // aparece de derecha
+					desp_x = 512; 
+					desp_y = i*dist_aviones;
+					aparece = 2;
+				}
+				
+				switch(nivel) {
+					case 1:
+						agregarElemento(new AvionEnemigo(aleatorio.nextInt(9) + desp_x, desp_y, aparece, this));
+						break;
+					case 2:
+						agregarElemento(new AvionEnemigo(aleatorio.nextInt(9) + desp_x, desp_y, aparece, this));
+						agregarElemento(new AvionEnemigoMedio( Math.random() * (Ventana.ANCHO-8), Ventana.ALTO));
+						break;
+					default:
+						break;
+				}
 			}
-			tiempoProximoEnemigo = INTERVALO_CREAR_ENEMIGO;
-		}else {
-			tiempoProximoEnemigo -= dt;
+			intervaloEnemigos = System.currentTimeMillis();
 		}
 	}
 	

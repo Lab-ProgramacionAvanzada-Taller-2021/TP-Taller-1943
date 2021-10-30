@@ -1,12 +1,11 @@
 package ar.edu.unlam.pa.model;
 
+import ar.edu.unlam.pa.model.Elemento.BANDO;
+
 public class Bala extends Elemento{
-	private static String RUTA_IMAGEN = "Recursos/Imagenes/balaAliada.png";
-	private static double VELOCIDAD_MOVIMIENTO = 550;
-	private static double RADIO_COLISION = 8;
-	
-	public Bala(Punto2D posicion) {
-		super(new Hitbox(posicion ,RADIO_COLISION), BANDO.AMERICANO, VELOCIDAD_MOVIMIENTO, RUTA_IMAGEN);
+		
+	public Bala(Punto2D posicion, BANDO tipo_bando, String RUTA_IMAGEN, double VELOCIDAD_MOVIMIENTO, double RADIO_COLISION) {
+		super(new Hitbox(posicion ,RADIO_COLISION), tipo_bando, VELOCIDAD_MOVIMIENTO, RUTA_IMAGEN);
 	}
 
 	@Override
