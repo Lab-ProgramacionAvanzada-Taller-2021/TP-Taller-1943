@@ -69,9 +69,9 @@ public class Escenario {
 	public void actualizar(double dt) {
 		this.desplazamientoY = (this.desplazamientoY+dt*VELOCIDAD_Y)%DESPLAZAMIENTO;
 		
-		//for(Elemento elemento : this.listaElementos) {
-		//	elemento.actualizar(dt);
-		//}
+		for(Elemento elemento : this.listaElementos) {
+			elemento.actualizar(dt);
+		}
 	}
 	
 	

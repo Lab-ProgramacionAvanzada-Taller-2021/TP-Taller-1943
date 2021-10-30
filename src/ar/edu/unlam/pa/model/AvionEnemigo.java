@@ -3,6 +3,7 @@ package ar.edu.unlam.pa.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
 
@@ -13,10 +14,14 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 
 	//private static String RUTA = "";
 	private static String RUTA = "Recursos/Imagenes/enemigo.png";
-	private static double VELOCIDAD_MOVIMIENTO = 2;
+	private static double VELOCIDAD_MOVIMIENTO = 10;
 	private static double RADIO_COLISION = 8;
 	private static double VIDA_MAXIMA = 10;
 	private static int PUNTOS = 10;
+	private int tipo;
+	private int comportamiento;
+	
+	private Random aleatorio = new Random();
 	
 	//private static double RADIO_COLISION = 16;
 	//private static double VIDA_MAXIMA = 100;
@@ -24,6 +29,12 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 
 	public AvionEnemigo(double x, double y) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
+	}
+	
+	public AvionEnemigo(double x, double y, int comportamiento) {
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
+
+		this.comportamiento = comportamiento;
 	}
 	
 	
@@ -75,7 +86,7 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 	public void dibujar(Graphics2D g2) {
 		super.dibujar(g2);
 		
-		double porcentajeVida = super.getVidaActual()/super.getVidaMaxima();
+		double porcentajeVida = vidaActual/vidaMaxima;
 		g2.setColor((porcentajeVida>0.66) ? Color.GREEN : (porcentajeVida>0.33) ? Color.YELLOW : Color.RED);
 		g2.fillRect(32, 480, (int)(128*porcentajeVida), 16);
 		g2.setColor(Color.BLACK);
@@ -84,8 +95,17 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 	
 	@Override
 	public void actualizar(double dt) {
-			//moverAbajo(dt);
-		moverAbajoDerecha(dt);
+		switch (this.comportamiento) {
+		case 0: // se mueve de izquierda a derecha
+			moverAbajoDerecha(dt);
+			break;
+		case 1: // se mueve por el centro hacia abajo
+			moverAbajo(dt);
+			break;
+		case 2: // se mueve de derecha a izquierda
+			moverAbajoIzquierda(dt);
+			break;
+		}
 	}
 
 }

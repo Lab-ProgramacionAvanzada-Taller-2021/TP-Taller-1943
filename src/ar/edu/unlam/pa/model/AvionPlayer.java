@@ -132,7 +132,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 			moverDerecha(dt);
 		}
 		
-		if(teclasPresionadas.contains(KeyEvent.VK_CONTROL)) {
+		if(teclasPresionadas.contains(KeyEvent.VK_Q)) {
 			disparar();
 		}
 	}
