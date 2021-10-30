@@ -25,7 +25,7 @@ public class Ventana extends JFrame implements Runnable{
 	private final int SECOND = 1000;
 	private final int FRAMES_PER_SECOND = 60;
 	private final int SKIP_FRAMES = SECOND / FRAMES_PER_SECOND;
-	private final int TICKS_PER_SECOND = 60;
+	private final int TICKS_PER_SECOND = 120;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	public static final int INTERVALO_CREACION_DE_ENEMIGO = 4000;
 
@@ -60,10 +60,9 @@ public class Ventana extends JFrame implements Runnable{
 		this.avion = new AvionPlayer(ANCHO / 2.1, ALTO / 1.2);
 		this.avionEnemigo = new AvionEnemigo(100, 10);
 		this.escenario = new Escenario();
-		this.escenario.agregarElemento(avion);
+		this.escenario.agregarJugador(avion);
 		this.escenario.agregarElemento(avionEnemigo);
 		aleatorio = new Random();
-		
 		
 		addKeyListener(avion);
 		this.enEjecucion = true;
@@ -130,8 +129,8 @@ public class Ventana extends JFrame implements Runnable{
 		if (System.currentTimeMillis() - intervaloEnemigos >= INTERVALO_CREACION_DE_ENEMIGO) {
 			int cant_aviones = aleatorio.nextInt(3) + 2;
 			int direccion = aleatorio.nextInt(99);  
-			int desp_x = 0;
-			int desp_y = 0;
+			double desp_x = 0;
+			double desp_y = 0;
 			int aparece = 0;
 			int dist_aviones = 50;
 			for(int i = 0; i < cant_aviones; i ++) {

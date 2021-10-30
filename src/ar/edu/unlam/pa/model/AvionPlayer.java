@@ -2,36 +2,68 @@ package ar.edu.unlam.pa.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import ar.edu.unlam.pa.elementos.Bala;
+//import ar.edu.unlam.pa.elementos.Bala;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
-
+import ar.edu.unlam.pa.model.Bala;
 
 public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener {
-
 	private EstadoAvion estado = new AvionNormal();
 	private static String RUTA = "Recursos/Imagenes/avion.png";
 	private static double RADIO_COLISION = 16;
 	private static double VIDA_MAXIMA = 100;
-	private static double VELOCIDAD_MOVIMIENTO = 150;
-	//ArrayList<Bala> bala = new ArrayList<Bala>();
+	private static double VELOCIDAD_MOVIMIENTO = 180;
+	private static double INTERVALO_DISPARO = 0.1;
 	
 	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
+	private int puntos = 0;
+	private double tiempoDisparo = -1;
+	private boolean disparo = false;
 
 	public AvionPlayer(double x, double y) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.AMERICANO, VIDA_MAXIMA, 
 				VELOCIDAD_MOVIMIENTO, RUTA);
 	}
+	
+	@Override
+	public void colisiono(Elemento elemento) {
+		vidaActual -= 10;
+		
+		if(vidaActual <= 0)
+			destruir();
+	}
 
-	public void disparar() {
-		estado.disparar();
+	public int obtenerPuntos() {
+		return this.puntos;
+	}
+	
+	public void sumarPuntos(int puntos) {
+		this.puntos += puntos;
+	}
+	
+	public boolean disparo() {
+		return this.disparo;
+	}
+	
+	public void dispara(double dt) {
+		if(tiempoDisparo > 0)
+			tiempoDisparo -= dt;
+		else
+			disparo = true;
+	}
+	
+	public Bala[] disparar() {
+		tiempoDisparo = INTERVALO_DISPARO;
+		disparo = false;
+		return estado.disparar(getPosicion());
 	}
 
 	public void agarraPowerUP() {
@@ -104,6 +136,10 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		super.dibujar(g2);
 		
 		double porcentajeVida = vidaActual/vidaMaxima;
+		g2.setColor(Color.WHITE);
+		g2.drawString("Jugador 1", 38, 472);
+		g2.drawString("Puntos: " + this.puntos, 16,16);
+		//Quitar la logica de la parte grafica.
 		g2.setColor((porcentajeVida>0.66) ? Color.GREEN : (porcentajeVida>0.33) ? Color.YELLOW : Color.RED);
 		g2.fillRect(32, 480, (int)(128*porcentajeVida), 16);
 		g2.setColor(Color.BLACK);
@@ -132,8 +168,8 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 			moverDerecha(dt);
 		}
 		
-		if(teclasPresionadas.contains(KeyEvent.VK_Q)) {
-			disparar();
+		if(teclasPresionadas.contains(KeyEvent.VK_CONTROL)) {
+			dispara(dt);
 		}
 	}
 	

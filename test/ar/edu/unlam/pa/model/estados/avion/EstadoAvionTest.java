@@ -65,7 +65,7 @@ public class EstadoAvionTest {
 
 		Assert.assertEquals("AvionNormal", avion.toStringEstado());
 	}
-
+/*
 	@Test
 	public void disparaEnEstadoNormal() {
 		avion.disparar();
@@ -86,7 +86,7 @@ public class EstadoAvionTest {
 		avion.disparar();
 		Assert.assertEquals("Bala [cantidadTiros=4]", avion.getEstado().getBala().toString());
 	}
-
+*/
 	@After
 	public void Annihilate() {
 		avion = null;

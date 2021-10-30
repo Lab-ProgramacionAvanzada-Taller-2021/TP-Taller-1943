@@ -15,6 +15,7 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 	//private static String RUTA = "";
 	private static String RUTA = "Recursos/Imagenes/enemigo.png";
 	private static double VELOCIDAD_MOVIMIENTO = 10;
+
 	private static double RADIO_COLISION = 8;
 	private static double VIDA_MAXIMA = 10;
 	private static int PUNTOS = 10;
@@ -31,6 +32,7 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
 	}
 	
+
 	public AvionEnemigo(double x, double y, int comportamiento) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.JAPONES, VIDA_MAXIMA, VELOCIDAD_MOVIMIENTO, RUTA);
 
@@ -92,6 +94,11 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 		g2.setColor(Color.BLACK);
 		g2.drawRect(32, 480, 128, 16);
 	}
+
+	@Override
+	public int darPuntos() {
+		return PUNTOS;
+	}
 	
 	@Override
 	public void actualizar(double dt) {
@@ -106,6 +113,7 @@ public class AvionEnemigo extends Avion implements MovimientoPlayer {
 			moverAbajoIzquierda(dt);
 			break;
 		}
+		//this.moverEnDireccion(0, dt);
 	}
 
 }
