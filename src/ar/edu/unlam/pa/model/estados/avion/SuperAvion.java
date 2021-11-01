@@ -7,6 +7,7 @@ import ar.edu.unlam.pa.model.Escenario;
 public class SuperAvion extends EstadoAvion {
 
 	@Override
+
 	public void disparar(AvionPlayer avion, Escenario escenario) {
 		escenario.agregarElemento(new Bala(avion.getPosicion()));
 	}

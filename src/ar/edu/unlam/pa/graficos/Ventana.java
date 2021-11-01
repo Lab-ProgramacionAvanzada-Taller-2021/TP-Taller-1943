@@ -23,7 +23,7 @@ public class Ventana extends JFrame implements Runnable{
 	private boolean enEjecucion;
 	
 	Escenario escenario;
-	
+
 	public Ventana() {
 		setTitle("1943 Midway");
 		
