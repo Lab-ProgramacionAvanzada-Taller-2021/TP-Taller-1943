@@ -1,14 +1,7 @@
 package ar.edu.unlam.pa.graficos;
 
-import java.awt.Dimension;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
 
 public class Ventana extends JFrame implements Runnable{
@@ -21,20 +14,21 @@ public class Ventana extends JFrame implements Runnable{
 	private final int TICKS_PER_SECOND = 120;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	
-	public static int ANCHO = 512;
-	public static int ALTO = 512;
+	public static final int ANCHO = 512;
+	public static final int ALTO = 640;
+	private final String RUTA_GRAFICOS = "Recursos/Imagenes/";
 	
 	private Pantalla pantalla;
+	private Thread hilo;
 	private boolean enEjecucion;
 	
-	private Escenario escenario;
-	private AvionPlayer avion;
-
+	Escenario escenario;
+	
 	public Ventana() {
 		setTitle("1943 Midway");
 		
-		this.pantalla = new Pantalla();
-		this.setContentPane(this.pantalla);
+		this.pantalla = new Pantalla(this);
+		this.setContentPane(pantalla);
 		
 		setResizable(false);
 		
@@ -43,13 +37,13 @@ public class Ventana extends JFrame implements Runnable{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void init() {
-		this.avion = new AvionPlayer(ANCHO / 2.1, ALTO / 1.2);
-		this.escenario = new Escenario();
-		this.escenario.agregarJugador(avion);
+	public void cargar() {
+		Grafico.cargarGraficos(RUTA_GRAFICOS);
 		
-		addKeyListener(avion);
-		this.enEjecucion = true;
+		escenario = new Escenario(this);
+		escenario.iniciar();
+		
+		iniciar();
 		
 		setVisible(true);
 		setFocusable(true);
@@ -74,33 +68,21 @@ public class Ventana extends JFrame implements Runnable{
 		}
 	}
 	
+	public void iniciar() {
+		this.hilo = new Thread(this);
+		this.hilo.start();
+		this.enEjecucion = true;
+	}
+	
+	public void parar() {
+		this.enEjecucion = false;
+	}
+	
 	public void dibujar() {
-		this.pantalla.repaint();
+		pantalla.repaint();
 	}
 	
 	public void actualizar() {
-		this.escenario.actualizar(1.0 / TICKS_PER_SECOND);
-	}
-	
-	private class Pantalla extends JPanel{
-		private static final long serialVersionUID = 1L;
-		
-		public Pantalla() {
-			setLayout(null);
-		}
-
-		@Override
-		public Dimension getPreferredSize() {
-			return new Dimension(ANCHO, ALTO);
-		}
-		
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			
-			Graphics2D g2 = (Graphics2D) g;
-		
-			escenario.dibujar(g2);;
-		}
+		escenario.actualizar(1.0 / TICKS_PER_SECOND);
 	}
 }

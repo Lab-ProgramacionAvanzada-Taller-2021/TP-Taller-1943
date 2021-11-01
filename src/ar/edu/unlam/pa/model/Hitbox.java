@@ -2,9 +2,6 @@ package ar.edu.unlam.pa.model;
 
 import ar.edu.unlam.pa.graficos.Ventana;
 
-/*
- * Esta clase representa a las  cajas delimitadoras o cajas de colisi�n entre los objetos del juego.
- * */
 public class Hitbox {
 	private Punto2D posicion;
 	private double radio;

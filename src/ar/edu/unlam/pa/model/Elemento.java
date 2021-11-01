@@ -3,30 +3,28 @@ package ar.edu.unlam.pa.model;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import ar.edu.unlam.pa.archivos.LectorArchivos;
 import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.servicios.Movimiento;
-
 
 public class Elemento implements Movimiento {
 	private Hitbox hitbox;
 	private BANDO bando;
 	private double velocidad;
 	private boolean destruido = false;
-	private boolean fueraDeRango = false;
 	private BufferedImage imagen;
 
 	public static enum BANDO{
 		AMERICANO,
-		JAPONES
+		JAPONES,
+		NEUTRAL
 	}
 
-	public Elemento(Hitbox hitbox, BANDO bando, double velocidad, String ruta) {
+	public Elemento(Hitbox hitbox, BANDO bando, double velocidad, BufferedImage imagen) {
 		this.hitbox = hitbox;
 		this.bando = bando;
 		this.velocidad = velocidad;
-	
-		this.imagen = LectorArchivos.leerImagen(ruta);
+		
+		this.imagen = imagen;
 	}
 
 	public Punto2D getPosicion() {
@@ -45,10 +43,6 @@ public class Elemento implements Movimiento {
 		destruir();
 	}
 	
-	public int darPuntos() {
-		return 0;
-	}
-	
 	public void destruir() {
 		this.destruido = true;
 	}
@@ -57,8 +51,8 @@ public class Elemento implements Movimiento {
 		return this.destruido;
 	}
 	
-	public void fueraDeRango() {
-		this.fueraDeRango = true;
+	public int darPuntos() {
+		return 0;
 	}
 	
 	public boolean estaFueraDeRango() {
@@ -66,11 +60,6 @@ public class Elemento implements Movimiento {
 				hitbox.getExtremoDer() < 0 ||
 				hitbox.getExtremoSup() > Ventana.ALTO ||
 				hitbox.getExtremoInf() < 0);
-	}
-
-	@Override
-	public String toString() {
-		return "Posicion= " + hitbox + ", bando=" + bando + "]";
 	}
 	
 	protected boolean puedeMoverEnDireccion(double desplazamientoX, double desplazamientoY) {
@@ -80,14 +69,22 @@ public class Elemento implements Movimiento {
 	@Override
 	public void moverEnDireccion(double desplazamientoX, double desplazamientoY) {
 		hitbox.moverPunto(desplazamientoX*velocidad, desplazamientoY*velocidad);
+		
+		if(estaFueraDeRango())
+			destruir();
 	}
 
 	public void dibujar(Graphics2D g2) {
-		
 		g2.drawImage(this.imagen, (int)(this.hitbox.getExtremoIzq()), (int)(this.hitbox.getExtremoSup()) , 
 				(int)this.hitbox.getDiametro(), (int)this.hitbox.getDiametro(), null);
 	}
 	
 	public void actualizar(double dt) {}
+	
+
+	@Override
+	public String toString() {
+		return "Posicion= " + hitbox + ", bando=" + bando + "]";
+	}
 
 }

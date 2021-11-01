@@ -18,14 +18,14 @@ public class ColisionTest {
 	@Test
 	public void colisionExitosa() {
 
-		player1 = new AvionPlayer(0, 0);
-		enemigo1 = new AvionEnemigo(1, 1);
+		player1 = AvionPlayer.crearJugador1(null);
+		enemigo1 = new AvionEnemigo(player1.getPosicion().getX(), player1.getPosicion().getY());
 		assertTrue(player1.colisionaCon(enemigo1));
 	}
 
 	@Test
 	public void colisionFallidaPorEstarDistanciaLejana() {
-		player1 = new AvionPlayer(3, 3);
+		player1 = AvionPlayer.crearJugador1(null);
 		enemigo1 = new AvionEnemigo(1, 1);
 
 		assertFalse(player1.colisionaCon(enemigo1));
@@ -34,8 +34,8 @@ public class ColisionTest {
 	@Test
 	public void colisionFallidaPorSerDelMismoBando() {
 
-		player1 = new AvionPlayer(0, 0);
-		player2 = new AvionPlayer(1, 1);
+		player1 = AvionPlayer.crearJugador1(null);
+		player2 = AvionPlayer.crearJugador1(null);
 		assertFalse(player1.colisionaCon(player2));
 	}
 

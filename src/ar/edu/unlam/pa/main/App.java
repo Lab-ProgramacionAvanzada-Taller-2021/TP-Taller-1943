@@ -7,9 +7,7 @@ public class App{
 
 	public static void main(String[] args) {
 		Ventana juego = new Ventana(); 
-		juego.init();
-		juego.run();
+		juego.cargar();
+		juego.iniciar();
 	}
-	
-
 }

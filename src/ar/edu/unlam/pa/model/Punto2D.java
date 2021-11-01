@@ -3,7 +3,6 @@ package ar.edu.unlam.pa.model;
 import static java.lang.Math.hypot;
 
 public class Punto2D {
-
 	private double x;
 	private double y;
 
@@ -36,6 +35,11 @@ public class Punto2D {
 	public double distancia(Punto2D otro) {
 		return hypot(this.x - otro.x, this.y - otro.y);
 	}
+	
+	public void desplazar(Double desplazamientoX, Double desplazamientoY) {
+		this.x += desplazamientoX;
+		this.y += desplazamientoY;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -54,10 +58,4 @@ public class Punto2D {
 	public String toString() {
 		return "(" + x + " , " + y + ")";
 	}
-	
-	public void desplazar(Double desplazamientoX, Double desplazamientoY) {
-		this.x += desplazamientoX;
-		this.y += desplazamientoY;
-	}
-
 }

@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import static java.lang.Math.sqrt;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
@@ -13,7 +12,7 @@ public class MovimientoAvionPlayerTest {
 
 	@Before
 	public void setUp() {
-		e1 = new AvionPlayer(0, 0);
+		e1 = new AvionPlayer(null, 1, 300.00, 300.00, null, null);
 	}
 
 	@Test
@@ -21,7 +20,7 @@ public class MovimientoAvionPlayerTest {
 
 		e1.moverArriba(1.0);
 
-		assertEquals(new Punto2D(0, -150), e1.getPosicion());
+		assertEquals(new Punto2D(300, 120), e1.getPosicion());
 	}
 
 	@Test
@@ -29,7 +28,7 @@ public class MovimientoAvionPlayerTest {
 
 		e1.moverAbajo(1.0);
 
-		assertEquals(new Punto2D(0, 150), e1.getPosicion());
+		assertEquals(new Punto2D(300, 480), e1.getPosicion());
 	}
 
 	@Test
@@ -37,7 +36,7 @@ public class MovimientoAvionPlayerTest {
 
 		e1.moverDerecha(1.0);
 
-		assertEquals(new Punto2D(150, 0), e1.getPosicion());
+		assertEquals(new Punto2D(480, 300), e1.getPosicion());
 	}
 
 	@Test
@@ -45,7 +44,7 @@ public class MovimientoAvionPlayerTest {
 
 		e1.moverIzquierda(1.0);
 
-		assertEquals(new Punto2D(-150, 0), e1.getPosicion());
+		assertEquals(new Punto2D(120, 300), e1.getPosicion());
 	}
 
 	@Test
@@ -53,7 +52,7 @@ public class MovimientoAvionPlayerTest {
 
 		e1.moverArribaIzquierda(1.0);
 
-		assertEquals(new Punto2D(-106.05, -106.05), e1.getPosicion());
+		assertEquals(new Punto2D(172.74, 172.74), e1.getPosicion());
 	}
 
 	@After

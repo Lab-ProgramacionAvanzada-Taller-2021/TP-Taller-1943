@@ -7,16 +7,14 @@ import javax.imageio.ImageIO;
 
 public class LectorArchivos {
 	
-	public static BufferedImage leerImagen(String path) {
-		BufferedImage imagen = null;
-		
+	public static BufferedImage leerImagen(File archivo) {
 		try {
-			imagen = ImageIO.read(new File(path));
+			return ImageIO.read(archivo);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 		
-		return imagen;
+		return null;
 	}
 
 }
