@@ -17,7 +17,8 @@ public class Escenario {
 	private final double INTERVALO_CREAR_ENEMIGO = 5;
 	private final double INTERVALO_SUBIR_NIVEL = 50;
 	
-	private ConcurrentLinkedDeque<Elemento> listaElementosEscenario;
+	private ConcurrentLinkedDeque<Elemento> listaElementosCapa1;
+	private ConcurrentLinkedDeque<Elemento> listaElementosCapa2;
 	private ConcurrentLinkedDeque<AvionPlayer> listaJugadores;
 	private ConcurrentLinkedDeque<Elemento> listaElementos;
 	
@@ -28,12 +29,11 @@ public class Escenario {
 	private double tiempoProximoNivel = INTERVALO_SUBIR_NIVEL;
 	private int maximaPuntuacion = 100_000;
 	private int nivel = 1;
-	private Random aleatorio;
-	private long intervaloEnemigos;
 	
 	public Escenario(Ventana ventana) {
+		listaElementosCapa1 = new ConcurrentLinkedDeque<Elemento>();
+		listaElementosCapa2 = new ConcurrentLinkedDeque<Elemento>();
 		listaJugadores = new ConcurrentLinkedDeque<AvionPlayer>();
-		listaElementosEscenario = new ConcurrentLinkedDeque<Elemento>();
 		listaElementos = new ConcurrentLinkedDeque<Elemento>();
 		
 		this.ventana = ventana;
@@ -53,8 +53,12 @@ public class Escenario {
 		}
 	}
 	
-	public void agregarElementoEscenario(Elemento elemento) {
-		listaElementosEscenario.add(elemento);
+	public void agregarElementoCapa1(Elemento elemento) {
+		listaElementosCapa1.add(elemento);
+	}
+	
+	public void agregarElementoCapa2(Elemento elemento) {
+		listaElementosCapa2.add(elemento);
 	}
 	
 	public void agregarJugador(AvionPlayer nuevo) {
@@ -73,8 +77,12 @@ public class Escenario {
 	public void dibujar(Graphics2D g2) {
 		g2.drawImage(this.imagen, 0, (int)(-DESPLAZAMIENTO+this.desplazamientoY), Ventana.ANCHO, Ventana.ALTO+DESPLAZAMIENTO, null);
 
-		for(Elemento elementoEscenario : listaElementosEscenario) {
-			elementoEscenario.dibujar(g2);
+		for(Elemento elementoCapa1 : listaElementosCapa1) {
+			elementoCapa1.dibujar(g2);
+		}
+		
+		for(Elemento elementoCapa2 : listaElementosCapa2) {
+			elementoCapa2.dibujar(g2);
 		}
 		
 		for(Elemento elemento : listaElementos) {
@@ -105,13 +113,16 @@ public class Escenario {
 	public void actualizar(double dt) {
 		this.desplazamientoY = (this.desplazamientoY+dt*VELOCIDAD_Y)%DESPLAZAMIENTO;
 
-		aleatorio = new Random();
 		subirNivelEscenario(dt);
 		
 		generarEnemigos(dt);
 		
-		for(Elemento elementoEscenario : listaElementosEscenario) {
-			elementoEscenario.actualizar(dt);
+		for(Elemento elementoCapa1 : listaElementosCapa1) {
+			elementoCapa1.actualizar(dt);
+		}
+		
+		for(Elemento elementoCapa2 : listaElementosCapa2) {
+			elementoCapa2.actualizar(dt);
 		}
 		
 		for(Elemento colisionador : listaElementos) {
@@ -154,21 +165,26 @@ public class Escenario {
 		}
 	}
 	
-
 	private void generarEnemigos(double dt) {
 		if(tiempoProximoEnemigo < 0) {
 			switch(nivel) {
 				case 1:
-					agregarElemento(new AvionEnemigo( Math.random() * (Ventana.ANCHO-8), -8));
-					agregarElementoEscenario(new Isla());
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
 					break;
 				case 2: 
-					agregarElemento(new AvionEnemigo( Math.random() * (Ventana.ANCHO-8), -8));
-					agregarElemento(new AvionEnemigoMedio( Math.random() * (Ventana.ANCHO-8), Ventana.ALTO));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
+					break;
+				case 3: 
+					agregarElemento(new AvionEnemigoMedio(this));
 					break;
 				default:
 					break;
 			}
+			
+			agregarElementoCapa1(new Isla());
+			agregarElementoCapa2(new Nube());
+			
 			tiempoProximoEnemigo = INTERVALO_CREAR_ENEMIGO;
 		}else {
 			tiempoProximoEnemigo -= dt;

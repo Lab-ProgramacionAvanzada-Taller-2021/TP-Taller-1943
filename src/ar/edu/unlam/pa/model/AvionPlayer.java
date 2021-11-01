@@ -46,7 +46,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	public static AvionPlayer crearJugador2(Escenario escenario) {
 		return new AvionPlayer(escenario, 2, Ventana.ANCHO / 1.7, Ventana.ALTO / 1.2, 
 				new int[] {KeyEvent.VK_UP , KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN,  KeyEvent.VK_SHIFT},
-				Grafico.obtenerGrafico("jugador1"));
+				Grafico.obtenerGrafico("jugador2"));
 	}
 	
 	@Override
