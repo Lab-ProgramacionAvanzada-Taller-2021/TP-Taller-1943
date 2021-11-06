@@ -1,14 +1,10 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
+import java.awt.image.BufferedImage;
 
 public class Bala extends Elemento{
-	private static double VELOCIDAD_MOVIMIENTO = 550;
-	private static double RADIO_COLISION = 8;
-	
-	public Bala(Punto2D posicion, BANDO bando) {
-		super(new Hitbox(posicion ,RADIO_COLISION), bando, VELOCIDAD_MOVIMIENTO, Grafico.obtenerGrafico("aliada"));
-
+	public Bala(Punto2D posicion, BANDO bando, double velocidad, double radio, BufferedImage imagen) {
+		super(new Hitbox(posicion ,radio), bando, velocidad, imagen);
 	}
 
 	@Override

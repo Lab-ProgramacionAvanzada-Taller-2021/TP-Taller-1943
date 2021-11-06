@@ -90,10 +90,10 @@ public class Escenario {
 		}
 		
 		for(AvionPlayer jugador : listaJugadores) {
-			jugador.dibujarBarraJugador(g2);
+			jugador.dibujarBarraJugador(g2, listaJugadores.size());
 		}
 	
-		//dibujarDebug(g2);
+		dibujarDebug(g2);
 		
 		dibujarPuntuacionMaxima(g2);
 	}
@@ -106,8 +106,10 @@ public class Escenario {
 	private void dibujarDebug(Graphics2D g2) {
 		g2.setColor(Color.WHITE);
 		g2.drawString("Nivel: " + this.nivel, Ventana.ANCHO / 2 - 32, 32); 
-		g2.drawString("Jugadores: " + this.listaJugadores.size(), Ventana.ANCHO / 2 - 48, 48); 
-		g2.drawString("Elementos: " + this.listaElementos.size(), Ventana.ANCHO / 2 - 48, 64);
+		g2.drawString("Jugadores: " + this.listaJugadores.size(), Ventana.ANCHO / 2 - 48, 48);
+		g2.drawString("Islas: " + this.listaElementosCapa1.size(), Ventana.ANCHO / 2 - 48, 64);
+		g2.drawString("Nubes: " + this.listaElementosCapa2.size(), Ventana.ANCHO / 2 - 48, 80);
+		g2.drawString("Elementos: " + this.listaElementos.size(), Ventana.ANCHO / 2 - 48, 96);
 	}
 	
 	public void actualizar(double dt) {
@@ -140,6 +142,22 @@ public class Escenario {
 	}
 	
 	private void eliminarElementosDestruidos() {
+		for(Iterator<Elemento> it = this.listaElementosCapa1.iterator(); it.hasNext();){
+			Elemento elemento = it.next();
+			
+			if(elemento.estaDestruido()) {
+				it.remove();
+			}
+		}
+		
+		for(Iterator<Elemento> it = this.listaElementosCapa2.iterator(); it.hasNext();){
+			Elemento elemento = it.next();
+			
+			if(elemento.estaDestruido()) {
+				it.remove();
+			}
+		}
+		
 		for(Iterator<Elemento> it = this.listaElementos.iterator(); it.hasNext();){
 			Elemento elemento = it.next();
 			

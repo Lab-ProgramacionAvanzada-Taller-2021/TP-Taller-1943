@@ -139,9 +139,9 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		return estado;
 	}
 	
-	public void dibujarBarraJugador(Graphics2D g2) {
+	public void dibujarBarraJugador(Graphics2D g2, int cantJugadores) {
 		double porcentajeVida = vidaActual/vidaMaxima;
-		int ancho = (Ventana.ANCHO-32) / 4;
+		int ancho = (Ventana.ANCHO-32) / cantJugadores;
 		int posY = 32;
 		g2.setColor(Color.WHITE);
 		g2.drawString("Jugador " + nroJugador, 16 + (ancho*(nroJugador-1)), 32);

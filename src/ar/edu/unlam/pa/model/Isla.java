@@ -11,7 +11,7 @@ public class Isla extends Elemento{
 		super(new Hitbox(Math.random()*Ventana.ANCHO, -RADIO_COLISION, RADIO_COLISION), 
 				Elemento.BANDO.NEUTRAL, 
 				VELOCIDAD_MOVIMIENTO, 
-				Grafico.obtenerGrafico("isla" + (int)(Math.random() * (4-1+1) + 1))
+				Grafico.obtenerGrafico("isla" + (int)(Math.random() * (7-1+1) + 1))
 				);
 	}
 	

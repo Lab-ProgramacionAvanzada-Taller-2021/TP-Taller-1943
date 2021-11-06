@@ -1,14 +1,18 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.model.Elemento.BANDO;
+import ar.edu.unlam.pa.graficos.Grafico;
 
 public class BalaEnemiga extends Bala{
-	private static String RUTA_IMAGEN = "Recursos/Imagenes/balaEnemiga.png";
 	private static double VELOCIDAD_MOVIMIENTO = 200;
-	private static double RADIO_COLISION = 8;
+	private static double RADIO_COLISION = 3;
 	
 	public BalaEnemiga(Punto2D posicion) {
-		super(posicion, BANDO.JAPONES, RUTA_IMAGEN, VELOCIDAD_MOVIMIENTO, RADIO_COLISION);
+		super(posicion, 
+				BANDO.JAPONES, 
+				VELOCIDAD_MOVIMIENTO, 
+				RADIO_COLISION, 
+				Grafico.obtenerGrafico("balaEnemiga")
+				);
 	}
 
 	@Override

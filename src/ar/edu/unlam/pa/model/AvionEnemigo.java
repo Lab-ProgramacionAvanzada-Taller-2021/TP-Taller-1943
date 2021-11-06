@@ -5,7 +5,7 @@ import ar.edu.unlam.pa.graficos.Ventana;
 
 public class AvionEnemigo extends Avion {
 	private static double VELOCIDAD_MOVIMIENTO = 100;
-	private static double RADIO_COLISION = 8;
+	private static double RADIO_COLISION = 16;
 	private static double VIDA_MAXIMA = 10;
 	private static int PUNTOS = 10;
 	private static double INTERVALO_DISPARO = 1;
@@ -42,17 +42,17 @@ public class AvionEnemigo extends Avion {
 			tiempoDisparo -= dt;
 		}else {
 			tiempoDisparo = INTERVALO_DISPARO;
-			escenario.agregarElemento(new Bala(this.getPosicion(), Elemento.BANDO.JAPONES));
+			escenario.agregarElemento(new BalaEnemiga(this.getPosicion()));
 		}
 	}
 	
 	@Override
 	public void actualizar(double dt) {
 		switch (this.comportamiento) {
-			case 0: // se mueve de izquierda a derecha
+			case 0: // se mueve de arriba hacia abajo
 				this.moverEnDireccion(0, dt);
 				break;
-			case 1: // se mueve por el centro hacia abajo
+			case 1: // se mueve de izquierda a derecha
 				this.moverEnDireccion(dt*0.707, dt*0.707);
 				break;
 			case 2: // se mueve de derecha a izquierda
