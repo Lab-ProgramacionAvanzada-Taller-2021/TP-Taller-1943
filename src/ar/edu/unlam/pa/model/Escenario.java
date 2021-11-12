@@ -13,7 +13,7 @@ import ar.edu.unlam.pa.model.AvionEnemigo;
 
 public class Escenario {
 	private final int DESPLAZAMIENTO = 64;
-	private final int VELOCIDAD_Y = 60;
+	private final int VELOCIDAD_Y = 40;
 	private final double INTERVALO_CREAR_ENEMIGO = 5;
 	private final double INTERVALO_SUBIR_NIVEL = 50;
 	
@@ -88,12 +88,14 @@ public class Escenario {
 		for(Elemento elemento : listaElementos) {
 			elemento.dibujar(g2);
 		}
-		
+
 		for(AvionPlayer jugador : listaJugadores) {
-			jugador.dibujarBarraJugador(g2, listaJugadores.size());
+			jugador.dibujarBarraJugador(g2);
 		}
-	
-		dibujarDebug(g2);
+		/**
+		 * Debug
+		 * dibujarDebug(g2);
+		 */
 		
 		dibujarPuntuacionMaxima(g2);
 	}
@@ -162,6 +164,9 @@ public class Escenario {
 			Elemento elemento = it.next();
 			
 			if(elemento.estaDestruido()) {
+				if(elemento instanceof AvionPlayer) {
+					this.listaJugadores.remove(elemento);
+				}
 				it.remove();
 			}
 		}

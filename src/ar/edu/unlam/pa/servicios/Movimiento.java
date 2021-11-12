@@ -1,6 +1,8 @@
 package ar.edu.unlam.pa.servicios;
 
 public interface Movimiento {
+	public final Double DESPLAZAMIENTO_DIAGONAL  = 0.707;
+	
 	/***
 	 * 
 	 * @param desplazamientoX_del_elemento.

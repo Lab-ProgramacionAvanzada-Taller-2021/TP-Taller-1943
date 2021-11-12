@@ -2,13 +2,15 @@ package ar.edu.unlam.pa.model;
 
 import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
+import ar.edu.unlam.pa.model.Bala.DIRECCION;
 
 public class AvionEnemigo extends Avion {
 	private static double VELOCIDAD_MOVIMIENTO = 100;
 	private static double RADIO_COLISION = 16;
 	private static double VIDA_MAXIMA = 10;
 	private static int PUNTOS = 10;
-	private static double INTERVALO_DISPARO = 1;
+	private static int PROBABILIDAD_POWERUP = 15;
+	private static double INTERVALO_DISPARO = 2;
 	private int comportamiento;
 	private double tiempoDisparo = INTERVALO_DISPARO;
 	private Escenario escenario;
@@ -36,13 +38,22 @@ public class AvionEnemigo extends Avion {
 	public int darPuntos() {
 		return PUNTOS;
 	}
+	
+	@Override
+	public void colisiono(Elemento otro) {
+		super.colisiono(otro);
+		
+		if( Math.random()*100 < PROBABILIDAD_POWERUP) {
+			escenario.agregarElemento(new PowerUp(getPosicion()));
+		}
+	}
 		
 	public void disparar(double dt) {
 		if(tiempoDisparo > 0) {
 			tiempoDisparo -= dt;
 		}else {
 			tiempoDisparo = INTERVALO_DISPARO;
-			escenario.agregarElemento(new BalaEnemiga(this.getPosicion()));
+			escenario.agregarElemento(new BalaEnemiga(this.getPosicion(), DIRECCION.SUR));
 		}
 	}
 	
@@ -53,13 +64,14 @@ public class AvionEnemigo extends Avion {
 				this.moverEnDireccion(0, dt);
 				break;
 			case 1: // se mueve de izquierda a derecha
-				this.moverEnDireccion(dt*0.707, dt*0.707);
+				this.moverEnDireccion(dt, dt);
 				break;
 			case 2: // se mueve de derecha a izquierda
-				this.moverEnDireccion(-dt*0.707, dt*0.707);
+				this.moverEnDireccion(-dt, dt);
 				break;
 			}
 		
 		disparar(dt);
+		super.actualizar(dt);
 	}
 }

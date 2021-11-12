@@ -5,7 +5,7 @@ import ar.edu.unlam.pa.graficos.Ventana;
 
 public class Isla extends Elemento{
 	private static double RADIO_COLISION = 30;
-	private static double VELOCIDAD_MOVIMIENTO = 60;
+	private static double VELOCIDAD_MOVIMIENTO = 40;
 	
 	public Isla() {
 		super(new Hitbox(Math.random()*Ventana.ANCHO, -RADIO_COLISION, RADIO_COLISION), 
@@ -15,8 +15,13 @@ public class Isla extends Elemento{
 				);
 	}
 	
+	
+	
+	@Override
 	public void actualizar(double dt) {
 		moverEnDireccion(0, dt);
+		
+		super.actualizar(dt);
 	}
 
 }

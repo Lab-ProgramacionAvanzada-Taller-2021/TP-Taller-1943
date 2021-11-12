@@ -63,15 +63,22 @@ public class Elemento implements Movimiento {
 	}
 	
 	protected boolean puedeMoverEnDireccion(double desplazamientoX, double desplazamientoY) {
+		if(desplazamientoX != 0 && desplazamientoY != 0) {
+			desplazamientoX *= Movimiento.DESPLAZAMIENTO_DIAGONAL;
+			desplazamientoY *= Movimiento.DESPLAZAMIENTO_DIAGONAL;
+		}
+		
 		return hitbox.puedeMover(desplazamientoX*velocidad, desplazamientoY*velocidad);
 	}
 
 	@Override
 	public void moverEnDireccion(double desplazamientoX, double desplazamientoY) {
-		hitbox.moverPunto(desplazamientoX*velocidad, desplazamientoY*velocidad);
+		if(desplazamientoX != 0 && desplazamientoY != 0) {
+			desplazamientoX *= Movimiento.DESPLAZAMIENTO_DIAGONAL;
+			desplazamientoY *= Movimiento.DESPLAZAMIENTO_DIAGONAL;
+		}
 		
-		if(estaFueraDeRango())
-			destruir();
+		hitbox.moverPunto(desplazamientoX*velocidad, desplazamientoY*velocidad);
 	}
 
 	public void dibujar(Graphics2D g2) {
@@ -79,7 +86,10 @@ public class Elemento implements Movimiento {
 				(int)this.hitbox.getDiametro(), (int)this.hitbox.getDiametro(), null);
 	}
 	
-	public void actualizar(double dt) {}
+	public void actualizar(double dt) {
+		if(estaFueraDeRango())
+			destruir();
+	}
 	
 
 	@Override

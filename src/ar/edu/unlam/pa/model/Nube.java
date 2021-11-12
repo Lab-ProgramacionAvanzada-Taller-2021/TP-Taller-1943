@@ -17,6 +17,8 @@ public class Nube extends Elemento{
 	
 	public void actualizar(double dt) {
 		moverEnDireccion(0, dt);
+		
+		super.actualizar(dt);
 	}
 
 }

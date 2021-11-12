@@ -36,5 +36,7 @@ public class AvionEnemigoMedio extends Avion{
 	@Override
 	public void actualizar(double dt) {
 		this.moverEnDireccion(0, -dt);
+		
+		super.actualizar(dt);
 	}
 }

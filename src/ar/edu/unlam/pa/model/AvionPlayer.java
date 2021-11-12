@@ -51,6 +51,11 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	
 	@Override
 	public void colisiono(Elemento elemento) {
+		if(elemento instanceof PowerUp) {
+			agarraPowerUP();
+			return;
+		}
+		
 		vidaActual -= 10;
 		
 		if(vidaActual <= 0)
@@ -113,39 +118,36 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 
 	@Override
 	public void moverArribaDerecha(double dt) {
-		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
-				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
+		moverEnDireccion(dt, -dt);
 	}
 
 	@Override
 	public void moverArribaIzquierda(double dt) {
-		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
-				-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
+		moverEnDireccion(-dt, -dt);
 	}
 
 	@Override
 	public void moverAbajoDerecha(double dt) {
-		moverEnDireccion(MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
-				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
+		moverEnDireccion(dt, dt);
 	}
 
 	@Override
 	public void moverAbajoIzquierda(double dt) {
-		moverEnDireccion(-MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt, 
-				MovimientoPlayer.DESPLAZAMIENTO_DIAGONAL*dt);
+		moverEnDireccion(-dt, dt);
 	}
 
 	public EstadoAvion getEstado() {
 		return estado;
 	}
 	
-	public void dibujarBarraJugador(Graphics2D g2, int cantJugadores) {
+	public void dibujarBarraJugador(Graphics2D g2) {
 		double porcentajeVida = vidaActual/vidaMaxima;
-		int ancho = (Ventana.ANCHO-32) / cantJugadores;
+		int ancho = (Ventana.ANCHO-32) / 4;
 		int posY = 32;
 		g2.setColor(Color.WHITE);
 		g2.drawString("Jugador " + nroJugador, 16 + (ancho*(nroJugador-1)), 32);
 		g2.drawString(this.puntos + "", 16 + (ancho*(nroJugador-1)), 48);
+		g2.drawString(toStringEstado(), 16 + (ancho*(nroJugador-1)), Ventana.ALTO-36);
 		g2.setColor((porcentajeVida>0.66) ? Color.GREEN : (porcentajeVida>0.33) ? Color.YELLOW : Color.RED);
 		g2.fillRect(16+(ancho*(nroJugador-1)), Ventana.ALTO-32, (int)(ancho/1.2*porcentajeVida), 16);
 		g2.setColor(Color.BLACK);

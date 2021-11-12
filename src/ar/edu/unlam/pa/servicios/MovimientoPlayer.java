@@ -1,7 +1,6 @@
 package ar.edu.unlam.pa.servicios;
 
 public interface MovimientoPlayer {
-	public final Double DESPLAZAMIENTO_DIAGONAL  = 0.707;
 	
 	public void moverArriba(double dt);
 
