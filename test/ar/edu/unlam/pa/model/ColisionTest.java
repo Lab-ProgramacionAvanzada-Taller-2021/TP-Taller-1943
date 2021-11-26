@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Test;
 
+import ar.edu.unlam.pa.model.Elemento.DIRECCION;
+
 public class ColisionTest {
 
 //	Serian cualquiel personaje del juego 
@@ -19,7 +21,7 @@ public class ColisionTest {
 	public void colisionExitosa() {
 
 		player1 = AvionPlayer.crearJugador1(null);
-		enemigo1 = new AvionEnemigo(null, player1.getPosicion().getX(), player1.getPosicion().getY(), 0);
+		enemigo1 = new AvionEnemigo(null, player1.getPosicion().getX(), player1.getPosicion().getY(), DIRECCION.SUR);
 
 		assertTrue(player1.colisionaCon(enemigo1));
 	}
@@ -28,7 +30,7 @@ public class ColisionTest {
 	public void colisionFallidaPorEstarDistanciaLejana() {
 
 		player1 = AvionPlayer.crearJugador1(null);
-		enemigo1 = new AvionEnemigo(null, 1, 1, 0);
+		enemigo1 = new AvionEnemigo(null, 1, 1, DIRECCION.SUR);
 
 		assertFalse(player1.colisionaCon(enemigo1));
 	}

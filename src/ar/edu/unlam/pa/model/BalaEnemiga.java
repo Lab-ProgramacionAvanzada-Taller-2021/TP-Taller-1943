@@ -13,6 +13,6 @@ public class BalaEnemiga extends Bala{
 				RADIO_COLISION, 
 				direccion,
 				Grafico.obtenerGrafico("balaEnemiga")
-				);
+			);
 	}
 }

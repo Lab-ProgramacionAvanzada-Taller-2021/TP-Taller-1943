@@ -29,8 +29,8 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	private int puntos = 0;
 	private double tiempoDisparo = -1;
 
-	public AvionPlayer(Escenario escenario, int nroJugador, double x, double y, int[] teclas, BufferedImage imagen) {
-		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), Elemento.BANDO.AMERICANO, VIDA_MAXIMA, 
+	public AvionPlayer(Escenario escenario, int nroJugador, double x, double y, int[] teclas, BufferedImage[] imagen) {
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), DIRECCION.NORTE, BANDO.AMERICANO, VIDA_MAXIMA, 
 				VELOCIDAD_MOVIMIENTO, imagen);
 		this.escenario = escenario;
 		this.nroJugador = nroJugador;
@@ -87,8 +87,8 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		estado = estado.terminaPowerUp();
 	}
 
-	public void decrementarContadorPowerUP() {
-		if (!estado.tienePowerUp())
+	public void decrementarContadorPowerUP(double dt) {
+		if (!estado.tienePowerUp(dt))
 			this.pierdePowerUP();
 	}
 
@@ -179,6 +179,8 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		if(teclasPresionadas.contains(teclasPrediseñadas[4])) {
 			disparar(dt);
 		}
+		
+		decrementarContadorPowerUP(dt);
 	}
 	
 	@Override

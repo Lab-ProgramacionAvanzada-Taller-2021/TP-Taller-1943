@@ -11,20 +11,34 @@ public class Elemento implements Movimiento {
 	private BANDO bando;
 	private double velocidad;
 	private boolean destruido = false;
-	private BufferedImage imagen;
+	protected DIRECCION direccion;
+	protected BufferedImage[] imagenes;
+	protected BufferedImage imagen;
 
+	public enum DIRECCION{
+		NORTE,
+		NORESTE,
+		ESTE,
+		SURESTE,
+		SUR,
+		SUROESTE,
+		OESTE,
+		NOROESTE
+	}
+	
 	public static enum BANDO{
 		AMERICANO,
 		JAPONES,
 		NEUTRAL
 	}
 
-	public Elemento(Hitbox hitbox, BANDO bando, double velocidad, BufferedImage imagen) {
+	public Elemento(Hitbox hitbox, DIRECCION direccion, BANDO bando, double velocidad, BufferedImage[] imagenes) {
 		this.hitbox = hitbox;
 		this.bando = bando;
 		this.velocidad = velocidad;
-		
-		this.imagen = imagen;
+		this.direccion = direccion;
+		this.imagenes = imagenes;
+		this.imagen = imagenes[0];
 	}
 
 	public Punto2D getPosicion() {
@@ -84,13 +98,68 @@ public class Elemento implements Movimiento {
 	public void dibujar(Graphics2D g2) {
 		g2.drawImage(this.imagen, (int)(this.hitbox.getExtremoIzq()), (int)(this.hitbox.getExtremoSup()) , 
 				(int)this.hitbox.getDiametro(), (int)this.hitbox.getDiametro(), null);
+		
+		
 	}
 	
 	public void actualizar(double dt) {
+		switch(direccion) {
+			case NORTE:
+				moverEnDireccion(0, -dt);
+				break;
+			case NOROESTE:
+				moverEnDireccion(-dt, -dt);
+				break;
+			case NORESTE:
+				moverEnDireccion(dt, -dt);
+				break;
+			case SUR:
+				moverEnDireccion(0, dt);
+				break;
+			case SUROESTE:
+				moverEnDireccion(-dt, dt);
+				break;
+			case SURESTE:
+				moverEnDireccion(dt, dt);
+				break;
+			default:
+				break;	
+		}
+			
 		if(estaFueraDeRango())
 			destruir();
 	}
 	
+	protected void actualizarImagen() {
+		switch(direccion) {
+			case NORTE:
+				this.imagen = this.imagenes[0];
+				break;
+			case NORESTE:
+				this.imagen = this.imagenes[1];
+				break;
+			case ESTE:
+				this.imagen = this.imagenes[2];
+				break;
+			case SURESTE:
+				this.imagen = this.imagenes[3];
+				break;
+			case SUR:
+				this.imagen = this.imagenes[4];
+				break;
+			case SUROESTE:
+				this.imagen = this.imagenes[5];
+				break;
+			case OESTE:
+				this.imagen = this.imagenes[6];
+				break;
+			case NOROESTE:
+				this.imagen = this.imagenes[7];
+				break;
+			default:
+				break;	
+		}	
+	}
 
 	@Override
 	public String toString() {

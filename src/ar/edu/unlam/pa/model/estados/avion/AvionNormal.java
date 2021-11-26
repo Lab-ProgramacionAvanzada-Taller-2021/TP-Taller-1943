@@ -1,8 +1,8 @@
 package ar.edu.unlam.pa.model.estados.avion;
 
 import ar.edu.unlam.pa.model.AvionPlayer;
-import ar.edu.unlam.pa.model.Bala.DIRECCION;
 import ar.edu.unlam.pa.model.BalaAliada;
+import ar.edu.unlam.pa.model.Elemento.DIRECCION;
 import ar.edu.unlam.pa.model.Escenario;
 
 

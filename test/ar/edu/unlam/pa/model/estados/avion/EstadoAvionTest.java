@@ -42,7 +42,7 @@ public class EstadoAvionTest {
 		avion.agarraPowerUP();
 
 		for (int i = 0; i++ < 32;) {
-			avion.decrementarContadorPowerUP();
+			avion.decrementarContadorPowerUP(100);
 		}
 
 		Assert.assertEquals("AvionNormal", avion.toStringEstado());
@@ -54,13 +54,13 @@ public class EstadoAvionTest {
 		avion.agarraPowerUP();
 
 		for (int i = 0; i++ < 32;) {
-			avion.decrementarContadorPowerUP();
+			avion.decrementarContadorPowerUP(1000);
 		}
 
 		Assert.assertEquals("SuperAvion", avion.toStringEstado());
 
 		for (int i = 0; i++ < 32;) {
-			avion.decrementarContadorPowerUP();
+			avion.decrementarContadorPowerUP(1000);
 		}
 
 		Assert.assertEquals("AvionNormal", avion.toStringEstado());

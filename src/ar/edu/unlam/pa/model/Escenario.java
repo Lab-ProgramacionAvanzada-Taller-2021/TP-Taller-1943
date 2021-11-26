@@ -13,9 +13,9 @@ import ar.edu.unlam.pa.model.AvionEnemigo;
 
 public class Escenario {
 	private final int DESPLAZAMIENTO = 64;
-	private final int VELOCIDAD_Y = 40;
+	private final int VELOCIDAD_Y = 20;
 	private final double INTERVALO_CREAR_ENEMIGO = 5;
-	private final double INTERVALO_SUBIR_NIVEL = 50;
+	private final double INTERVALO_SUBIR_NIVEL = 100;
 	
 	private ConcurrentLinkedDeque<Elemento> listaElementosCapa1;
 	private ConcurrentLinkedDeque<Elemento> listaElementosCapa2;
@@ -37,7 +37,7 @@ public class Escenario {
 		listaElementos = new ConcurrentLinkedDeque<Elemento>();
 		
 		this.ventana = ventana;
-		this.imagen = Grafico.obtenerGrafico("oceano");
+		this.imagen = Grafico.obtenerGrafico("oceano")[0];
 	}
 	
 	public void iniciar() {
@@ -92,10 +92,9 @@ public class Escenario {
 		for(AvionPlayer jugador : listaJugadores) {
 			jugador.dibujarBarraJugador(g2);
 		}
-		/**
-		 * Debug
-		 * dibujarDebug(g2);
-		 */
+		
+		 dibujarDebug(g2);
+		
 		
 		dibujarPuntuacionMaxima(g2);
 	}
@@ -201,6 +200,58 @@ public class Escenario {
 				case 3: 
 					agregarElemento(new AvionEnemigoMedio(this));
 					break;
+				case 4:
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					break;
+				case 5:
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
+					break;
+				case 6:
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
+					break;
+				case 7:
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(new AvionEnemigoMedio(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
+					break;
+				case 8:
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(new AvionEnemigoMedio(this));
+					agregarElemento(new AvionEnemigoMedio(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
+					break;
+				case 9:
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
+					agregarElemento(new AvionEnemigoMedio(this));
+					agregarElemento(new AvionEnemigoMedio(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
+					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
+					break;
+				case 10:
+					agregarElemento(new AvionEnemigoJefe());
+					nivel++;
 				default:
 					break;
 			}

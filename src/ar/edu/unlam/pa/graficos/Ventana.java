@@ -11,10 +11,10 @@ public class Ventana extends JFrame implements Runnable{
 	private final int SECOND = 1000;
 	private final int FRAMES_PER_SECOND = 60;
 	private final int SKIP_FRAMES = SECOND / FRAMES_PER_SECOND;
-	private final int TICKS_PER_SECOND = 120;
+	private final int TICKS_PER_SECOND = 60;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	
-	public static final int ANCHO = 512;
+	public static final int ANCHO = 640;
 	public static final int ALTO = 640;
 	private final String RUTA_GRAFICOS = "Recursos/Imagenes/";
 	

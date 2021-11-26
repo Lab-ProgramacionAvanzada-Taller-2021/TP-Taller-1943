@@ -7,18 +7,11 @@ public class PowerUp extends Elemento{
 	private static double VELOCIDAD_MOVIMIENTO = 60;
 
 	public PowerUp(Punto2D posicion) {
-		super(new Hitbox(posicion, RADIO_COLISION), 
-				Elemento.BANDO.NEUTRAL, 
+		super(new Hitbox(posicion, RADIO_COLISION),
+				DIRECCION.SUR,
+				BANDO.NEUTRAL, 
 				VELOCIDAD_MOVIMIENTO, 
 				Grafico.obtenerGrafico("powerup")
 		);
 	}
-	
-	@Override
-	public void actualizar(double dt) {
-		moverEnDireccion(0, dt);
-		
-		super.actualizar(dt);
-	}
-
 }

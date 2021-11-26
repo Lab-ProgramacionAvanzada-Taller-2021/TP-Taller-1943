@@ -4,7 +4,8 @@ import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
 
 public abstract class EstadoAvion {
-	protected int duracion = 32;
+	public static int DURACION_EFECTO = 3600;
+	protected int duracion = 0;
 
 	public void disparar(AvionPlayer avion, Escenario escenario) {
 	}
@@ -17,12 +18,12 @@ public abstract class EstadoAvion {
 		return this;
 	}
 
-	public boolean tienePowerUp() {
-		return (--this.duracion > 0);
+	public boolean tienePowerUp(double dt) {
+		return ((duracion -= dt) > 0);
 	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName();
+		return this.getClass().getSimpleName() + "   " + (int)(duracion/100);
 	}
 }

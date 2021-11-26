@@ -1,59 +1,29 @@
 package ar.edu.unlam.pa.model;
 
 import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.ColorConvertOp;
+
+import ar.edu.unlam.pa.graficos.Grafico;
+
+import java.awt.color.ColorSpace;
 
 public class Bala extends Elemento{
-	public enum DIRECCION{
-		NORTE,
-		NORESTE,
-		ESTE,
-		SURESTE,
-		SUR,
-		SUROESTE,
-		OESTE,
-		NOROESTE
-	}
 	
-	private DIRECCION direccion;
-	
-	public Bala(Punto2D posicion, BANDO bando, double velocidad, double radio, DIRECCION direccion, BufferedImage imagen) {
+	public Bala(Punto2D posicion, BANDO bando, double velocidad, double radio, DIRECCION direccion, BufferedImage[] imagen) {
 		super(new Hitbox(posicion ,radio), 
+				direccion,
 				bando, 
 				velocidad, 
 				imagen
 			);
-		this.direccion = direccion;
+		
+		actualizarImagen();
 	}
 	
-	@Override
-	public void actualizar(double dt) {
-		
-		switch(this.direccion) {
-			case NORTE:
-				moverEnDireccion(0, -dt);
-				break;
-			case NOROESTE:
-				moverEnDireccion(-dt, -dt);
-				break;
-			case NORESTE:
-				moverEnDireccion(dt, -dt);
-				break;
-			case SUR:
-				moverEnDireccion(0, dt);
-				break;
-			case SUROESTE:
-				moverEnDireccion(-dt, dt);
-				break;
-			case SURESTE:
-				moverEnDireccion(dt, dt);
-				break;
-			default:
-				break;
-				
-		}
-		
-		super.actualizar(dt);
-	}
+	
 	
 	@Override
 	public String toString() {

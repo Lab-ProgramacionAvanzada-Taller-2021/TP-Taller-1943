@@ -13,7 +13,7 @@ public class BalaAliada extends Bala{
 				RADIO_COLISION, 
 				direccion,
 				Grafico.obtenerGrafico("balaAliada")
-				);
+			);
 	}
 	
 }
