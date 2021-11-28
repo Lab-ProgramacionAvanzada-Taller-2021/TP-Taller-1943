@@ -29,10 +29,10 @@ public class Grafico {
 	}
 	
 	public static void agregarImagenEnDirecciones(String nombre, BufferedImage imagen) {
-		int tamaño = DIRECCION.values().length;
-		BufferedImage[] imagenes = new BufferedImage[tamaño];
+		int tamanio = DIRECCION.values().length;
+		BufferedImage[] imagenes = new BufferedImage[tamanio];
 		
-		for(int i=0; i<tamaño; i++) {
+		for(int i=0; i<tamanio; i++) {
 			AffineTransform affineTransform = new AffineTransform();
 			affineTransform.rotate(Math.toRadians(i*45), imagen.getWidth()/2, imagen.getHeight()/2);
 			AffineTransformOp affineTransformImagen = new AffineTransformOp(affineTransform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
