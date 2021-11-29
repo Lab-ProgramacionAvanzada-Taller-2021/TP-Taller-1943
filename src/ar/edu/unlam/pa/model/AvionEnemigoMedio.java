@@ -8,7 +8,8 @@ public class AvionEnemigoMedio extends Avion{
 	private static double RADIO_COLISION = 32;
 	private static double VIDA_MAXIMA = 20;
 	private static int PUNTOS = 100;
-	private double intervalo = 1;
+	private static double INTERVALO_DISPARO = 2;
+	private double tiempoDisparo = 1;
 	private Escenario escenario;
 	
 	public AvionEnemigoMedio(Escenario escenario) {
@@ -25,19 +26,35 @@ public class AvionEnemigoMedio extends Avion{
 	public void colisiono(Elemento elemento) {
 		vidaActual -= 10;
 		
-		if(vidaActual <= 0)
+		if(vidaActual <= 0) {
 			this.destruir();
-	}
-	
-	@Override
-	public int darPuntos() {
-		return PUNTOS;
+			
+			escenario.agregarElementoCapa2(new Animacion(new Hitbox(getPosicion(), RADIO_COLISION*2), 
+					VELOCIDAD_MOVIMIENTO,
+					Grafico.obtenerGrafico("Explosion")));
+			
+			if(elemento instanceof BalaAliada) {
+				 ((BalaAliada) elemento).sumarPuntosAvion(PUNTOS);
+			}
+		}
 	}
 	
 	@Override
 	public void actualizar(double dt) {
 		super.actualizar(dt);
 		
-		//falta disparar
+		disparar(dt);
+	}
+	
+	@Override
+	public void disparar(double dt) {
+		if(tiempoDisparo > 0) {
+			tiempoDisparo -= dt;
+		}else {
+			Punto2D posicion = escenario.obtenerPosicionJugadorAleatorio();
+			DIRECCION direccion = calcularDireccion(posicion);
+			escenario.agregarElemento(new BalaEnemiga(getPosicion(), direccion));
+			tiempoDisparo = INTERVALO_DISPARO;
+		}
 	}
 }
