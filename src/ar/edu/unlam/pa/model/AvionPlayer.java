@@ -24,7 +24,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	private EstadoAvion estado = new AvionNormal();
 	private Escenario escenario;
 	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
-	private int[] teclasPrediseñadas;
+	private int[] teclasPrediseniadas;
 	private int nroJugador = 1;
 	private int puntos = 0;
 	private double tiempoDisparo = -1;
@@ -34,7 +34,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 				VELOCIDAD_MOVIMIENTO, imagen);
 		this.escenario = escenario;
 		this.nroJugador = nroJugador;
-		this.teclasPrediseñadas = teclas;
+		this.teclasPrediseniadas = teclas;
 	}
 	
 	public static AvionPlayer crearJugador1(Escenario escenario) {
@@ -157,27 +157,27 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 
 	@Override
 	public void actualizar(double dt) {
-		if(teclasPresionadas.contains(teclasPrediseñadas[0])){
-			if(teclasPresionadas.contains(teclasPrediseñadas[1]))
+		if(teclasPresionadas.contains(teclasPrediseniadas[0])){
+			if(teclasPresionadas.contains(teclasPrediseniadas[1]))
 				moverArribaIzquierda(dt);
-			else if(teclasPresionadas.contains(teclasPrediseñadas[2]))
+			else if(teclasPresionadas.contains(teclasPrediseniadas[2]))
 				moverArribaDerecha(dt);
 			else
 				moverArriba(dt);
-		}else if(teclasPresionadas.contains(teclasPrediseñadas[3])) {
-			if(teclasPresionadas.contains(teclasPrediseñadas[1]))
+		}else if(teclasPresionadas.contains(teclasPrediseniadas[3])) {
+			if(teclasPresionadas.contains(teclasPrediseniadas[1]))
 				moverAbajoIzquierda(dt);
-			else if(teclasPresionadas.contains(teclasPrediseñadas[2]))
+			else if(teclasPresionadas.contains(teclasPrediseniadas[2]))
 				moverAbajoDerecha(dt);
 			else
 				moverAbajo(dt);
-		}else if(teclasPresionadas.contains(teclasPrediseñadas[1])) {
+		}else if(teclasPresionadas.contains(teclasPrediseniadas[1])) {
 			moverIzquierda(dt);
-		}else if(teclasPresionadas.contains(teclasPrediseñadas[2])) {
+		}else if(teclasPresionadas.contains(teclasPrediseniadas[2])) {
 			moverDerecha(dt);
 		}
 		
-		if(teclasPresionadas.contains(teclasPrediseñadas[4])) {
+		if(teclasPresionadas.contains(teclasPrediseniadas[4])) {
 			disparar(dt);
 		}
 		
