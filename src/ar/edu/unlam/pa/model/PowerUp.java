@@ -14,4 +14,14 @@ public class PowerUp extends Elemento{
 				Grafico.obtenerGrafico("powerup")
 		);
 	}
+	
+	@Override
+	public void colisiono(Elemento otro) {
+		if(otro instanceof BalaAliada) {
+			moverEnDireccion(0, -0.167);
+			return;
+		}
+		
+		destruir();
+	}
 }

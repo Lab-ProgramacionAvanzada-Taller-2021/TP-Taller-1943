@@ -19,7 +19,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	private static double RADIO_COLISION = 16;
 	private static double VIDA_MAXIMA = 100;
 	private static double VELOCIDAD_MOVIMIENTO = 180;
-	private static double INTERVALO_DISPARO = 0.1;
+	private static double INTERVALO_DISPARO = 0.2;
 	
 	private EstadoAvion estado = new AvionNormal();
 	private Escenario escenario;
@@ -70,6 +70,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		this.puntos += puntos;
 	}
 	
+	@Override
 	public void disparar(double dt) {
 		if(tiempoDisparo > 0) {
 			tiempoDisparo -= dt;

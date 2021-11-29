@@ -10,7 +10,7 @@ public class AvionNormal extends EstadoAvion {
 
 	@Override
 	public void disparar(AvionPlayer avion, Escenario escenario) {
-		escenario.agregarElemento(new BalaAliada(avion.getPosicion(), DIRECCION.NORTE));
+		escenario.agregarElemento(new BalaAliada(avion.getPosicion(), DIRECCION.NORTE, avion));
 	}
 
 	@Override

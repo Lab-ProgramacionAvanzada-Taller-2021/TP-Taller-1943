@@ -23,7 +23,12 @@ public class Bala extends Elemento{
 		actualizarImagen();
 	}
 	
-	
+	public void colisiono(Elemento otro) {
+		if(otro instanceof Bala)
+			return;
+		
+		destruir();
+	}
 	
 	@Override
 	public String toString() {

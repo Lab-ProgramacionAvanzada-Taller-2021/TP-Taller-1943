@@ -9,11 +9,11 @@ import ar.edu.unlam.pa.servicios.Movimiento;
 public class Elemento implements Movimiento {
 	private Hitbox hitbox;
 	private BANDO bando;
-	private double velocidad;
+	protected double velocidad;
 	private boolean destruido = false;
 	protected DIRECCION direccion;
-	protected BufferedImage[] imagenes;
-	protected BufferedImage imagen;
+	private BufferedImage[] imagenes;
+	private BufferedImage imagen;
 
 	public enum DIRECCION{
 		NORTE,
@@ -50,7 +50,7 @@ public class Elemento implements Movimiento {
 	}
 
 	public boolean colisionaCon(Elemento otro) {
-		return esEnemigo(otro) && hitbox.colisionaCon(otro.hitbox);
+		return esEnemigo(otro) && hitbox.colisionaCon(otro.hitbox) && !destruido;
 	}
 	
 	public void colisiono(Elemento otro) {
@@ -63,10 +63,6 @@ public class Elemento implements Movimiento {
 	
 	public boolean estaDestruido() {
 		return this.destruido;
-	}
-	
-	public int darPuntos() {
-		return 0;
 	}
 	
 	public boolean estaFueraDeRango() {
@@ -122,6 +118,12 @@ public class Elemento implements Movimiento {
 			case SURESTE:
 				moverEnDireccion(dt, dt);
 				break;
+			case ESTE:
+				moverEnDireccion(dt, 0);
+				break;
+			case OESTE:
+				moverEnDireccion(-dt, 0);
+				break;
 			default:
 				break;	
 		}
@@ -159,6 +161,26 @@ public class Elemento implements Movimiento {
 			default:
 				break;	
 		}	
+	}
+	
+	protected void actualizarImagen(int index) {
+		if( index < this.imagenes.length)
+			this.imagen = this.imagenes[index];
+	}
+	
+	public DIRECCION calcularDireccion(Punto2D otroPos) {
+		Punto2D pos = hitbox.getPosicion();
+		int x = (int)(otroPos.getX() - pos.getX());
+		int y = (int)(otroPos.getY() - pos.getY());
+		
+		if(y > 0 && x > 0) 
+			return DIRECCION.SURESTE;
+		if(y > 0 && x < 0)
+			return DIRECCION.SUROESTE;
+		if(y < 0 && x > 0) 
+			return DIRECCION.NORESTE;
+		else
+			return DIRECCION.NOROESTE;
 	}
 
 	@Override

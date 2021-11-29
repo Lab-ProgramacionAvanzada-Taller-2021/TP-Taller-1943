@@ -26,7 +26,10 @@ public class Pantalla extends JPanel{
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D) g;
+		
+		Dimension currentDimension = getRootPane().getSize();
+		g2.scale(currentDimension.getWidth() / Ventana.ANCHO, currentDimension.getHeight() / Ventana.ALTO);
 	
-		ventana.escenario.dibujar(g2);;
+		ventana.escenario.dibujar(g2);
 	}
 }

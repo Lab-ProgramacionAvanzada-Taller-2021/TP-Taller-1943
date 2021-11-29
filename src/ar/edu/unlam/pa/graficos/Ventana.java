@@ -16,7 +16,8 @@ public class Ventana extends JFrame implements Runnable{
 	
 	public static final int ANCHO = 640;
 	public static final int ALTO = 640;
-	private final String RUTA_GRAFICOS = "Recursos/Imagenes/";
+	private final String RUTA_IMAGENES = "Recursos/Imagenes/";
+	private final String RUTA_ANIMACIONES = "Recursos/Animaciones/";
 	
 	private Pantalla pantalla;
 	private Thread hilo;
@@ -30,7 +31,7 @@ public class Ventana extends JFrame implements Runnable{
 		this.pantalla = new Pantalla(this);
 		this.setContentPane(pantalla);
 		
-		setResizable(false);
+		
 		
 		pack();
 		
@@ -38,7 +39,8 @@ public class Ventana extends JFrame implements Runnable{
 	}
 	
 	public void cargar() {
-		Grafico.cargarGraficos(RUTA_GRAFICOS);
+		Grafico.cargarGraficos(RUTA_IMAGENES);
+		Grafico.cargarAnimaciones(RUTA_ANIMACIONES);
 		
 		escenario = new Escenario(this);
 		escenario.iniciar();

@@ -6,6 +6,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import ar.edu.unlam.pa.archivos.LectorArchivos;
@@ -25,6 +26,26 @@ public class Grafico {
 			}else {
 				cargarGraficos(archivo.getPath());
 			}
+		}
+	}
+	
+	public static void cargarAnimaciones(String path) {
+		File directorio = new File(path);
+		int index = 0;
+		BufferedImage[] imagenes = new BufferedImage[(int)directorio.length()];
+		
+		File[] archivos = directorio.listFiles();
+		Arrays.sort(archivos);
+		
+		for(File archivo : archivos) {
+			if (archivo.isFile()) {
+				BufferedImage imagenArchivo = LectorArchivos.leerImagen(archivo);
+				imagenes[index++] = imagenArchivo;
+			}else {
+				cargarAnimaciones(archivo.getPath());
+			}
+			
+			graficos.put(directorio.getName(), imagenes);
 		}
 	}
 	
