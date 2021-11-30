@@ -1,4 +1,4 @@
-package server;
+package ar.edu.unlam.pa.servidor;
 
 //import shared.Ball;
 //import shared.BallList;

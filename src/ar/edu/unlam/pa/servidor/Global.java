@@ -1,4 +1,4 @@
-package server;
+package ar.edu.unlam.pa.servidor;
 
 // TODO add more constants and allow other values for all of them
 // TODO extract to a file

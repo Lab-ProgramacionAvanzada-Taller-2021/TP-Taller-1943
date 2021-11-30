@@ -2,8 +2,8 @@ package ar.edu.unlam.pa.graficos;
 
 import javax.swing.JFrame;
 
+import ar.edu.unlam.pa.cliente.Client;
 import ar.edu.unlam.pa.model.Escenario;
-import client.Client;
 
 public class Ventana extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;

@@ -1,9 +1,8 @@
-package client;
+package ar.edu.unlam.pa.cliente;
 
 import com.google.gson.Gson;
 
-//import shared.BallList;
-import server.NetworkMessage;
+import ar.edu.unlam.pa.servidor.NetworkMessage;
 
 public class ClientProtocol {
 	public static void processInput(String input) {

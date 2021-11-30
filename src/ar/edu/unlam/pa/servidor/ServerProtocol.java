@@ -1,4 +1,4 @@
-package server;
+package ar.edu.unlam.pa.servidor;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

@@ -1,4 +1,4 @@
-package client;
+package ar.edu.unlam.pa.cliente;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.gson.Gson;
 
-import server.NetworkMessage;
-import server.NetworkMessageType;
+import ar.edu.unlam.pa.servidor.NetworkMessage;
+import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
 
 

@@ -1,4 +1,4 @@
-package client;
+package ar.edu.unlam.pa.cliente;
 
 import java.io.BufferedReader;
 import java.io.IOException;

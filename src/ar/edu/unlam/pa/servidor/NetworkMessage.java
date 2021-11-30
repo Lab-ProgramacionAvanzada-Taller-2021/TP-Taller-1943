@@ -1,4 +1,4 @@
-package server;
+package ar.edu.unlam.pa.servidor;
 
 public class NetworkMessage {
 	private long time;

@@ -1,4 +1,4 @@
-package client;
+package ar.edu.unlam.pa.cliente;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,11 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-//import shared.Ball;
-//import shared.BallList;
-//import shared.BallMovementType;
-import server.Global;
-import server.NetworkMessageType;
+import ar.edu.unlam.pa.servidor.Global;
+import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
 public class RunnableGame extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -169,7 +166,7 @@ public class RunnableGame extends JFrame implements Runnable {
 	}
 
 	public void close() {
-		if (JOptionPane.showConfirmDialog(frame, "¿Desea salir del juego?", "¿Salir?", JOptionPane.YES_NO_OPTION,
+		if (JOptionPane.showConfirmDialog(frame, "ï¿½Desea salir del juego?", "ï¿½Salir?", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 			is_running = false;
 		}

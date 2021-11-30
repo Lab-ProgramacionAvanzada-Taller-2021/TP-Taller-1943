@@ -1,4 +1,4 @@
-package server;
+package ar.edu.unlam.pa.servidor;
 
 import java.io.IOException;
 import java.net.ServerSocket;

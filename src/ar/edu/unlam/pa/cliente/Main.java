@@ -1,7 +1,7 @@
-package client;
+package ar.edu.unlam.pa.cliente;
 
 import ar.edu.unlam.pa.graficos.Ventana;
-import server.Global;
+import ar.edu.unlam.pa.servidor.Global;
 
 public class Main {
 
