@@ -20,8 +20,7 @@ public class Animacion extends Elemento{
 			tiempoInteraccion = INTERVALO_ITERACCION;
 			
 			if(index >= this.imagenes.length) 
-				destruir();
-			
+				this.destruir();
 		}else {
 			tiempoInteraccion -= dt;
 		}

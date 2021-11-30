@@ -16,8 +16,6 @@ public class Isla extends Elemento{
 				);
 	}
 	
-	
-	
 	@Override
 	public void actualizar(double dt) {
 		moverEnDireccion(0, dt);

@@ -254,7 +254,9 @@ public class Escenario {
 					break;
 			}
 			
-			agregarElementoCapa1(new Isla());
+			if(nivel % 2 == 0)
+				agregarElementoCapa1(new Isla());
+			
 			agregarElementoCapa2(new Nube());
 			
 			tiempoProximoEnemigo = INTERVALO_CREAR_ENEMIGO / listaJugadores.size();

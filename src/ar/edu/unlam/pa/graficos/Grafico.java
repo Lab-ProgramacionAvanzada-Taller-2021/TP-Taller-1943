@@ -31,11 +31,10 @@ public class Grafico {
 	
 	public static void cargarAnimaciones(String path) {
 		File directorio = new File(path);
-		int index = 0;
-		BufferedImage[] imagenes = new BufferedImage[(int)directorio.length()];
-		
 		File[] archivos = directorio.listFiles();
+		BufferedImage[] imagenes = new BufferedImage[archivos.length];
 		Arrays.sort(archivos);
+		int index = 0;
 		
 		for(File archivo : archivos) {
 			if (archivo.isFile()) {
@@ -61,12 +60,6 @@ public class Grafico {
 		}
 
 		graficos.put(nombre, imagenes);
-		/*
-		ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
-		ColorConvertOp opa = new ColorConvertOp(cs, null);  
-		*/
-		
-		//return op.filter(opa.filter(imagen, null), null);
 	}
 	
 	public static BufferedImage[] obtenerGrafico(String nombre) {
