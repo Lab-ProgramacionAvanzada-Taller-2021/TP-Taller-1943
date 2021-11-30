@@ -3,6 +3,7 @@ package ar.edu.unlam.pa.graficos;
 import javax.swing.JFrame;
 
 import ar.edu.unlam.pa.model.Escenario;
+import client.Client;
 
 public class Ventana extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -19,13 +20,14 @@ public class Ventana extends JFrame implements Runnable{
 	private final String RUTA_IMAGENES = "Recursos/Imagenes/";
 	private final String RUTA_ANIMACIONES = "Recursos/Animaciones/";
 	
+	private Client client;
 	private Pantalla pantalla;
 	private Thread hilo;
 	private boolean enEjecucion;
 	
 	Escenario escenario;
 
-	public Ventana() {
+	public Ventana(Client client) {
 		setTitle("1943 Midway");
 		
 		this.pantalla = new Pantalla(this);
