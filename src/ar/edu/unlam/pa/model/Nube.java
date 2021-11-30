@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 
 public class Nube extends Elemento{
@@ -12,7 +11,7 @@ public class Nube extends Elemento{
 				DIRECCION.SUR,
 				BANDO.NEUTRAL, 
 				VELOCIDAD_MOVIMIENTO, 
-				Grafico.obtenerGrafico("nubes" + (int)(Math.random() * (5-1+1) + 1))
+				"nubes" + (int)(Math.random() * (5-1+1) + 1)
 				);
 	}
 }

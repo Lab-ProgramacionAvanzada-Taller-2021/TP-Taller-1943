@@ -12,12 +12,12 @@ import java.awt.color.ColorSpace;
 
 public class Bala extends Elemento{
 	
-	public Bala(Punto2D posicion, BANDO bando, double velocidad, double radio, DIRECCION direccion, BufferedImage[] imagen) {
+	public Bala(Punto2D posicion, BANDO bando, double velocidad, double radio, DIRECCION direccion, String nombreImagen) {
 		super(new Hitbox(posicion ,radio), 
 				direccion,
 				bando, 
 				velocidad, 
-				imagen
+				nombreImagen
 			);
 		
 		actualizarImagen();

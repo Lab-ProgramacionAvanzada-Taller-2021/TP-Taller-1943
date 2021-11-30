@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
 
 public class BalaEnemiga extends Bala{
 	private static double VELOCIDAD_MOVIMIENTO = 150;
@@ -12,7 +11,7 @@ public class BalaEnemiga extends Bala{
 				VELOCIDAD_MOVIMIENTO, 
 				RADIO_COLISION, 
 				direccion,
-				Grafico.obtenerGrafico("balaEnemiga")
+				"balaEnemiga"
 			);
 	}
 }

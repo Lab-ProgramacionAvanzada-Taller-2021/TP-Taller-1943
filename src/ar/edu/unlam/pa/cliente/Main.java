@@ -10,8 +10,8 @@ public class Main {
 		client.connect();
 		Thread serverListener = new ServerListener(client);
 		serverListener.start();
-		Ventana game = new Ventana(client);
-		game.iniciar();
-		game.run();
+		Ventana juego = new Ventana(client);
+		juego.cargar();
+		juego.iniciar();
 	}
 }

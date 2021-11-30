@@ -6,6 +6,7 @@ import ar.edu.unlam.pa.graficos.Ventana;
 public class AvionEnemigoMedio extends Avion{
 	private static double VELOCIDAD_MOVIMIENTO = 40;
 	private static double RADIO_COLISION = 32;
+	private static String NOMBRE_IMAGEN = "medio";
 	private static double VIDA_MAXIMA = 20;
 	private static int PUNTOS = 100;
 	private static double INTERVALO_DISPARO = 2;
@@ -18,7 +19,7 @@ public class AvionEnemigoMedio extends Avion{
 				BANDO.JAPONES, 
 				VIDA_MAXIMA, 
 				VELOCIDAD_MOVIMIENTO, 
-				Grafico.obtenerGrafico("medio")
+				NOMBRE_IMAGEN
 				);
 		this.escenario = escenario;
 	}
@@ -30,8 +31,7 @@ public class AvionEnemigoMedio extends Avion{
 			this.destruir();
 			
 			escenario.agregarElementoCapa2(new Animacion(new Hitbox(getPosicion(), RADIO_COLISION*2), 
-					VELOCIDAD_MOVIMIENTO,
-					Grafico.obtenerGrafico("Explosion")));
+					VELOCIDAD_MOVIMIENTO));
 			
 			if(elemento instanceof BalaAliada) {
 				 ((BalaAliada) elemento).sumarPuntosAvion(PUNTOS);

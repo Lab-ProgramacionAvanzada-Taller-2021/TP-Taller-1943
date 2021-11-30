@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
 
 public class PowerUp extends Elemento{
 	private static double RADIO_COLISION = 9;
@@ -11,7 +10,7 @@ public class PowerUp extends Elemento{
 				DIRECCION.SUR,
 				BANDO.NEUTRAL, 
 				VELOCIDAD_MOVIMIENTO, 
-				Grafico.obtenerGrafico("powerup")
+				"powerup"
 		);
 	}
 	

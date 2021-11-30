@@ -6,6 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.gson.Gson;
 
+import ar.edu.unlam.pa.model.Escenario;
+import ar.edu.unlam.pa.model.AvionPlayer;
+import ar.edu.unlam.pa.model.Elemento.DIRECCION;
+
 //import shared.Ball;
 //import shared.BallList;
 //import shared.BallMovementType;
@@ -36,7 +40,7 @@ public class ServerProtocol {
 				processPing(caller, message);
 				break;
 			case SNC:
-				processSync(caller, message);
+				//processSync(caller, message);
 				break;
 			}
 		} catch (Exception e) {
@@ -46,12 +50,12 @@ public class ServerProtocol {
 
 	private static void processNew(ServerThread caller, NetworkMessage message) {
 		Server.broadcast((new Gson()).toJson(
-				new NetworkMessage(NetworkMessageType.NEW, caller.id,"hace algo")));
+			new NetworkMessage(NetworkMessageType.NEW, caller.id, message.getMessage())));
 	}
 
 	private static void processMessage(ServerThread caller, NetworkMessage message) {
-		Server.broadcast(
-				(new Gson()).toJson(new NetworkMessage(NetworkMessageType.MSG, caller.id, message.getMessage())));
+		Server.broadcast((new Gson()).toJson(
+			new NetworkMessage(NetworkMessageType.MSG, caller.id, message.getMessage())));
 	}
 
 	// This method generate a delay of 20 ms to balance the movements against high
@@ -63,8 +67,11 @@ public class ServerProtocol {
 //			BallMovementType action = BallMovementType.valueOf((String) message.getMessage());
 //			Ball ball = BallList.getInstance().getBall(caller.id);
 //			ball.doAction(action);
+			DIRECCION direccion = DIRECCION.valueOf((String) message.getMessage());
+			AvionPlayer jugador = Escenario.getInstance().obtenerJugador(caller.id);
+			jugador.cambiarDireccion(direccion);
 			Server.broadcast(
-					(new Gson()).toJson(new NetworkMessage(NetworkMessageType.MOV, caller.id, "zzx")));
+					(new Gson()).toJson(new NetworkMessage(NetworkMessageType.MOV, caller.id, message.getMessage())));
 		};
 
 		executorService.schedule(processMovementDelay, 20, TimeUnit.MILLISECONDS);

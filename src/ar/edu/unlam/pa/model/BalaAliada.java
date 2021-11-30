@@ -13,7 +13,7 @@ public class BalaAliada extends Bala{
 				VELOCIDAD_MOVIMIENTO, 
 				RADIO_COLISION, 
 				direccion,
-				Grafico.obtenerGrafico("balaAliada")
+				"balaAliada"
 			);
 		this.jugador = jugador;
 	}

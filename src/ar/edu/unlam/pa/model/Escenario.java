@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Iterator;
@@ -10,6 +9,7 @@ import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 
 public class Escenario {
+	private static Escenario escenario = null;
 	private final int DESPLAZAMIENTO = 64;
 	private final int VELOCIDAD_Y = 20;
 	private final double INTERVALO_CREAR_ENEMIGO = 10;
@@ -19,38 +19,27 @@ public class Escenario {
 	private LinkedList<Elemento> listaElementosCapa2;
 	private LinkedList<AvionPlayer> listaJugadores;
 	private LinkedList<Elemento> listaElementos;
-	
-	private Ventana ventana;
-	private BufferedImage imagen;
+
 	private double desplazamientoY = 0;
 	private double tiempoProximoEnemigo = INTERVALO_CREAR_ENEMIGO;
 	private double tiempoProximoNivel = INTERVALO_SUBIR_NIVEL;
 	private int maximaPuntuacion = 1_000_000;
 	private int nivel = 1;
 	
-	public Escenario(Ventana ventana) {
+	private Escenario() {
 		listaElementosCapa1 = new LinkedList<Elemento>();
 		listaElementosCapa2 = new LinkedList<Elemento>();
 		listaJugadores = new LinkedList<AvionPlayer>();
 		listaElementos = new LinkedList<Elemento>();
-		
-		this.ventana = ventana;
-		this.imagen = Grafico.obtenerGrafico("oceano")[0];
 	}
 	
-	public void iniciar() {
-		agregarJugador(AvionPlayer.crearJugador1(this));
-		agregarJugador(AvionPlayer.crearJugador2(this));
+	public static Escenario getInstance() {
+		if(escenario == null)
+			escenario = new Escenario();
 		
-		cargarTeclasDeLosJugadores();
+		return escenario;
 	}
 
-	public void cargarTeclasDeLosJugadores() {
-		for(AvionPlayer jugador : listaJugadores) {
-			ventana.addKeyListener(jugador);
-		}
-	}
-	
 	public void agregarElementoCapa1(Elemento elemento) {
 		listaElementosCapa1.add(elemento);
 	}
@@ -73,7 +62,7 @@ public class Escenario {
 	}
 	
 	public synchronized void dibujar(Graphics2D g2) {
-		g2.drawImage(this.imagen, 0, (int)(-DESPLAZAMIENTO+this.desplazamientoY), Ventana.ANCHO, Ventana.ALTO+DESPLAZAMIENTO, null);
+		g2.drawImage(Grafico.obtenerGrafico("oceano")[0], 0, (int)(-DESPLAZAMIENTO+this.desplazamientoY), Ventana.ANCHO, Ventana.ALTO+DESPLAZAMIENTO, null);
 
 		for(Elemento elementoCapa1 : listaElementosCapa1) {
 			elementoCapa1.dibujar(g2);
@@ -115,7 +104,7 @@ public class Escenario {
 
 		subirNivelEscenario(dt);
 		
-		generarEnemigos(dt);
+		//generarEnemigos(dt);
 		
 		for(Elemento elementoCapa1 : listaElementosCapa1) {
 			elementoCapa1.actualizar(dt);
@@ -261,6 +250,44 @@ public class Escenario {
 		}else {
 			tiempoProximoEnemigo -= dt;
 		}
+	}
+	
+	public void agregarUsuario(int id) {
+		switch(id%4) {
+			case 0:
+				agregarJugador(AvionPlayer.crearJugador1(this, id));
+				break;
+			case 1:
+				agregarJugador(AvionPlayer.crearJugador2(this, id));
+				break;
+			case 2:
+				agregarJugador(AvionPlayer.crearJugador3(this, id));
+				break;
+			default:
+				agregarJugador(AvionPlayer.crearJugador4(this, id));
+				break;
+		}
+	}
+	
+	public void eliminarUsuario(int id) {
+		AvionPlayer jugador = obtenerJugador(id);
+		
+		listaJugadores.remove(jugador);
+		listaElementos.remove(jugador);
+	}
+	
+	public AvionPlayer obtenerJugador(int id) {
+		for(AvionPlayer jugador : listaJugadores) {
+			if(id == jugador.getId()) {
+				return jugador;
+			}
+		}
+		
+		return null;
+	}
+	
+	public LinkedList<AvionPlayer> obtenerJugadores(){
+		return listaJugadores;
 	}
 	
 	public Punto2D obtenerPosicionJugadorAleatorio() {

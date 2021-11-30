@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 
 public class Isla extends Elemento{
@@ -12,7 +11,7 @@ public class Isla extends Elemento{
 				DIRECCION.SUR,
 				Elemento.BANDO.NEUTRAL, 
 				VELOCIDAD_MOVIMIENTO, 
-				Grafico.obtenerGrafico("isla" + (int)(Math.random() * (7-1+1) + 1))
+				"isla" + (int)(Math.random() * (7-1+1) + 1)
 				);
 	}
 	

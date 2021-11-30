@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Server extends Thread {
 	private int port;
 	private ServerSocket serverSocket = null;

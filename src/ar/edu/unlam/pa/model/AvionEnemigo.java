@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 
 public class AvionEnemigo extends Avion {
@@ -11,11 +10,12 @@ public class AvionEnemigo extends Avion {
 	private static int PROBABILIDAD_POWERUP = 15;
 	private static double INTERVALO_DISPARO = 2;
 	private double tiempoDisparo = INTERVALO_DISPARO - 1;
+	private static String NOMBRE_IMAGEN = "chico";
 	private Escenario escenario;
 
 	public AvionEnemigo(Escenario escenario, double x, double y, DIRECCION direccion) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), direccion, BANDO.JAPONES, VIDA_MAXIMA, 
-				VELOCIDAD_MOVIMIENTO, Grafico.obtenerGrafico("chico"));
+				VELOCIDAD_MOVIMIENTO, NOMBRE_IMAGEN);
 		this.escenario = escenario;
 	}
 	
@@ -47,8 +47,7 @@ public class AvionEnemigo extends Avion {
 			this.destruir();
 			
 			escenario.agregarElementoCapa2(new Animacion(new Hitbox(getPosicion(), RADIO_COLISION*2), 
-					VELOCIDAD_MOVIMIENTO,
-					Grafico.obtenerGrafico("Explosion")));
+					VELOCIDAD_MOVIMIENTO));
 			
 			if(otro instanceof BalaAliada) {
 				((BalaAliada) otro).sumarPuntosAvion(PUNTOS);

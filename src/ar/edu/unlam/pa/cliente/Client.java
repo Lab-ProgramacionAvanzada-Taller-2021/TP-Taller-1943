@@ -13,8 +13,6 @@ import com.google.gson.Gson;
 import ar.edu.unlam.pa.servidor.NetworkMessage;
 import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
-
-
 public class Client {
 	private static Client INSTANCE = null;
 

@@ -1,7 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-
-import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 
 public class AvionEnemigoJefe extends Avion{
@@ -10,6 +8,7 @@ public class AvionEnemigoJefe extends Avion{
 	private static double VIDA_MAXIMA = 2000;
 	private static int PUNTOS = 10000;
 	private static int INTERVALO_MOVIMIENTO = 10;
+	private static String NOMBRE_IMAGEN = "jefe";
 	private double intervaloDisparo = 0.5;
 	private double tiempoMovimiento = INTERVALO_MOVIMIENTO/2;
 	private double tiempoDisparo = intervaloDisparo;
@@ -22,7 +21,7 @@ public class AvionEnemigoJefe extends Avion{
 				BANDO.JAPONES, 
 				VIDA_MAXIMA, 
 				VELOCIDAD_MOVIMIENTO, 
-				Grafico.obtenerGrafico("jefe")
+				NOMBRE_IMAGEN
 				);
 		this.escenario = escenario;
 	}
@@ -69,8 +68,7 @@ public class AvionEnemigoJefe extends Avion{
 			this.destruir();
 		
 			escenario.agregarElementoCapa2(new Animacion(new Hitbox(getPosicion(), RADIO_COLISION*2), 
-				VELOCIDAD_MOVIMIENTO,
-				Grafico.obtenerGrafico("Explosion")));
+				VELOCIDAD_MOVIMIENTO));
 			
 			if(elemento instanceof BalaAliada) {
 				 ((BalaAliada) elemento).sumarPuntosAvion(PUNTOS);

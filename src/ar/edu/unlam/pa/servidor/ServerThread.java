@@ -8,6 +8,9 @@ import java.net.Socket;
 
 import com.google.gson.Gson;
 
+import ar.edu.unlam.pa.model.AvionPlayer;
+import ar.edu.unlam.pa.model.Escenario;
+
 //import shared.BallList;
 //import shared.NetworkMessage;
 //import shared.NetworkMessageType;
@@ -23,6 +26,10 @@ public class ServerThread extends Thread {
 			this.output = new PrintWriter(clientSocket.getOutputStream(), true);
 			this.id = id;
 			this.send("" + id);
+			Escenario.getInstance().agregarUsuario(id);
+			for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) {
+				this.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.NEW, jugador.getId(), jugador.getInfo())));
+			}
 //			BallList.getInstance().getHashBalls().forEach((ballId, ball) -> {
 //				this.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.NEW, ballId, ball.getInfo())));
 //			});
@@ -62,7 +69,7 @@ public class ServerThread extends Thread {
 
 	public void close() {
 		this.interrupt();
-//		BallList.getInstance().destroyBall(id);
+		Escenario.getInstance().eliminarUsuario(id);
 		Server.broadcast((new Gson()).toJson(new NetworkMessage(NetworkMessageType.BYE, id)));
 	}
 }

@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import ar.edu.unlam.pa.cliente.Client;
 import ar.edu.unlam.pa.model.Escenario;
+import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
 public class Ventana extends JFrame implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -20,32 +21,40 @@ public class Ventana extends JFrame implements Runnable{
 	private final String RUTA_IMAGENES = "Recursos/Imagenes/";
 	private final String RUTA_ANIMACIONES = "Recursos/Animaciones/";
 	
-	private Client client;
+	public Client client;
 	private Pantalla pantalla;
 	private Thread hilo;
 	private boolean enEjecucion;
 	
-	Escenario escenario;
+	public Escenario escenario;
 
 	public Ventana(Client client) {
+		this.client = client;
 		setTitle("1943 Midway");
 		
 		this.pantalla = new Pantalla(this);
 		this.setContentPane(pantalla);
 		
-		
-		
 		pack();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				cerrar();
+				dispose();
+			}
+		});
 	}
 	
 	public void cargar() {
 		Grafico.cargarGraficos(RUTA_IMAGENES);
 		Grafico.cargarAnimaciones(RUTA_ANIMACIONES);
 		
-		escenario = new Escenario(this);
-		escenario.iniciar();
+		escenario = Escenario.getInstance();
+		//escenario.iniciar();
+		//escenario.cargarTeclasDeLosJugadores(this);
 		
 		iniciar();
 		
@@ -70,6 +79,9 @@ public class Ventana extends JFrame implements Runnable{
 				dibujar();
 			}
 		}
+		
+		client.send(NetworkMessageType.BYE);
+		System.exit(0);
 	}
 	
 	public void iniciar() {
@@ -78,8 +90,8 @@ public class Ventana extends JFrame implements Runnable{
 		this.enEjecucion = true;
 	}
 	
-	public void parar() {
-		this.enEjecucion = false;
+	public void cerrar() {
+		enEjecucion = false;
 	}
 	
 	public void dibujar() {

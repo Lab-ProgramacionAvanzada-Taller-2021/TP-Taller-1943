@@ -1,16 +1,15 @@
 package ar.edu.unlam.pa.model;
 
-import java.awt.image.BufferedImage;
+import ar.edu.unlam.pa.graficos.Grafico;
 
 public class Animacion extends Elemento{
-	private BufferedImage[] imagenes;
+	private static String NOMBRE_IMAGEN = "Explosion"; //Temporal
 	private int index = 0;
 	private static double INTERVALO_ITERACCION = 0.001;
 	private double tiempoInteraccion = INTERVALO_ITERACCION;
 
-	public Animacion(Hitbox hitbox,  double velocidad, BufferedImage[] imagenes){
-		super(hitbox, DIRECCION.SUR, BANDO.JAPONES, velocidad, imagenes);
-		this.imagenes = imagenes;
+	public Animacion(Hitbox hitbox,  double velocidad){
+		super(hitbox, DIRECCION.SUR, BANDO.JAPONES, velocidad, NOMBRE_IMAGEN);
 	}
 
 	@Override
@@ -19,7 +18,7 @@ public class Animacion extends Elemento{
 			actualizarImagen(++index);
 			tiempoInteraccion = INTERVALO_ITERACCION;
 			
-			if(index >= this.imagenes.length) 
+			if(index >= Grafico.obtenerGrafico(nombreImagen).length) 
 				destruir();
 			
 		}else {

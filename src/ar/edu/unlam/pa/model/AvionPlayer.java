@@ -3,17 +3,17 @@ package ar.edu.unlam.pa.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import ar.edu.unlam.pa.graficos.Grafico;
+import ar.edu.unlam.pa.cliente.Client;
 import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
+import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
 public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener {
 	private static double RADIO_COLISION = 16;
@@ -24,29 +24,37 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 	private EstadoAvion estado = new AvionNormal();
 	private Escenario escenario;
 	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
-	private int[] teclasPrediseniadas;
 	private int nroJugador = 1;
+	private int id;
 	private int puntos = 0;
 	private double tiempoDisparo = -1;
 
-	public AvionPlayer(Escenario escenario, int nroJugador, double x, double y, int[] teclas, BufferedImage[] imagen) {
-		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), DIRECCION.NORTE, BANDO.AMERICANO, VIDA_MAXIMA, 
-				VELOCIDAD_MOVIMIENTO, imagen);
+	public AvionPlayer(Escenario escenario, int nroJugador, int id, double x, double y, String nombreImagen) {
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), DIRECCION.CENTRO, BANDO.AMERICANO, VIDA_MAXIMA, 
+				VELOCIDAD_MOVIMIENTO, nombreImagen);
 		this.escenario = escenario;
 		this.nroJugador = nroJugador;
-		this.teclasPrediseniadas = teclas;
+		this.id = id;
 	}
 	
-	public static AvionPlayer crearJugador1(Escenario escenario) {
-		return new AvionPlayer(escenario, 1, Ventana.ANCHO / 2.1, Ventana.ALTO / 1.2, 
-				new int[] {KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_S,  KeyEvent.VK_CONTROL},
-				Grafico.obtenerGrafico("jugador1"));
+	public static AvionPlayer crearJugador1(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 1, id, Ventana.ANCHO / 7, Ventana.ALTO / 1.2, "jugador1");
 	}
 	
-	public static AvionPlayer crearJugador2(Escenario escenario) {
-		return new AvionPlayer(escenario, 2, Ventana.ANCHO / 1.7, Ventana.ALTO / 1.2, 
-				new int[] {KeyEvent.VK_UP , KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN,  KeyEvent.VK_SHIFT},
-				Grafico.obtenerGrafico("jugador2"));
+	public static AvionPlayer crearJugador2(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 2, id, Ventana.ANCHO / 2.7, Ventana.ALTO / 1.2, "jugador2");
+	}
+	
+	public static AvionPlayer crearJugador3(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 3, id, Ventana.ANCHO / 1.7, Ventana.ALTO / 1.2, "jugador3");
+	}
+	
+	public static AvionPlayer crearJugador4(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 4, id, Ventana.ANCHO / 1.2, Ventana.ALTO / 1.2, "jugador4");
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 	
 	@Override
@@ -154,35 +162,46 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		g2.setColor(Color.BLACK);
 		g2.drawRect(16+(ancho*(nroJugador-1)), Ventana.ALTO-32, (int)(ancho/1.2), 16);
 	}
-
+	/*
 	@Override
 	public void actualizar(double dt) {
-		if(teclasPresionadas.contains(teclasPrediseniadas[0])){
-			if(teclasPresionadas.contains(teclasPrediseniadas[1]))
-				moverArribaIzquierda(dt);
-			else if(teclasPresionadas.contains(teclasPrediseniadas[2]))
-				moverArribaDerecha(dt);
+		if(teclasPresionadas.contains(KeyEvent.VK_W)){
+			if(teclasPresionadas.contains(KeyEvent.VK_A))
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NOROESTE);
+				//moverArribaIzquierda(dt);
+			else if(teclasPresionadas.contains(KeyEvent.VK_D))
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NORESTE);
+				//moverArribaDerecha(dt);
 			else
-				moverArriba(dt);
-		}else if(teclasPresionadas.contains(teclasPrediseniadas[3])) {
-			if(teclasPresionadas.contains(teclasPrediseniadas[1]))
-				moverAbajoIzquierda(dt);
-			else if(teclasPresionadas.contains(teclasPrediseniadas[2]))
-				moverAbajoDerecha(dt);
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NORTE);
+				//moverArriba(dt);
+		}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
+			if(teclasPresionadas.contains(KeyEvent.VK_A))
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SUROESTE);
+				//moverAbajoIzquierda(dt);
+			else if(teclasPresionadas.contains(KeyEvent.VK_D))
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SURESTE);
+				//moverAbajoDerecha(dt);
 			else
-				moverAbajo(dt);
-		}else if(teclasPresionadas.contains(teclasPrediseniadas[1])) {
-			moverIzquierda(dt);
-		}else if(teclasPresionadas.contains(teclasPrediseniadas[2])) {
-			moverDerecha(dt);
-		}
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SUR);
+				//moverAbajo(dt);
+		}else if(teclasPresionadas.contains(KeyEvent.VK_A)) {
+			Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.OESTE);
+			//moverIzquierda(dt);
+		}else if(teclasPresionadas.contains(KeyEvent.VK_D)) {
+			Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.ESTE);
+			//moverDerecha(dt);
+		}else
+			Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.CENTRO);
 		
-		if(teclasPresionadas.contains(teclasPrediseniadas[4])) {
+		if(teclasPresionadas.contains(KeyEvent.VK_CONTROL)) {
 			disparar(dt);
 		}
 		
+		super.actualizar(dt);
+		
 		decrementarContadorPowerUP(dt);
-	}
+	}*/
 	
 	@Override
 	public void moverEnDireccion(double desplazamientoX, double desplazamientoY) {
@@ -190,6 +209,8 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 			super.moverEnDireccion(desplazamientoX, desplazamientoY);
 		}	
 	}
+	
+	
 
 	@Override
 	public void keyPressed(KeyEvent e) {

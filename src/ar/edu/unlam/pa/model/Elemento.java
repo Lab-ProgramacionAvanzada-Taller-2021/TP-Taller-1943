@@ -3,6 +3,7 @@ package ar.edu.unlam.pa.model;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.servicios.Movimiento;
 
@@ -12,8 +13,8 @@ public class Elemento implements Movimiento {
 	protected double velocidad;
 	private boolean destruido = false;
 	protected DIRECCION direccion;
-	private BufferedImage[] imagenes;
-	private BufferedImage imagen;
+	protected String nombreImagen;
+	private int index = 0;
 
 	public enum DIRECCION{
 		NORTE,
@@ -23,7 +24,8 @@ public class Elemento implements Movimiento {
 		SUR,
 		SUROESTE,
 		OESTE,
-		NOROESTE
+		NOROESTE,
+		CENTRO
 	}
 	
 	public static enum BANDO{
@@ -32,13 +34,12 @@ public class Elemento implements Movimiento {
 		NEUTRAL
 	}
 
-	public Elemento(Hitbox hitbox, DIRECCION direccion, BANDO bando, double velocidad, BufferedImage[] imagenes) {
+	public Elemento(Hitbox hitbox, DIRECCION direccion, BANDO bando, double velocidad, String nombreImagen) {
 		this.hitbox = hitbox;
 		this.bando = bando;
 		this.velocidad = velocidad;
 		this.direccion = direccion;
-		this.imagenes = imagenes;
-		this.imagen = imagenes[0];
+		this.nombreImagen = nombreImagen;
 	}
 
 	public Punto2D getPosicion() {
@@ -92,7 +93,7 @@ public class Elemento implements Movimiento {
 	}
 
 	public void dibujar(Graphics2D g2) {
-		g2.drawImage(this.imagen, (int)(this.hitbox.getExtremoIzq()), (int)(this.hitbox.getExtremoSup()) , 
+		g2.drawImage(Grafico.obtenerGrafico(nombreImagen)[index], (int)(this.hitbox.getExtremoIzq()), (int)(this.hitbox.getExtremoSup()) , 
 				(int)this.hitbox.getDiametro(), (int)this.hitbox.getDiametro(), null);
 		
 		
@@ -135,37 +136,41 @@ public class Elemento implements Movimiento {
 	protected void actualizarImagen() {
 		switch(direccion) {
 			case NORTE:
-				this.imagen = this.imagenes[0];
+				index = 0;
 				break;
 			case NORESTE:
-				this.imagen = this.imagenes[1];
+				index = 1;
 				break;
 			case ESTE:
-				this.imagen = this.imagenes[2];
+				index = 2;
 				break;
 			case SURESTE:
-				this.imagen = this.imagenes[3];
+				index = 3;
 				break;
 			case SUR:
-				this.imagen = this.imagenes[4];
+				index = 4;
 				break;
 			case SUROESTE:
-				this.imagen = this.imagenes[5];
+				index = 5;
 				break;
 			case OESTE:
-				this.imagen = this.imagenes[6];
+				index = 6;
 				break;
 			case NOROESTE:
-				this.imagen = this.imagenes[7];
+				index = 7;
 				break;
 			default:
 				break;	
 		}	
 	}
 	
+	public void cambiarDireccion(DIRECCION direccion) {
+		this.direccion = direccion;
+	}
+	
 	protected void actualizarImagen(int index) {
-		if( index < this.imagenes.length)
-			this.imagen = this.imagenes[index];
+		if( index < Grafico.obtenerGrafico(nombreImagen).length)
+			this.index = index;
 	}
 	
 	public DIRECCION calcularDireccion(Punto2D otroPos) {
@@ -183,6 +188,16 @@ public class Elemento implements Movimiento {
 			return DIRECCION.NOROESTE;
 	}
 
+	public String getInfo() {
+		return getPosicion().getX() + "|" + getPosicion().getY();
+	}
+
+	public void setInfo(String info) {
+		String[] data = info.split("\\|");
+		Punto2D pos = getPosicion();
+		moverEnDireccion(Double.parseDouble(data[0])-pos.getX(), Double.parseDouble(data[1])-pos.getY());
+	}
+	
 	@Override
 	public String toString() {
 		return "Posicion= " + hitbox + ", bando=" + bando + "]";

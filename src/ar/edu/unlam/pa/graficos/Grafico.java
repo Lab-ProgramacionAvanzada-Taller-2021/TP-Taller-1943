@@ -32,9 +32,9 @@ public class Grafico {
 	public static void cargarAnimaciones(String path) {
 		File directorio = new File(path);
 		int index = 0;
-		BufferedImage[] imagenes = new BufferedImage[(int)directorio.length()];
-		
+	
 		File[] archivos = directorio.listFiles();
+		BufferedImage[] imagenes = new BufferedImage[archivos.length];
 		Arrays.sort(archivos);
 		
 		for(File archivo : archivos) {
