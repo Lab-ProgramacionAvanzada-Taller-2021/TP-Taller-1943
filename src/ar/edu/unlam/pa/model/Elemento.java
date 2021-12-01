@@ -82,6 +82,10 @@ public class Elemento implements Movimiento {
 		return hitbox.puedeMover(desplazamientoX*velocidad, desplazamientoY*velocidad);
 	}
 
+	public void actualizarPosicion(double x, double y) {
+		hitbox.actualizarPunto(x, y);
+	}
+	
 	@Override
 	public void moverEnDireccion(double desplazamientoX, double desplazamientoY) {
 		if(desplazamientoX != 0 && desplazamientoY != 0) {
@@ -194,8 +198,7 @@ public class Elemento implements Movimiento {
 
 	public void setInfo(String info) {
 		String[] data = info.split("\\|");
-		Punto2D pos = getPosicion();
-		moverEnDireccion(Double.parseDouble(data[0])-pos.getX(), Double.parseDouble(data[1])-pos.getY());
+		actualizarPosicion(Double.parseDouble(data[0]), Double.parseDouble(data[1]));
 	}
 	
 	@Override

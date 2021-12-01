@@ -4,7 +4,7 @@ import ar.edu.unlam.pa.model.Escenario;
 
 public class Game {
 	private final long NANO_SECONDS_IN_SECOND = 1_000_000_000;
-	private final long TICKS_PER_SECOND = 120;
+	private final long TICKS_PER_SECOND = 60;
 	private final long NANO_SECONDS_PER_TICK = NANO_SECONDS_IN_SECOND / TICKS_PER_SECOND;
 
 	private long timeStart;

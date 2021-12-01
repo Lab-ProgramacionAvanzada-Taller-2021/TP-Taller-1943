@@ -3,8 +3,10 @@ package ar.edu.unlam.pa.cliente;
 import com.google.gson.Gson;
 
 import ar.edu.unlam.pa.model.Elemento.DIRECCION;
+import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
 import ar.edu.unlam.pa.servidor.NetworkMessage;
+import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
 public class ClientProtocol {
 	public static void processInput(String input) {
@@ -35,9 +37,10 @@ public class ClientProtocol {
 	}
 
 	private static void processNew(NetworkMessage message) {
-		Escenario.getInstance().agregarUsuario(message.getIdClient());
-	//	BallList.getInstance().getBall(message.getIdClient()).setInfo((String) message.getMessage());
-		//System.out.println(message.getIdClient() + ": " + (String) message.getMessage());
+		if((String) message.getMessage() != null)
+			Escenario.getInstance().agregarUsuario(message.getIdClient(), (String) message.getMessage());
+		else
+			Escenario.getInstance().agregarUsuario(message.getIdClient());
 	}
 
 	private static void processMessage(NetworkMessage message) {
@@ -45,8 +48,6 @@ public class ClientProtocol {
 	}
 
 	private static void processMovement(NetworkMessage message) {
-//		BallList.getInstance().getBall(message.getIdClient()).setInfo((String) message.getMessage());
-		
 		Escenario.getInstance().obtenerJugador(message.getIdClient()).cambiarDireccion(DIRECCION.valueOf((String)message.getMessage()));
 	}
 
@@ -55,8 +56,6 @@ public class ClientProtocol {
 	}
 
 	private static void processQuit(NetworkMessage message) {
-//		BallList.getInstance().destroyBall(message.getIdClient());
-//		System.out.println(message.getIdClient() + ": " + (String) message.getMessage());
 		Escenario.getInstance().eliminarUsuario(message.getIdClient());
 	}
 
@@ -65,7 +64,11 @@ public class ClientProtocol {
 	}
 
 	private static void processSync(NetworkMessage message) {
-		Double elapsedTime = (Double) message.getMessage();
-		Client.getInstance().setGameTimeStart(elapsedTime.longValue());
+		AvionPlayer player = Escenario.getInstance().obtenerJugador(message.getIdClient());
+		
+		if(player != null)
+			player.setInfo((String) message.getMessage());
+		//Double elapsedTime = (Double) message.getMessage();
+		//Client.getInstance().setGameTimeStart(elapsedTime.longValue());
 	}
 }

@@ -40,7 +40,7 @@ public class ServerProtocol {
 				processPing(caller, message);
 				break;
 			case SNC:
-				//processSync(caller, message);
+				processSync(caller, message);
 				break;
 			}
 		} catch (Exception e) {
@@ -64,9 +64,6 @@ public class ServerProtocol {
 		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 		Runnable processMovementDelay = () -> {
-//			BallMovementType action = BallMovementType.valueOf((String) message.getMessage());
-//			Ball ball = BallList.getInstance().getBall(caller.id);
-//			ball.doAction(action);
 			DIRECCION direccion = DIRECCION.valueOf((String) message.getMessage());
 			AvionPlayer jugador = Escenario.getInstance().obtenerJugador(caller.id);
 			jugador.cambiarDireccion(direccion);
@@ -91,10 +88,14 @@ public class ServerProtocol {
 	}
 
 	private static void processSync(ServerThread caller, NetworkMessage message) {
+		for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) {
+			Server.broadcast((new Gson()).toJson(new NetworkMessage(NetworkMessageType.SNC, jugador.getId(), jugador.getInfo())));
+		}
+		
 		// This could be used to synchronize everything, such as new players and players
 		// who left the game
-		long gameTime = System.nanoTime() - Server.getGameTimeStart();
-		caller.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.SNC, gameTime)));
+		//long gameTime = System.nanoTime() - Server.getGameTimeStart();
+		//caller.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.SNC, gameTime)));
 	}
 
 }

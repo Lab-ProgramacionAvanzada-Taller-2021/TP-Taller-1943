@@ -2,11 +2,14 @@ package ar.edu.unlam.pa.graficos;
 
 import javax.swing.JFrame;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import ar.edu.unlam.pa.cliente.Client;
+import ar.edu.unlam.pa.model.Elemento.DIRECCION;
 import ar.edu.unlam.pa.model.Escenario;
 import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
-public class Ventana extends JFrame implements Runnable{
+public class Ventana extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	//Constantes_del_GameLoop
@@ -53,8 +56,8 @@ public class Ventana extends JFrame implements Runnable{
 		Grafico.cargarAnimaciones(RUTA_ANIMACIONES);
 		
 		escenario = Escenario.getInstance();
-		//escenario.iniciar();
-		//escenario.cargarTeclasDeLosJugadores(this);
+		
+		addKeyListener(this);
 		
 		iniciar();
 		
@@ -100,5 +103,41 @@ public class Ventana extends JFrame implements Runnable{
 	
 	public void actualizar() {
 		escenario.actualizar(1.0 / TICKS_PER_SECOND);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		switch(arg0.getKeyCode()) {
+			case KeyEvent.VK_A:
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.OESTE);
+				break;
+			case KeyEvent.VK_W:
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NORTE);
+				break;
+			case KeyEvent.VK_D:
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.ESTE);
+				break;
+			case KeyEvent.VK_S:
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SUR);
+				break;
+			default:
+	
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		switch(arg0.getKeyCode()) {
+			default:
+				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.CENTRO);
+				break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

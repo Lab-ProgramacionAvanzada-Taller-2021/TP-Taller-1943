@@ -253,27 +253,40 @@ public class Escenario {
 	}
 	
 	public void agregarUsuario(int id) {
-		switch(id%4) {
+		AvionPlayer jugador = obtenerJugador(id);
+		
+		if( jugador != null)
+			return;
+		
+		switch(listaJugadores.size()) {
 			case 0:
-				agregarJugador(AvionPlayer.crearJugador1(this, id));
+				agregarJugador(AvionPlayer.crearJugador(this, id, 1));
 				break;
 			case 1:
-				agregarJugador(AvionPlayer.crearJugador2(this, id));
+				agregarJugador(AvionPlayer.crearJugador(this, id, 2));
 				break;
 			case 2:
-				agregarJugador(AvionPlayer.crearJugador3(this, id));
+				agregarJugador(AvionPlayer.crearJugador(this, id, 3));
 				break;
 			default:
-				agregarJugador(AvionPlayer.crearJugador4(this, id));
+				agregarJugador(AvionPlayer.crearJugador(this, id, 4));
 				break;
 		}
+	}
+	
+	public void agregarUsuario(int id, String pos) {
+		String[] data = pos.split("\\|");
+		agregarJugador(new AvionPlayer(
+				this, id%4, id, Double.parseDouble(data[0]), Double.parseDouble(data[1]), "jugador"+id%4));
 	}
 	
 	public void eliminarUsuario(int id) {
 		AvionPlayer jugador = obtenerJugador(id);
 		
-		listaJugadores.remove(jugador);
-		listaElementos.remove(jugador);
+		if(jugador != null) {
+			listaJugadores.remove(jugador);
+			listaElementos.remove(jugador);
+		}
 	}
 	
 	public AvionPlayer obtenerJugador(int id) {

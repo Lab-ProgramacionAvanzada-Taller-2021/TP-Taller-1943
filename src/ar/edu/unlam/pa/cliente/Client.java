@@ -41,14 +41,14 @@ public class Client {
 			output = new PrintWriter(client.getOutputStream(), true);
 			input = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			this.id = Integer.parseInt(input.readLine());
-
+/*
 			// Get ping each second
 			ScheduledThreadPoolExecutor executorServicePing = new ScheduledThreadPoolExecutor(1);
 			Runnable processPing = () -> {
 				askPing();
 			};
 			executorServicePing.scheduleWithFixedDelay(processPing, 0, 1, TimeUnit.SECONDS);
-
+*/
 			// Get sync every ten seconds
 			ScheduledThreadPoolExecutor executorServiceSync = new ScheduledThreadPoolExecutor(1);
 			Runnable processSync = () -> {

@@ -8,12 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import ar.edu.unlam.pa.cliente.Client;
 import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
-import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
 public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener {
 	private static double RADIO_COLISION = 16;
@@ -37,20 +35,8 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		this.id = id;
 	}
 	
-	public static AvionPlayer crearJugador1(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 1, id, Ventana.ANCHO / 7, Ventana.ALTO / 1.2, "jugador1");
-	}
-	
-	public static AvionPlayer crearJugador2(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 2, id, Ventana.ANCHO / 2.7, Ventana.ALTO / 1.2, "jugador2");
-	}
-	
-	public static AvionPlayer crearJugador3(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 3, id, Ventana.ANCHO / 1.7, Ventana.ALTO / 1.2, "jugador3");
-	}
-	
-	public static AvionPlayer crearJugador4(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 4, id, Ventana.ANCHO / 1.2, Ventana.ALTO / 1.2, "jugador4");
+	public static AvionPlayer crearJugador(Escenario escenario, int id, int num) {
+		return new AvionPlayer(escenario, num, id, Ventana.ANCHO / 7, Ventana.ALTO / 1.2, "jugador" + num);
 	}
 	
 	public int getId() {
@@ -162,9 +148,10 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		g2.setColor(Color.BLACK);
 		g2.drawRect(16+(ancho*(nroJugador-1)), Ventana.ALTO-32, (int)(ancho/1.2), 16);
 	}
-	/*
+	
 	@Override
 	public void actualizar(double dt) {
+		/*
 		if(teclasPresionadas.contains(KeyEvent.VK_W)){
 			if(teclasPresionadas.contains(KeyEvent.VK_A))
 				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NOROESTE);
@@ -197,11 +184,11 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		if(teclasPresionadas.contains(KeyEvent.VK_CONTROL)) {
 			disparar(dt);
 		}
-		
+		*/
 		super.actualizar(dt);
 		
 		decrementarContadorPowerUP(dt);
-	}*/
+	}
 	
 	@Override
 	public void moverEnDireccion(double desplazamientoX, double desplazamientoY) {

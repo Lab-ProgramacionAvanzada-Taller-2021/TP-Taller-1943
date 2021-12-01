@@ -81,5 +81,8 @@ public class Hitbox {
 		this.posicion.desplazar(desplazamientoX, desplazamientoY);
 	}
 	
-
+	public void actualizarPunto(double x, double y) {
+		this.posicion.setX(x);
+		this.posicion.setY(y);
+	}
 }

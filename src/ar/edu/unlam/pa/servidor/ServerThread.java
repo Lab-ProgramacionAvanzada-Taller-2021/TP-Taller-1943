@@ -30,10 +30,6 @@ public class ServerThread extends Thread {
 			for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) {
 				this.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.NEW, jugador.getId(), jugador.getInfo())));
 			}
-//			BallList.getInstance().getHashBalls().forEach((ballId, ball) -> {
-//				this.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.NEW, ballId, ball.getInfo())));
-//			});
-
 		} catch (IOException e) {
 			System.out.println("Se desconecto el cliente " + this.id + " cuando estaba iniciando");
 			e.printStackTrace();
