@@ -4,10 +4,10 @@ import javax.swing.JFrame;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import ar.edu.unlam.pa.cliente.Client;
+import ar.edu.unlam.pa.cliente.Cliente;
+import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.Elemento.DIRECCION;
 import ar.edu.unlam.pa.model.Escenario;
-import ar.edu.unlam.pa.servidor.NetworkMessageType;
 
 public class Ventana extends JFrame implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
@@ -16,7 +16,7 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 	private final int SECOND = 1000;
 	private final int FRAMES_PER_SECOND = 60;
 	private final int SKIP_FRAMES = SECOND / FRAMES_PER_SECOND;
-	private final int TICKS_PER_SECOND = 60;
+	private final int TICKS_PER_SECOND = 500;
 	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	
 	public static final int ANCHO = 640;
@@ -24,14 +24,13 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 	private final String RUTA_IMAGENES = "Recursos/Imagenes/";
 	private final String RUTA_ANIMACIONES = "Recursos/Animaciones/";
 	
-	public Client client;
+	public Cliente client;
 	private Pantalla pantalla;
-	private Thread hilo;
 	private boolean enEjecucion;
 	
 	public Escenario escenario;
 
-	public Ventana(Client client) {
+	public Ventana(Cliente client) {
 		this.client = client;
 		setTitle("1943 Midway");
 		
@@ -59,7 +58,7 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 		
 		addKeyListener(this);
 		
-		iniciar();
+		this.enEjecucion = true;
 		
 		setVisible(true);
 		setFocusable(true);
@@ -75,7 +74,7 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 		while (enEjecucion) {
 			if (System.currentTimeMillis() > next_game_tick) {
 				next_game_tick += SKIP_TICKS;
-				actualizar();
+				actualizar(1.0 / TICKS_PER_SECOND);
 			}
 			if (System.currentTimeMillis() > next_game_frame) {
 				next_game_frame += SKIP_FRAMES;
@@ -83,14 +82,8 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 			}
 		}
 		
-		client.send(NetworkMessageType.BYE);
+		client.send(TipoMensaje.BYE);
 		System.exit(0);
-	}
-	
-	public void iniciar() {
-		this.hilo = new Thread(this);
-		this.hilo.start();
-		this.enEjecucion = true;
 	}
 	
 	public void cerrar() {
@@ -101,25 +94,27 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 		pantalla.repaint();
 	}
 	
-	public void actualizar() {
-		escenario.actualizar(1.0 / TICKS_PER_SECOND);
+	public void actualizar(double dt) {
+		escenario.actualizar(dt);
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		switch(arg0.getKeyCode()) {
+	public void keyPressed(KeyEvent e) {
+		switch(e.getKeyCode()) {
 			case KeyEvent.VK_A:
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.OESTE);
+				client.send(TipoMensaje.MOV, DIRECCION.OESTE);
 				break;
 			case KeyEvent.VK_W:
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NORTE);
+				client.send(TipoMensaje.MOV, DIRECCION.NORTE);
 				break;
 			case KeyEvent.VK_D:
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.ESTE);
+				client.send(TipoMensaje.MOV, DIRECCION.ESTE);
 				break;
 			case KeyEvent.VK_S:
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SUR);
+				client.send(TipoMensaje.MOV, DIRECCION.SUR);
 				break;
+			case KeyEvent.VK_CONTROL:
+				
 			default:
 	
 		}
@@ -127,10 +122,10 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		switch(arg0.getKeyCode()) {
+	public void keyReleased(KeyEvent e) {
+		switch(e.getKeyCode()) {
 			default:
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.CENTRO);
+				client.send(TipoMensaje.MOV, DIRECCION.CENTRO);
 				break;
 		}
 	}

@@ -12,7 +12,7 @@ public class MovimientoAvionPlayerTest {
 
 	@Before
 	public void setUp() {
-		e1 = new AvionPlayer(null, 1, 300.00, 300.00, null, null);
+		e1 = new AvionPlayer(null, 1, 1, 300.00, 300.00, "jugador1");
 	}
 
 	@Test

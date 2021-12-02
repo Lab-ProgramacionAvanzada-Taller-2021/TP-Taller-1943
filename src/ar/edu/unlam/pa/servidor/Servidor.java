@@ -7,20 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Server extends Thread {
-	private int port;
+public class Servidor extends Thread {
+	private static final short PUERTO = 7900;
 	private ServerSocket serverSocket = null;
 	private static List<ServerThread> serverThreads;
-	private static Game game;
+	private static GameLoopServidor game;
 
-	public Server(int port) {
-		this.port = port;
+	public Servidor() {
 		serverThreads = new ArrayList<>();
 	}
 
 	public void run() {
 		try {
-			serverSocket = new ServerSocket(this.port);
+			serverSocket = new ServerSocket(PUERTO);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -61,9 +60,9 @@ public class Server extends Thread {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		Server server = new Server(Global.PORT);
+		Servidor server = new Servidor();
 		server.start();
-		game = new Game();
+		game = new GameLoopServidor();
 		game.run();
 	}
 }

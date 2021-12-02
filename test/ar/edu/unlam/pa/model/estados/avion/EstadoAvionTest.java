@@ -14,7 +14,7 @@ public class EstadoAvionTest {
 
 	@Before
 	public void Arrage() {
-		avion = AvionPlayer.crearJugador1(null);
+		avion = AvionPlayer.crearJugador1(null, 1);
 	}
 
 	@Test

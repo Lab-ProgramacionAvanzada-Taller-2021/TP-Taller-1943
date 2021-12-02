@@ -7,19 +7,17 @@ import java.util.concurrent.TimeUnit;
 import com.google.gson.Gson;
 
 import ar.edu.unlam.pa.model.Escenario;
+import ar.edu.unlam.pa.compartido.Mensaje;
+import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Elemento.DIRECCION;
 
-//import shared.Ball;
-//import shared.BallList;
-//import shared.BallMovementType;
-//import shared.NetworkMessage;
-//import shared.NetworkMessageType;
 
-public class ServerProtocol {
+
+public class ProtocoloServidor {
 	public static void processInput(ServerThread caller, String input) {
 		try {
-			NetworkMessage message = (new Gson()).fromJson(input, NetworkMessage.class);
+			Mensaje message = (new Gson()).fromJson(input, Mensaje.class);
 			switch (message.getType()) {
 			case NEW:
 				processNew(caller, message);
@@ -48,48 +46,55 @@ public class ServerProtocol {
 		}
 	}
 
-	private static void processNew(ServerThread caller, NetworkMessage message) {
-		Server.broadcast((new Gson()).toJson(
-			new NetworkMessage(NetworkMessageType.NEW, caller.id, message.getMessage())));
+	private static void processNew(ServerThread caller, Mensaje message) {
+		Escenario.getInstance().agregarUsuario(caller.id);
+		
+		for(AvionPlayer jugador : Escenario.getInstance().obtenerJugadores())
+			Servidor.broadcast((new Gson()).toJson(
+					new Mensaje(TipoMensaje.NEW, jugador.getId(), jugador.getNroJugador())));
+		
+		
+		/*Servidor.broadcast((new Gson()).toJson(
+			new Mensaje(TipoMensaje.NEW, caller.id, message.getMessage())));*/
 	}
 
-	private static void processMessage(ServerThread caller, NetworkMessage message) {
-		Server.broadcast((new Gson()).toJson(
-			new NetworkMessage(NetworkMessageType.MSG, caller.id, message.getMessage())));
+	private static void processMessage(ServerThread caller, Mensaje message) {
+		Servidor.broadcast((new Gson()).toJson(
+			new Mensaje(TipoMensaje.MSG, caller.id, message.getMessage())));
 	}
 
 	// This method generate a delay of 20 ms to balance the movements against high
 	// values of ping
-	private static void processMovement(ServerThread caller, NetworkMessage message) {
+	private static void processMovement(ServerThread caller, Mensaje message) {
 		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 		Runnable processMovementDelay = () -> {
 			DIRECCION direccion = DIRECCION.valueOf((String) message.getMessage());
 			AvionPlayer jugador = Escenario.getInstance().obtenerJugador(caller.id);
 			jugador.cambiarDireccion(direccion);
-			Server.broadcast(
-					(new Gson()).toJson(new NetworkMessage(NetworkMessageType.MOV, caller.id, message.getMessage())));
+			Servidor.broadcast(
+					(new Gson()).toJson(new Mensaje(TipoMensaje.MOV, caller.id, message.getMessage())));
 		};
 
-		executorService.schedule(processMovementDelay, 20, TimeUnit.MILLISECONDS);
+		executorService.schedule(processMovementDelay, 10, TimeUnit.MILLISECONDS);
 		executorService.shutdown();
 	}
 
-	private static void processPause(ServerThread caller, NetworkMessage message) {
+	private static void processPause(ServerThread caller, Mensaje message) {
 		// TODO Game pause
 	}
 
-	private static void processQuit(ServerThread caller, NetworkMessage message) {
+	private static void processQuit(ServerThread caller, Mensaje message) {
 		caller.close();
 	}
 
-	private static void processPing(ServerThread caller, NetworkMessage message) {
-		caller.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.PNG)));
+	private static void processPing(ServerThread caller, Mensaje message) {
+		caller.send((new Gson()).toJson(new Mensaje(TipoMensaje.PNG)));
 	}
 
-	private static void processSync(ServerThread caller, NetworkMessage message) {
+	private static void processSync(ServerThread caller, Mensaje message) {
 		for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) {
-			Server.broadcast((new Gson()).toJson(new NetworkMessage(NetworkMessageType.SNC, jugador.getId(), jugador.getInfo())));
+			Servidor.broadcast((new Gson()).toJson(new Mensaje(TipoMensaje.SNC, jugador.getId(), jugador.getInfo())));
 		}
 		
 		// This could be used to synchronize everything, such as new players and players

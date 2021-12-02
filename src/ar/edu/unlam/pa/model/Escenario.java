@@ -253,23 +253,18 @@ public class Escenario {
 	}
 	
 	public void agregarUsuario(int id) {
-		AvionPlayer jugador = obtenerJugador(id);
-		
-		if( jugador != null)
-			return;
-		
 		switch(listaJugadores.size()) {
 			case 0:
-				agregarJugador(AvionPlayer.crearJugador(this, id, 1));
+				agregarJugador(AvionPlayer.crearJugador1(this, id));
 				break;
 			case 1:
-				agregarJugador(AvionPlayer.crearJugador(this, id, 2));
+				agregarJugador(AvionPlayer.crearJugador2(this, id));
 				break;
 			case 2:
-				agregarJugador(AvionPlayer.crearJugador(this, id, 3));
+				agregarJugador(AvionPlayer.crearJugador3(this, id));
 				break;
 			default:
-				agregarJugador(AvionPlayer.crearJugador(this, id, 4));
+				agregarJugador(AvionPlayer.crearJugador4(this, id));
 				break;
 		}
 	}

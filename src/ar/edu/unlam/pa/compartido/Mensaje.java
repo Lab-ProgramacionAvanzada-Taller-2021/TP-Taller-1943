@@ -1,31 +1,31 @@
-package ar.edu.unlam.pa.servidor;
+package ar.edu.unlam.pa.compartido;
 
-public class NetworkMessage {
+public class Mensaje {
 	private long time;
-	private NetworkMessageType type;
+	private TipoMensaje type;
 	private int idClient;
 	private Object message;
 
-	public NetworkMessage(NetworkMessageType type, int idClient, Object message) {
+	public Mensaje(TipoMensaje type, int idClient, Object message) {
 		this.time = System.nanoTime();
 		this.type = type;
 		this.idClient = idClient;
 		this.message = message;
 	}
 
-	public NetworkMessage(NetworkMessageType type, Object message) {
+	public Mensaje(TipoMensaje type, Object message) {
 		this(type, 0, message);
 	}
 
-	public NetworkMessage(NetworkMessageType type, int idClient) {
+	public Mensaje(TipoMensaje type, int idClient) {
 		this(type, idClient, null);
 	}
 
-	public NetworkMessage(NetworkMessageType type) {
+	public Mensaje(TipoMensaje type) {
 		this(type, 0, null);
 	}
 
-	public NetworkMessageType getType() {
+	public TipoMensaje getType() {
 		return type;
 	}
 
@@ -37,7 +37,7 @@ public class NetworkMessage {
 		this.time = time;
 	}
 
-	public void setType(NetworkMessageType type) {
+	public void setType(TipoMensaje type) {
 		this.type = type;
 	}
 

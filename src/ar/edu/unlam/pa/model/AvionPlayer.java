@@ -7,13 +7,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
 
-public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener {
+public class AvionPlayer extends Avion implements MovimientoPlayer {
 	private static double RADIO_COLISION = 16;
 	private static double VIDA_MAXIMA = 100;
 	private static double VELOCIDAD_MOVIMIENTO = 180;
@@ -35,12 +36,32 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		this.id = id;
 	}
 	
-	public static AvionPlayer crearJugador(Escenario escenario, int id, int num) {
-		return new AvionPlayer(escenario, num, id, Ventana.ANCHO / 7, Ventana.ALTO / 1.2, "jugador" + num);
+	public static AvionPlayer crearJugador1(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 1, id,Ventana.ANCHO / 1.3, Ventana.ALTO / 1.2, 
+				"jugador1");
+	}
+	
+	public static AvionPlayer crearJugador2(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 2, id,Ventana.ANCHO / 2.1, Ventana.ALTO / 1.2, 
+				"jugador2");
+	}
+	
+	public static AvionPlayer crearJugador3(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 3, id,Ventana.ANCHO / 2.9, Ventana.ALTO / 1.2, 
+				"jugador3");
+	}
+	
+	public static AvionPlayer crearJugador4(Escenario escenario, int id) {
+		return new AvionPlayer(escenario, 4, id,Ventana.ANCHO / 3.7, Ventana.ALTO / 1.2, 
+				"jugador4");
 	}
 	
 	public int getId() {
 		return this.id;
+	}
+	
+	public int getNroJugador() {
+		return this.nroJugador;
 	}
 	
 	@Override
@@ -195,24 +216,5 @@ public class AvionPlayer extends Avion implements MovimientoPlayer, KeyListener 
 		if(puedeMoverEnDireccion(desplazamientoX, desplazamientoY)){
 			super.moverEnDireccion(desplazamientoX, desplazamientoY);
 		}	
-	}
-	
-	
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		teclasPresionadas.add(e.getKeyCode());
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		teclasPresionadas.remove(e.getKeyCode());
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

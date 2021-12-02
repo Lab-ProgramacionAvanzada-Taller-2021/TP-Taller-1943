@@ -1,13 +1,14 @@
 package ar.edu.unlam.pa.model;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.servicios.Movimiento;
 
-public class Elemento implements Movimiento {
+public class Elemento implements Movimiento, Serializable {
+	private static final long serialVersionUID = 1L;
 	private Hitbox hitbox;
 	private BANDO bando;
 	protected double velocidad;
@@ -93,7 +94,7 @@ public class Elemento implements Movimiento {
 			desplazamientoY *= Movimiento.DESPLAZAMIENTO_DIAGONAL;
 		}
 		
-		hitbox.moverPunto(desplazamientoX*velocidad, desplazamientoY*velocidad);
+		hitbox.moverPunto(desplazamientoX*velocidad*2, desplazamientoY*velocidad*2);
 	}
 
 	public void dibujar(Graphics2D g2) {

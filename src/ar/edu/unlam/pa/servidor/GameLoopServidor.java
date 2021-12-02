@@ -2,18 +2,12 @@ package ar.edu.unlam.pa.servidor;
 
 import ar.edu.unlam.pa.model.Escenario;
 
-public class Game {
+public class GameLoopServidor {
 	private final long NANO_SECONDS_IN_SECOND = 1_000_000_000;
-	private final long TICKS_PER_SECOND = 60;
+	private final long TICKS_PER_SECOND = 2000;
 	private final long NANO_SECONDS_PER_TICK = NANO_SECONDS_IN_SECOND / TICKS_PER_SECOND;
 
 	private long timeStart;
-	
-	private Escenario escenario;
-	
-	public Game() {
-		escenario = Escenario.getInstance();
-	}
 
 	public void run() {
 		timeStart = System.nanoTime();
@@ -23,13 +17,13 @@ public class Game {
 		while (true) {
 			if (System.nanoTime() > next_game_tick) {
 				next_game_tick += NANO_SECONDS_PER_TICK;
-				actualizar(next_game_tick);
+				actualizar(1.0 / TICKS_PER_SECOND);
 			}
 		}
 	}
 
-	public void actualizar(double deltaTime) {
-		escenario.actualizar(1.0 / TICKS_PER_SECOND);
+	public void actualizar(double dt) {
+		Escenario.getInstance().actualizar(dt);
 	}
 
 	public long getTimeStart() {

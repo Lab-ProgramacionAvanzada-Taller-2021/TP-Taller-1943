@@ -6,7 +6,7 @@ import java.io.IOException;
 public class ServerListener extends Thread {
 	private BufferedReader inputClient;
 
-	public ServerListener(Client client) {
+	public ServerListener(Cliente client) {
 		try {
 			inputClient = client.getBufferedReader();
 		} catch (IOException e) {
@@ -18,7 +18,7 @@ public class ServerListener extends Thread {
 		try {
 			String input;
 			while ((input = inputClient.readLine()) != null) {
-				ClientProtocol.processInput(input);
+				ProtocoloCliente.processInput(input);
 			}
 		} catch (Exception ex) {
 			System.out.println("Fallo al recibir del servidor");

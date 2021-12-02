@@ -8,6 +8,8 @@ import java.net.Socket;
 
 import com.google.gson.Gson;
 
+import ar.edu.unlam.pa.compartido.Mensaje;
+import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
 
@@ -26,10 +28,10 @@ public class ServerThread extends Thread {
 			this.output = new PrintWriter(clientSocket.getOutputStream(), true);
 			this.id = id;
 			this.send("" + id);
-			Escenario.getInstance().agregarUsuario(id);
+			/*Escenario.getInstance().agregarUsuario(id);
 			for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) {
-				this.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.NEW, jugador.getId(), jugador.getInfo())));
-			}
+				this.send((new Gson()).toJson(new Mensaje(TipoMensaje.NEW, jugador.getId(), jugador.getInfo())));
+			}*/
 		} catch (IOException e) {
 			System.out.println("Se desconecto el cliente " + this.id + " cuando estaba iniciando");
 			e.printStackTrace();
@@ -42,7 +44,7 @@ public class ServerThread extends Thread {
 		try {
 			String inputLine;
 			while ((inputLine = input.readLine()) != null) {
-				ServerProtocol.processInput(this, inputLine);
+				ProtocoloServidor.processInput(this, inputLine);
 			}
 		} catch (IOException e) {
 			if (!this.isInterrupted()) {
@@ -66,6 +68,6 @@ public class ServerThread extends Thread {
 	public void close() {
 		this.interrupt();
 		Escenario.getInstance().eliminarUsuario(id);
-		Server.broadcast((new Gson()).toJson(new NetworkMessage(NetworkMessageType.BYE, id)));
+		Servidor.broadcast((new Gson()).toJson(new Mensaje(TipoMensaje.BYE, id)));
 	}
 }
