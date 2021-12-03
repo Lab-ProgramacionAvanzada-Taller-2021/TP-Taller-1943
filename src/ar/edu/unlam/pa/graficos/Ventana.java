@@ -110,28 +110,8 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 		else {
 			teclasPresionadas.add(e.getKeyCode());
 			
-			if(teclasPresionadas.contains(KeyEvent.VK_W)){
-				if(teclasPresionadas.contains(KeyEvent.VK_A))
-					client.send(TipoMensaje.MOV, DIRECCION.NOROESTE);
-				else if(teclasPresionadas.contains(KeyEvent.VK_D))
-					client.send(TipoMensaje.MOV, DIRECCION.NORESTE);
-				else
-					client.send(TipoMensaje.MOV, DIRECCION.NORTE);
-			}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
-				if(teclasPresionadas.contains(KeyEvent.VK_A))
-					client.send(TipoMensaje.MOV, DIRECCION.SUROESTE);
-				else if(teclasPresionadas.contains(KeyEvent.VK_D))
-					client.send(TipoMensaje.MOV, DIRECCION.SURESTE);
-				else
-					client.send(TipoMensaje.MOV, DIRECCION.SUR);
-			}else if(teclasPresionadas.contains(KeyEvent.VK_A)) {
-				client.send(TipoMensaje.MOV, DIRECCION.OESTE);
-			}else if(teclasPresionadas.contains(KeyEvent.VK_D)) {
-				client.send(TipoMensaje.MOV, DIRECCION.ESTE);
-			}
+			verificarTeclaPresionada(true);
 		}
-			
-		
 	}
 
 	@Override
@@ -141,30 +121,33 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 		else {
 			teclasPresionadas.remove(e.getKeyCode());
 			
-			if(teclasPresionadas.contains(KeyEvent.VK_W)){
-				if(teclasPresionadas.contains(KeyEvent.VK_A))
-					client.send(TipoMensaje.MOV, DIRECCION.NOROESTE);
-				else if(teclasPresionadas.contains(KeyEvent.VK_D))
-					client.send(TipoMensaje.MOV, DIRECCION.NORESTE);
-				else
-					client.send(TipoMensaje.MOV, DIRECCION.NORTE);
-			}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
-				if(teclasPresionadas.contains(KeyEvent.VK_A))
-					client.send(TipoMensaje.MOV, DIRECCION.SUROESTE);
-				else if(teclasPresionadas.contains(KeyEvent.VK_D))
-					client.send(TipoMensaje.MOV, DIRECCION.SURESTE);
-				else
-					client.send(TipoMensaje.MOV, DIRECCION.SUR);
-			}else if(teclasPresionadas.contains(KeyEvent.VK_A)) {
-				client.send(TipoMensaje.MOV, DIRECCION.OESTE);
-			}else if(teclasPresionadas.contains(KeyEvent.VK_D)) {
-				client.send(TipoMensaje.MOV, DIRECCION.ESTE);
-			}else {
-				client.send(TipoMensaje.MOV, DIRECCION.CENTRO);
-			}
+			verificarTeclaPresionada(false);
 		}
+	}
 	
-		
+	private void verificarTeclaPresionada(boolean presionando) {
+		if(teclasPresionadas.contains(KeyEvent.VK_W)){
+			if(teclasPresionadas.contains(KeyEvent.VK_A))
+				client.send(TipoMensaje.MOV, DIRECCION.NOROESTE);
+			else if(teclasPresionadas.contains(KeyEvent.VK_D))
+				client.send(TipoMensaje.MOV, DIRECCION.NORESTE);
+			else
+				client.send(TipoMensaje.MOV, DIRECCION.NORTE);
+		}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
+			if(teclasPresionadas.contains(KeyEvent.VK_A))
+				client.send(TipoMensaje.MOV, DIRECCION.SUROESTE);
+			else if(teclasPresionadas.contains(KeyEvent.VK_D))
+				client.send(TipoMensaje.MOV, DIRECCION.SURESTE);
+			else
+				client.send(TipoMensaje.MOV, DIRECCION.SUR);
+		}else if(teclasPresionadas.contains(KeyEvent.VK_A)) {
+			client.send(TipoMensaje.MOV, DIRECCION.OESTE);
+		}else if(teclasPresionadas.contains(KeyEvent.VK_D)) {
+			client.send(TipoMensaje.MOV, DIRECCION.ESTE);
+		}else {
+			if(!presionando)
+				client.send(TipoMensaje.MOV, DIRECCION.CENTRO);
+		}
 	}
 
 	@Override

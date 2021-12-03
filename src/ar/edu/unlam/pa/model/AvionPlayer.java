@@ -172,40 +172,6 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 	
 	@Override
 	public void actualizar(double dt) {
-		/*
-		if(teclasPresionadas.contains(KeyEvent.VK_W)){
-			if(teclasPresionadas.contains(KeyEvent.VK_A))
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NOROESTE);
-				//moverArribaIzquierda(dt);
-			else if(teclasPresionadas.contains(KeyEvent.VK_D))
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NORESTE);
-				//moverArribaDerecha(dt);
-			else
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.NORTE);
-				//moverArriba(dt);
-		}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
-			if(teclasPresionadas.contains(KeyEvent.VK_A))
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SUROESTE);
-				//moverAbajoIzquierda(dt);
-			else if(teclasPresionadas.contains(KeyEvent.VK_D))
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SURESTE);
-				//moverAbajoDerecha(dt);
-			else
-				Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.SUR);
-				//moverAbajo(dt);
-		}else if(teclasPresionadas.contains(KeyEvent.VK_A)) {
-			Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.OESTE);
-			//moverIzquierda(dt);
-		}else if(teclasPresionadas.contains(KeyEvent.VK_D)) {
-			Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.ESTE);
-			//moverDerecha(dt);
-		}else
-			Client.getInstance().send(NetworkMessageType.MOV, DIRECCION.CENTRO);
-		
-		if(teclasPresionadas.contains(KeyEvent.VK_CONTROL)) {
-			disparar(dt);
-		}
-		*/
 		super.actualizar(dt);
 		
 		if(disparando)
