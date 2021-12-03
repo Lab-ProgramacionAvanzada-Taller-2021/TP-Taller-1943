@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import ar.edu.unlam.pa.graficos.Ventana;
+import ar.edu.unlam.pa.model.Elemento.DIRECCION;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
@@ -189,5 +190,23 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 		if(puedeMoverEnDireccion(desplazamientoX, desplazamientoY)){
 			super.moverEnDireccion(desplazamientoX, desplazamientoY);
 		}	
+	}
+	
+	public String getInfo() {
+		return getPosicion().getX() + "|" + getPosicion().getY() + "|" + direccion + "|" + vidaActual + "|" + puntos;
+	}
+
+	public void setInfo(String info) {
+		String[] data = info.split("\\|");
+		actualizarPosicion(Double.parseDouble(data[0]), Double.parseDouble(data[1]));
+		
+		if(data[2] != null)
+			cambiarDireccion(DIRECCION.valueOf(data[2]));
+		
+		if(data[3] != null)
+			this.vidaActual = Double.parseDouble(data[3]);
+		
+		if(data[4] != null)
+			this.puntos = Integer.parseInt(data[4]);
 	}
 }

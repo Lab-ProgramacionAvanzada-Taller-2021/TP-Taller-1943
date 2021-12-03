@@ -112,6 +112,7 @@ public class ProtocoloCliente {
 				new AvionEnemigo(Escenario.getInstance(),
 						Double.parseDouble(data[0]), 
 						Double.parseDouble(data[1]), 
-						DIRECCION.valueOf(data[2])));
+						DIRECCION.valueOf(data[2]),
+						Integer.parseInt(data[3])));
 	}
 }
