@@ -82,7 +82,7 @@ public class Escenario {
 			iter.next().dibujarBarraJugador(g2);
 		}
 	
-		dibujarDebug(g2);
+		//dibujarDebug(g2);
 		
 		dibujarPuntuacionMaxima(g2);
 	}
