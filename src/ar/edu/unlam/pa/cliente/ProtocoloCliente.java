@@ -8,6 +8,7 @@ import ar.edu.unlam.pa.servidor.Servidor;
 import ar.edu.unlam.pa.compartido.Mensaje;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionEnemigo;
+import ar.edu.unlam.pa.model.AvionEnemigoJefe;
 import ar.edu.unlam.pa.model.AvionEnemigoMedio;
 import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
@@ -55,6 +56,9 @@ public class ProtocoloCliente {
 			break;
 		case MED:
 			processCreateMedium(message);
+			break;
+		case BOS:
+			processCreateBoss(message);
 			break;
 		}
 		
@@ -125,6 +129,14 @@ public class ProtocoloCliente {
 		String[] data = ((String)message.getMessage()).split("\\|");
 		Escenario.getInstance().agregarElemento(
 				new AvionEnemigoMedio(Escenario.getInstance(),
+						Double.parseDouble(data[0]), 
+						Double.parseDouble(data[1])));
+	}
+	
+	private static void processCreateBoss(Mensaje message) {
+		String[] data = ((String)message.getMessage()).split("\\|");
+		Escenario.getInstance().agregarElemento(
+				new AvionEnemigoJefe(Escenario.getInstance(),
 						Double.parseDouble(data[0]), 
 						Double.parseDouble(data[1])));
 	}

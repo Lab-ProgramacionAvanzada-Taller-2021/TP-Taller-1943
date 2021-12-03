@@ -7,7 +7,7 @@ public class AvionEnemigoJefe extends Avion{
 	private static double RADIO_COLISION = 80;
 	private static double VIDA_MAXIMA = 2000;
 	private static int PUNTOS = 10000;
-	private static int INTERVALO_MOVIMIENTO = 10;
+	private static int INTERVALO_MOVIMIENTO = 5;
 	private static String NOMBRE_IMAGEN = "jefe";
 	private double intervaloDisparo = 0.5;
 	private double tiempoMovimiento = INTERVALO_MOVIMIENTO/2;
@@ -17,6 +17,17 @@ public class AvionEnemigoJefe extends Avion{
 	
 	public AvionEnemigoJefe(Escenario escenario) {
 		super(new Hitbox(new Punto2D((Ventana.ANCHO/2), -RADIO_COLISION), RADIO_COLISION), 
+				DIRECCION.SUR,
+				BANDO.JAPONES, 
+				VIDA_MAXIMA, 
+				VELOCIDAD_MOVIMIENTO, 
+				NOMBRE_IMAGEN
+				);
+		this.escenario = escenario;
+	}
+	
+	public AvionEnemigoJefe(Escenario escenario, double x, double y) {
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), 
 				DIRECCION.SUR,
 				BANDO.JAPONES, 
 				VIDA_MAXIMA, 
