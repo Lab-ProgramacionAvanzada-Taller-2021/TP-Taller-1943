@@ -8,6 +8,7 @@ import ar.edu.unlam.pa.servidor.Servidor;
 import ar.edu.unlam.pa.compartido.Mensaje;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionEnemigo;
+import ar.edu.unlam.pa.model.AvionEnemigoMedio;
 import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
 import ar.edu.unlam.pa.model.Isla;
@@ -51,6 +52,9 @@ public class ProtocoloCliente {
 			break;
 		case SMA:
 			processCreateSmall(message);
+			break;
+		case MED:
+			processCreateMedium(message);
 			break;
 		}
 		
@@ -103,16 +107,25 @@ public class ProtocoloCliente {
 	
 	private static void processCreateCloud(Mensaje message) {
 		String[] data = ((String)message.getMessage()).split("\\|");
-		Escenario.getInstance().agregarElementoCapa2(new Nube(Double.parseDouble(data[0]), Double.parseDouble(data[1])));
+		Escenario.getInstance().agregarElementoCapa2(
+			new Nube(Double.parseDouble(data[0]), Double.parseDouble(data[1]), Integer.parseInt(data[2])));
 	}
 	
 	private static void processCreateSmall(Mensaje message) {
 		String[] data = ((String)message.getMessage()).split("\\|");
 		Escenario.getInstance().agregarElemento(
-				new AvionEnemigo(Escenario.getInstance(),
+			new AvionEnemigo(Escenario.getInstance(),
 						Double.parseDouble(data[0]), 
 						Double.parseDouble(data[1]), 
 						DIRECCION.valueOf(data[2]),
 						Integer.parseInt(data[3])));
+	}
+	
+	private static void processCreateMedium(Mensaje message) {
+		String[] data = ((String)message.getMessage()).split("\\|");
+		Escenario.getInstance().agregarElemento(
+				new AvionEnemigoMedio(Escenario.getInstance(),
+						Double.parseDouble(data[0]), 
+						Double.parseDouble(data[1])));
 	}
 }

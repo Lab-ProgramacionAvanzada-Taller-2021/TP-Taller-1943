@@ -294,6 +294,6 @@ public class Escenario {
 	}
 	
 	public Punto2D obtenerPosicionJugadorAleatorio() {
-		return listaJugadores.get(0).getPosicion();
+		return (listaJugadores.size() > 0)? listaJugadores.get(0).getPosicion() : null;
 	}
 }

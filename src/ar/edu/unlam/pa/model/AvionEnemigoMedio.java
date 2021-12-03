@@ -1,6 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 
 public class AvionEnemigoMedio extends Avion{
@@ -15,6 +14,17 @@ public class AvionEnemigoMedio extends Avion{
 	
 	public AvionEnemigoMedio(Escenario escenario) {
 		super(new Hitbox(new Punto2D(Math.random() * (Ventana.ANCHO-RADIO_COLISION), Ventana.ALTO), RADIO_COLISION), 
+				DIRECCION.NORTE,
+				BANDO.JAPONES, 
+				VIDA_MAXIMA, 
+				VELOCIDAD_MOVIMIENTO, 
+				NOMBRE_IMAGEN
+				);
+		this.escenario = escenario;
+	}
+	
+	public AvionEnemigoMedio(Escenario escenario, double x, double y) {
+		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), 
 				DIRECCION.NORTE,
 				BANDO.JAPONES, 
 				VIDA_MAXIMA, 
@@ -52,9 +62,12 @@ public class AvionEnemigoMedio extends Avion{
 			tiempoDisparo -= dt;
 		}else {
 			Punto2D posicion = escenario.obtenerPosicionJugadorAleatorio();
-			DIRECCION direccion = calcularDireccion(posicion);
-			escenario.agregarElemento(new BalaEnemiga(getPosicion(), direccion));
-			tiempoDisparo = INTERVALO_DISPARO;
+			
+			if(posicion != null) {
+				DIRECCION direccion = calcularDireccion(posicion);
+				escenario.agregarElemento(new BalaEnemiga(getPosicion(), direccion));
+				tiempoDisparo = INTERVALO_DISPARO;
+			}
 		}
 	}
 }

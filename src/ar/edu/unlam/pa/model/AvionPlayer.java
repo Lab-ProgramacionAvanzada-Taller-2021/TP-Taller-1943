@@ -1,16 +1,9 @@
 package ar.edu.unlam.pa.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.Serializable;
 
 import ar.edu.unlam.pa.graficos.Ventana;
-import ar.edu.unlam.pa.model.Elemento.DIRECCION;
 import ar.edu.unlam.pa.model.estados.avion.AvionNormal;
 import ar.edu.unlam.pa.model.estados.avion.EstadoAvion;
 import ar.edu.unlam.pa.servicios.MovimientoPlayer;
@@ -160,7 +153,6 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 	public void dibujarBarraJugador(Graphics2D g2) {
 		double porcentajeVida = vidaActual/vidaMaxima;
 		int ancho = (Ventana.ANCHO-32) / 4;
-		int posY = 32;
 		g2.setColor(Color.WHITE);
 		g2.drawString("Jugador " + nroJugador, 16 + (ancho*(nroJugador-1)), 32);
 		g2.drawString(this.puntos + "", 16 + (ancho*(nroJugador-1)), 48);
