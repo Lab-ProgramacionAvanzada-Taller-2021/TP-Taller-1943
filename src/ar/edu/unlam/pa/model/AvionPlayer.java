@@ -22,7 +22,6 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 	
 	private EstadoAvion estado = new AvionNormal();
 	private Escenario escenario;
-	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
 	private int nroJugador = 1;
 	private int id;
 	private int puntos = 0;

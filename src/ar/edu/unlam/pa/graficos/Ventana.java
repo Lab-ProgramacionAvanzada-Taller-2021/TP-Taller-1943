@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashSet;
+import java.util.Set;
+
 import ar.edu.unlam.pa.cliente.Cliente;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.Elemento.DIRECCION;
@@ -27,6 +30,8 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 	private Cliente client;
 	private Pantalla pantalla;
 	private boolean enEjecucion;
+	
+	private Set<Integer> teclasPresionadas = new HashSet<Integer>();
 	
 	public Escenario escenario;
 
@@ -100,38 +105,66 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch(e.getKeyCode()) {
-			case KeyEvent.VK_A:
+		if(e.getKeyCode() == KeyEvent.VK_CONTROL) 
+			client.send(TipoMensaje.ATK, true);
+		else {
+			teclasPresionadas.add(e.getKeyCode());
+			
+			if(teclasPresionadas.contains(KeyEvent.VK_W)){
+				if(teclasPresionadas.contains(KeyEvent.VK_A))
+					client.send(TipoMensaje.MOV, DIRECCION.NOROESTE);
+				else if(teclasPresionadas.contains(KeyEvent.VK_D))
+					client.send(TipoMensaje.MOV, DIRECCION.NORESTE);
+				else
+					client.send(TipoMensaje.MOV, DIRECCION.NORTE);
+			}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
+				if(teclasPresionadas.contains(KeyEvent.VK_A))
+					client.send(TipoMensaje.MOV, DIRECCION.SUROESTE);
+				else if(teclasPresionadas.contains(KeyEvent.VK_D))
+					client.send(TipoMensaje.MOV, DIRECCION.SURESTE);
+				else
+					client.send(TipoMensaje.MOV, DIRECCION.SUR);
+			}else if(teclasPresionadas.contains(KeyEvent.VK_A)) {
 				client.send(TipoMensaje.MOV, DIRECCION.OESTE);
-				break;
-			case KeyEvent.VK_W:
-				client.send(TipoMensaje.MOV, DIRECCION.NORTE);
-				break;
-			case KeyEvent.VK_D:
+			}else if(teclasPresionadas.contains(KeyEvent.VK_D)) {
 				client.send(TipoMensaje.MOV, DIRECCION.ESTE);
-				break;
-			case KeyEvent.VK_S:
-				client.send(TipoMensaje.MOV, DIRECCION.SUR);
-				break;
-			case KeyEvent.VK_CONTROL:
-				client.send(TipoMensaje.ATK, true);
-				break;
-			default:
-	
+			}
 		}
+			
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch(e.getKeyCode()) {
-			case KeyEvent.VK_CONTROL:
-				client.send(TipoMensaje.ATK, false);
-				break;
-			default:
+		if(e.getKeyCode() == KeyEvent.VK_CONTROL)
+			client.send(TipoMensaje.ATK, false);
+		else {
+			teclasPresionadas.remove(e.getKeyCode());
+			
+			if(teclasPresionadas.contains(KeyEvent.VK_W)){
+				if(teclasPresionadas.contains(KeyEvent.VK_A))
+					client.send(TipoMensaje.MOV, DIRECCION.NOROESTE);
+				else if(teclasPresionadas.contains(KeyEvent.VK_D))
+					client.send(TipoMensaje.MOV, DIRECCION.NORESTE);
+				else
+					client.send(TipoMensaje.MOV, DIRECCION.NORTE);
+			}else if(teclasPresionadas.contains(KeyEvent.VK_S)) {
+				if(teclasPresionadas.contains(KeyEvent.VK_A))
+					client.send(TipoMensaje.MOV, DIRECCION.SUROESTE);
+				else if(teclasPresionadas.contains(KeyEvent.VK_D))
+					client.send(TipoMensaje.MOV, DIRECCION.SURESTE);
+				else
+					client.send(TipoMensaje.MOV, DIRECCION.SUR);
+			}else if(teclasPresionadas.contains(KeyEvent.VK_A)) {
+				client.send(TipoMensaje.MOV, DIRECCION.OESTE);
+			}else if(teclasPresionadas.contains(KeyEvent.VK_D)) {
+				client.send(TipoMensaje.MOV, DIRECCION.ESTE);
+			}else {
 				client.send(TipoMensaje.MOV, DIRECCION.CENTRO);
-				break;
+			}
 		}
+	
+		
 	}
 
 	@Override
