@@ -26,7 +26,7 @@ public class GameLoopServidor {
 	public static final int ANCHO = 640;
 	public static final int ALTO = 640;
 
-	public int nivel = 3;
+	public int nivel = 1;
 	
 	private long timeStart;
 
