@@ -101,7 +101,7 @@ public class AvionEnemigo extends Avion {
 			cambiarDireccion(DIRECCION.valueOf(data[2]));
 		
 		if(data[3] != null) {
-			
+			daPowerUP = Integer.parseInt(data[3]);
 		}
 	}
 }

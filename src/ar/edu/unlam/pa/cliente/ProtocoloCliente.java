@@ -3,10 +3,7 @@ package ar.edu.unlam.pa.cliente;
 import com.google.gson.Gson;
 
 import ar.edu.unlam.pa.model.Elemento.DIRECCION;
-import ar.edu.unlam.pa.servidor.ServerThread;
-import ar.edu.unlam.pa.servidor.Servidor;
 import ar.edu.unlam.pa.compartido.Mensaje;
-import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionEnemigo;
 import ar.edu.unlam.pa.model.AvionEnemigoJefe;
 import ar.edu.unlam.pa.model.AvionEnemigoMedio;
@@ -14,8 +11,6 @@ import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
 import ar.edu.unlam.pa.model.Isla;
 import ar.edu.unlam.pa.model.Nube;
-import ar.edu.unlam.pa.model.PowerUp;
-import ar.edu.unlam.pa.model.Punto2D;
 
 public class ProtocoloCliente {
 	public static void processInput(String input) {

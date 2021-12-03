@@ -47,6 +47,12 @@ public class ProtocoloServidor {
 				break;
 			case SMA:
 				break;
+			case BOS:
+				break;
+			case MED:
+				break;
+			default:
+				break;
 			}
 		} catch (Exception e) {
 			e.getStackTrace();
