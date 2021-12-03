@@ -7,8 +7,13 @@ import ar.edu.unlam.pa.servidor.ServerThread;
 import ar.edu.unlam.pa.servidor.Servidor;
 import ar.edu.unlam.pa.compartido.Mensaje;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
+import ar.edu.unlam.pa.model.AvionEnemigo;
 import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
+import ar.edu.unlam.pa.model.Isla;
+import ar.edu.unlam.pa.model.Nube;
+import ar.edu.unlam.pa.model.PowerUp;
+import ar.edu.unlam.pa.model.Punto2D;
 
 public class ProtocoloCliente {
 	public static void processInput(String input) {
@@ -37,7 +42,18 @@ public class ProtocoloCliente {
 			break;
 		case ATK:
 			processAttack(message);
+			break;
+		case ISL:
+			processCreateIsland(message);
+			break;
+		case NUB:
+			processCreateCloud(message);
+			break;
+		case SMA:
+			processCreateSmall(message);
+			break;
 		}
+		
 	}
 
 	private static void processNew(Mensaje message) {
@@ -77,5 +93,25 @@ public class ProtocoloCliente {
 	
 	private static void processAttack(Mensaje message) {
 		Escenario.getInstance().obtenerJugador(message.getIdClient()).dispara((boolean) message.getMessage());
+	}
+	
+	private static void processCreateIsland(Mensaje message) {
+		String[] data = ((String)message.getMessage()).split("\\|");
+		Escenario.getInstance().agregarElementoCapa1(
+			new Isla(Double.parseDouble(data[0]), Double.parseDouble(data[1]), Integer.parseInt(data[2])));
+	}
+	
+	private static void processCreateCloud(Mensaje message) {
+		String[] data = ((String)message.getMessage()).split("\\|");
+		Escenario.getInstance().agregarElementoCapa2(new Nube(Double.parseDouble(data[0]), Double.parseDouble(data[1])));
+	}
+	
+	private static void processCreateSmall(Mensaje message) {
+		String[] data = ((String)message.getMessage()).split("\\|");
+		Escenario.getInstance().agregarElemento(
+				new AvionEnemigo(Escenario.getInstance(),
+						Double.parseDouble(data[0]), 
+						Double.parseDouble(data[1]), 
+						DIRECCION.valueOf(data[2])));
 	}
 }

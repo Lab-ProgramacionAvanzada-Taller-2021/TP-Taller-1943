@@ -7,8 +7,7 @@ import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
 import ar.edu.unlam.pa.servicios.Movimiento;
 
-public class Elemento implements Movimiento, Serializable {
-	private static final long serialVersionUID = 1L;
+public class Elemento implements Movimiento {
 	private Hitbox hitbox;
 	private BANDO bando;
 	protected double velocidad;
@@ -174,8 +173,7 @@ public class Elemento implements Movimiento, Serializable {
 	}
 	
 	protected void actualizarImagen(int index) {
-		if( index < Grafico.obtenerGrafico(nombreImagen).length)
-			this.index = index;
+		this.index = index;
 	}
 	
 	public DIRECCION calcularDireccion(Punto2D otroPos) {
@@ -194,12 +192,15 @@ public class Elemento implements Movimiento, Serializable {
 	}
 
 	public String getInfo() {
-		return getPosicion().getX() + "|" + getPosicion().getY();
+		return getPosicion().getX() + "|" + getPosicion().getY() + "|" + direccion;
 	}
 
 	public void setInfo(String info) {
 		String[] data = info.split("\\|");
 		actualizarPosicion(Double.parseDouble(data[0]), Double.parseDouble(data[1]));
+		
+		if(data[2] != null)
+			cambiarDireccion(DIRECCION.valueOf(data[2]));
 	}
 	
 	@Override

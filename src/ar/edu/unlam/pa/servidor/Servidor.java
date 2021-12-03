@@ -11,7 +11,7 @@ public class Servidor extends Thread {
 	private static final short PUERTO = 7900;
 	private ServerSocket serverSocket = null;
 	private static List<ServerThread> serverThreads;
-	private static GameLoopServidor game;
+	private static GameLoopServidor juego;
 
 	public Servidor() {
 		serverThreads = new ArrayList<>();
@@ -56,13 +56,13 @@ public class Servidor extends Thread {
 	}
 
 	public static long getGameTimeStart() {
-		return game.getTimeStart();
+		return juego.getTimeStart();
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		Servidor server = new Servidor();
-		server.start();
-		game = new GameLoopServidor();
-		game.run();
+		Servidor servidor = new Servidor();
+		servidor.start();
+		juego = new GameLoopServidor();
+		juego.run();
 	}
 }

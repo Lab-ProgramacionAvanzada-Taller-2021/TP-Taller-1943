@@ -2,8 +2,10 @@ package ar.edu.unlam.pa.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import ar.edu.unlam.pa.graficos.Grafico;
 import ar.edu.unlam.pa.graficos.Ventana;
@@ -21,10 +23,8 @@ public class Escenario {
 	private LinkedList<Elemento> listaElementos;
 
 	private double desplazamientoY = 0;
-	private double tiempoProximoEnemigo = INTERVALO_CREAR_ENEMIGO;
-	private double tiempoProximoNivel = INTERVALO_SUBIR_NIVEL;
 	private int maximaPuntuacion = 1_000_000;
-	private int nivel = 1;
+	private int nivel = 0;
 	
 	private Escenario() {
 		listaElementosCapa1 = new LinkedList<Elemento>();
@@ -64,20 +64,24 @@ public class Escenario {
 	public synchronized void dibujar(Graphics2D g2) {
 		g2.drawImage(Grafico.obtenerGrafico("oceano")[0], 0, (int)(-DESPLAZAMIENTO+this.desplazamientoY), Ventana.ANCHO, Ventana.ALTO+DESPLAZAMIENTO, null);
 
-		for(Elemento elementoCapa1 : listaElementosCapa1) {
-			elementoCapa1.dibujar(g2);
+		Iterator<Elemento> it = this.listaElementosCapa1.iterator();
+		while(it.hasNext()){
+			it.next().dibujar(g2);
 		}
 		
-		for(Elemento elementoCapa2 : listaElementosCapa2) {
-			elementoCapa2.dibujar(g2);
+		it = this.listaElementosCapa2.iterator();
+		while(it.hasNext()){
+			it.next().dibujar(g2);
 		}
 		
-		for(Elemento elemento : listaElementos) {
-			elemento.dibujar(g2);
+		it = this.listaElementos.iterator();
+		while(it.hasNext()){
+			it.next().dibujar(g2);
 		}
 
-		for(AvionPlayer jugador : listaJugadores) {
-			jugador.dibujarBarraJugador(g2);
+		Iterator<AvionPlayer> iter =  this.listaJugadores.iterator();
+		while(iter.hasNext()){
+			iter.next().dibujarBarraJugador(g2);
 		}
 	
 		dibujarDebug(g2);
@@ -101,8 +105,6 @@ public class Escenario {
 	
 	public synchronized void actualizar(double dt) {
 		this.desplazamientoY = (this.desplazamientoY+dt*VELOCIDAD_Y)%DESPLAZAMIENTO;
-
-		subirNivelEscenario(dt);
 		
 		//generarEnemigos(dt);
 		
@@ -117,7 +119,7 @@ public class Escenario {
 		for(int i=0; i<listaElementos.size(); i++) {
 			listaElementos.get(i).actualizar(dt);
 			
-			for(int j=i; j<listaElementos.size(); j++) {
+			for(int j=i+1; j<listaElementos.size(); j++) {
 				if(listaElementos.get(i).colisionaCon(listaElementos.get(j))) {
 					listaElementos.get(i).colisiono(listaElementos.get(j));
 					listaElementos.get(j).colisiono(listaElementos.get(i));
@@ -165,15 +167,10 @@ public class Escenario {
 		}
 	}
 
-	private void subirNivelEscenario(double dt) {
-		if(tiempoProximoNivel < 0) {
-			this.nivel++;
-			tiempoProximoNivel = INTERVALO_SUBIR_NIVEL;
-		}else {
-			tiempoProximoNivel -= dt;
-		}
+	public void subirNivelEscenario(int nivel) {
+		this.nivel = nivel;
 	}
-	
+	/*
 	private void generarEnemigos(double dt) {
 		if(tiempoProximoEnemigo < 0) {
 			switch(nivel) {
@@ -250,7 +247,7 @@ public class Escenario {
 		}else {
 			tiempoProximoEnemigo -= dt;
 		}
-	}
+	}*/
 	
 	public void agregarUsuario(int id) {
 		switch(listaJugadores.size()) {
@@ -285,20 +282,18 @@ public class Escenario {
 	}
 	
 	public AvionPlayer obtenerJugador(int id) {
-		for(AvionPlayer jugador : listaJugadores) {
-			if(id == jugador.getId()) {
+		for(AvionPlayer jugador : listaJugadores) 
+			if(id == jugador.getId()) 
 				return jugador;
-			}
-		}
 		
 		return null;
 	}
 	
-	public LinkedList<AvionPlayer> obtenerJugadores(){
+	public List<AvionPlayer> obtenerJugadores(){
 		return listaJugadores;
 	}
 	
 	public Punto2D obtenerPosicionJugadorAleatorio() {
-		return listaJugadores.get((int)(Math.random() * listaJugadores.size())).getPosicion();
+		return listaJugadores.get(0).getPosicion();
 	}
 }

@@ -1,6 +1,12 @@
 package ar.edu.unlam.pa.model;
 
+import com.google.gson.Gson;
+
+import ar.edu.unlam.pa.cliente.Cliente;
+import ar.edu.unlam.pa.compartido.Mensaje;
+import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.graficos.Ventana;
+import ar.edu.unlam.pa.servidor.Servidor;
 
 public class AvionEnemigo extends Avion {
 	private static double VELOCIDAD_MOVIMIENTO = 80;
@@ -54,7 +60,8 @@ public class AvionEnemigo extends Avion {
 			}
 			
 			if( Math.random()*100 < PROBABILIDAD_POWERUP) {
-				escenario.agregarElemento(new PowerUp(getPosicion()));
+				Elemento elemento = new PowerUp(getPosicion());
+				escenario.agregarElemento(elemento);
 			}
 		}		
 	}

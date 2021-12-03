@@ -1,7 +1,5 @@
 package ar.edu.unlam.pa.model;
 
-import ar.edu.unlam.pa.graficos.Grafico;
-
 public class Animacion extends Elemento{
 	private static String NOMBRE_IMAGEN = "Explosion"; //Temporal
 	private int index = 0;
@@ -18,7 +16,7 @@ public class Animacion extends Elemento{
 			actualizarImagen(++index);
 			tiempoInteraccion = INTERVALO_ITERACCION;
 			
-			if(index >= Grafico.obtenerGrafico(nombreImagen).length) 
+			if(index >= 37) //Num Explosión
 				destruir();
 			
 		}else {

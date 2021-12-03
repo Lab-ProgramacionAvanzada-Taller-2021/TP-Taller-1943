@@ -8,10 +8,19 @@ public class Nube extends Elemento{
 	
 	public Nube() {
 		super(new Hitbox(Math.random()*Ventana.ANCHO, -RADIO_COLISION, RADIO_COLISION), 
-				DIRECCION.SUR,
-				BANDO.NEUTRAL, 
-				VELOCIDAD_MOVIMIENTO, 
-				"nubes" + (int)(Math.random() * (5-1+1) + 1)
-				);
+			DIRECCION.SUR,
+			BANDO.NEUTRAL, 
+			VELOCIDAD_MOVIMIENTO, 
+			"nubes" + (int)(Math.random() * (5-1+1) + 1)
+		);
+	}
+	
+	public Nube(double x, double y) {
+		super(new Hitbox(x, y, RADIO_COLISION), 
+			DIRECCION.SUR,
+			BANDO.NEUTRAL, 
+			VELOCIDAD_MOVIMIENTO, 
+			"nubes1"
+		);
 	}
 }

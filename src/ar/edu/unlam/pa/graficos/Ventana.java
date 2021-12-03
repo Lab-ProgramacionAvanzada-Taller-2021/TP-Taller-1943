@@ -24,7 +24,7 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 	private final String RUTA_IMAGENES = "Recursos/Imagenes/";
 	private final String RUTA_ANIMACIONES = "Recursos/Animaciones/";
 	
-	public Cliente client;
+	private Cliente client;
 	private Pantalla pantalla;
 	private boolean enEjecucion;
 	
@@ -90,11 +90,11 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 		enEjecucion = false;
 	}
 	
-	public void dibujar() {
+	public synchronized void dibujar() {
 		pantalla.repaint();
 	}
 	
-	public void actualizar(double dt) {
+	public synchronized void actualizar(double dt) {
 		escenario.actualizar(dt);
 	}
 

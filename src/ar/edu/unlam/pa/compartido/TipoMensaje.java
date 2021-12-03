@@ -9,4 +9,7 @@ public enum TipoMensaje {
 	PNG, 
 	SNC, // Sincroniza la posición del servidor con la del cliente.
 	ATK, // Dispara el jugador y envia a los clientes.
+	ISL, // Agrega una isla y envia a los clientes.
+	NUB, // Agrega una nube y envia a los clientes.
+	SMA // Agrega avion enemigo chico y envia a los clientes.
 }

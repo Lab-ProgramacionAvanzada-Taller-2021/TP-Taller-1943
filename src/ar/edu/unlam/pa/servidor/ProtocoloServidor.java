@@ -12,8 +12,6 @@ import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Elemento.DIRECCION;
 
-
-
 public class ProtocoloServidor {
 	public static void processInput(ServerThread caller, String input) {
 		try {
@@ -42,6 +40,12 @@ public class ProtocoloServidor {
 				break;
 			case ATK:
 				processAttack(caller, message);
+				break;
+			case ISL:
+				break;
+			case NUB:
+				break;
+			case SMA:
 				break;
 			}
 		} catch (Exception e) {
@@ -90,7 +94,7 @@ public class ProtocoloServidor {
 
 	private static void processSync(ServerThread caller, Mensaje message) {
 		for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) 
-			Servidor.broadcast((
+			caller.send((
 				new Gson()).toJson(new Mensaje(TipoMensaje.SNC, jugador.getId(), jugador.getInfo())));
 	}
 	
@@ -100,5 +104,4 @@ public class ProtocoloServidor {
 		Servidor.broadcast((
 			new Gson()).toJson(new Mensaje(TipoMensaje.ATK, caller.id, message.getMessage())));
 	}
-
 }
