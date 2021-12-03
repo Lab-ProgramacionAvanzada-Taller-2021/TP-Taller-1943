@@ -54,11 +54,7 @@ public class ProtocoloServidor {
 		
 		for(AvionPlayer jugador : Escenario.getInstance().obtenerJugadores())
 			Servidor.broadcast((new Gson()).toJson(
-					new Mensaje(TipoMensaje.NEW, jugador.getId(), jugador.getNroJugador())));
-		
-		
-		/*Servidor.broadcast((new Gson()).toJson(
-			new Mensaje(TipoMensaje.NEW, caller.id, message.getMessage())));*/
+				new Mensaje(TipoMensaje.NEW, jugador.getId(), jugador.getNroJugador()+"|"+jugador.getInfo())));
 	}
 
 	private static void processMessage(ServerThread caller, Mensaje message) {
@@ -66,15 +62,12 @@ public class ProtocoloServidor {
 			new Mensaje(TipoMensaje.MSG, caller.id, message.getMessage())));
 	}
 
-	// This method generate a delay of 20 ms to balance the movements against high
-	// values of ping
 	private static void processMovement(ServerThread caller, Mensaje message) {
 		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 		Runnable processMovementDelay = () -> {
-			DIRECCION direccion = DIRECCION.valueOf((String) message.getMessage());
-			AvionPlayer jugador = Escenario.getInstance().obtenerJugador(caller.id);
-			jugador.cambiarDireccion(direccion);
+			Escenario.getInstance().obtenerJugador(caller.id).cambiarDireccion(
+					DIRECCION.valueOf((String) message.getMessage()));
 			Servidor.broadcast((
 					new Gson()).toJson(new Mensaje(TipoMensaje.MOV, caller.id, message.getMessage())));
 		};
@@ -98,14 +91,14 @@ public class ProtocoloServidor {
 	private static void processSync(ServerThread caller, Mensaje message) {
 		for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) 
 			Servidor.broadcast((
-					new Gson()).toJson(new Mensaje(TipoMensaje.SNC, jugador.getId(), jugador.getInfo())));
+				new Gson()).toJson(new Mensaje(TipoMensaje.SNC, jugador.getId(), jugador.getInfo())));
 	}
 	
 	private static void processAttack(ServerThread caller, Mensaje message) {
 		Escenario.getInstance().obtenerJugador(caller.id).dispara((boolean) message.getMessage());
 		
 		Servidor.broadcast((
-				new Gson()).toJson(new Mensaje(TipoMensaje.ATK, caller.id, message.getMessage())));
+			new Gson()).toJson(new Mensaje(TipoMensaje.ATK, caller.id, message.getMessage())));
 	}
 
 }

@@ -269,10 +269,10 @@ public class Escenario {
 		}
 	}
 	
-	public void agregarUsuario(int id, String pos) {
-		String[] data = pos.split("\\|");
+	public void agregarUsuario(int id, String jugador) {
+		String[] data = jugador.split("\\|");
 		agregarJugador(new AvionPlayer(
-				this, id%4, id, Double.parseDouble(data[0]), Double.parseDouble(data[1]), "jugador"+id%4));
+			this, Integer.parseInt(data[0]), id, Double.parseDouble(data[1]), Double.parseDouble(data[2]), "jugador"+data[0]));
 	}
 	
 	public void eliminarUsuario(int id) {

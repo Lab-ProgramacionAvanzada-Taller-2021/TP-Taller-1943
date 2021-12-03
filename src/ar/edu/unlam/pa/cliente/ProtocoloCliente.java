@@ -41,26 +41,11 @@ public class ProtocoloCliente {
 	}
 
 	private static void processNew(Mensaje message) {
-		int num = ((Double) message.getMessage()).intValue();
-		
 		if(Escenario.getInstance().obtenerJugador(message.getIdClient()) != null)
 			return;
 		
-		switch(num) {
-			case 1:
-				Escenario.getInstance().agregarJugador(AvionPlayer.crearJugador1(Escenario.getInstance(), message.getIdClient()));
-				break;
-			case 2:
-				Escenario.getInstance().agregarJugador(AvionPlayer.crearJugador2(Escenario.getInstance(), message.getIdClient()));
-				break;
-			case 3:
-				Escenario.getInstance().agregarJugador(AvionPlayer.crearJugador3(Escenario.getInstance(), message.getIdClient()));
-				break;
-			default:
-				Escenario.getInstance().agregarJugador(AvionPlayer.crearJugador4(Escenario.getInstance(), message.getIdClient()));
-				break;
-		}
-		//Escenario.getInstance().agregarJugador(message.getMessage());
+		Escenario.getInstance().agregarUsuario(message.getIdClient(),(String) message.getMessage());
+	
 	}
 
 	private static void processMessage(Mensaje message) {
@@ -85,6 +70,7 @@ public class ProtocoloCliente {
 
 	private static void processSync(Mensaje message) {
 		AvionPlayer jugador = Escenario.getInstance().obtenerJugador(message.getIdClient());
+		
 		if(jugador != null)
 			jugador.setInfo((String) message.getMessage());
 	}
