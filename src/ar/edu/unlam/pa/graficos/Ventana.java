@@ -114,7 +114,8 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 				client.send(TipoMensaje.MOV, DIRECCION.SUR);
 				break;
 			case KeyEvent.VK_CONTROL:
-				
+				client.send(TipoMensaje.ATK, true);
+				break;
 			default:
 	
 		}
@@ -124,6 +125,9 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()) {
+			case KeyEvent.VK_CONTROL:
+				client.send(TipoMensaje.ATK, false);
+				break;
 			default:
 				client.send(TipoMensaje.MOV, DIRECCION.CENTRO);
 				break;

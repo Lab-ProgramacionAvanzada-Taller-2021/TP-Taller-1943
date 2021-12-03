@@ -18,7 +18,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 	private static double RADIO_COLISION = 16;
 	private static double VIDA_MAXIMA = 100;
 	private static double VELOCIDAD_MOVIMIENTO = 180;
-	private static double INTERVALO_DISPARO = 0.2;
+	private static double INTERVALO_DISPARO = 0.1;
 	
 	private EstadoAvion estado = new AvionNormal();
 	private Escenario escenario;
@@ -27,6 +27,7 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 	private int id;
 	private int puntos = 0;
 	private double tiempoDisparo = -1;
+	private boolean disparando = false;
 
 	public AvionPlayer(Escenario escenario, int nroJugador, int id, double x, double y, String nombreImagen) {
 		super(new Hitbox(new Punto2D(x, y), RADIO_COLISION), DIRECCION.CENTRO, BANDO.AMERICANO, VIDA_MAXIMA, 
@@ -37,22 +38,22 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 	}
 	
 	public static AvionPlayer crearJugador1(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 1, id,Ventana.ANCHO / 1.3, Ventana.ALTO / 1.2, 
+		return new AvionPlayer(escenario, 1, id,Ventana.ANCHO / 6.0, Ventana.ALTO / 1.2, 
 				"jugador1");
 	}
 	
 	public static AvionPlayer crearJugador2(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 2, id,Ventana.ANCHO / 2.1, Ventana.ALTO / 1.2, 
+		return new AvionPlayer(escenario, 2, id,Ventana.ANCHO / 2.9, Ventana.ALTO / 1.2, 
 				"jugador2");
 	}
 	
 	public static AvionPlayer crearJugador3(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 3, id,Ventana.ANCHO / 2.9, Ventana.ALTO / 1.2, 
+		return new AvionPlayer(escenario, 3, id,Ventana.ANCHO / 1.7, Ventana.ALTO / 1.2, 
 				"jugador3");
 	}
 	
 	public static AvionPlayer crearJugador4(Escenario escenario, int id) {
-		return new AvionPlayer(escenario, 4, id,Ventana.ANCHO / 3.7, Ventana.ALTO / 1.2, 
+		return new AvionPlayer(escenario, 4, id,Ventana.ANCHO / 1.3, Ventana.ALTO / 1.2, 
 				"jugador4");
 	}
 	
@@ -208,7 +209,14 @@ public class AvionPlayer extends Avion implements MovimientoPlayer {
 		*/
 		super.actualizar(dt);
 		
+		if(disparando)
+			disparar(dt);
+		
 		decrementarContadorPowerUP(dt);
+	}
+	
+	public void dispara(boolean estado) {
+		this.disparando = estado;
 	}
 	
 	@Override

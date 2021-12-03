@@ -3,6 +3,8 @@ package ar.edu.unlam.pa.cliente;
 import com.google.gson.Gson;
 
 import ar.edu.unlam.pa.model.Elemento.DIRECCION;
+import ar.edu.unlam.pa.servidor.ServerThread;
+import ar.edu.unlam.pa.servidor.Servidor;
 import ar.edu.unlam.pa.compartido.Mensaje;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionPlayer;
@@ -33,6 +35,8 @@ public class ProtocoloCliente {
 		case SNC:
 			processSync(message);
 			break;
+		case ATK:
+			processAttack(message);
 		}
 	}
 
@@ -80,11 +84,12 @@ public class ProtocoloCliente {
 	}
 
 	private static void processSync(Mensaje message) {
-		AvionPlayer player = Escenario.getInstance().obtenerJugador(message.getIdClient());
-		
-		if(player != null)
-			player.setInfo((String) message.getMessage());
-		//Double elapsedTime = (Double) message.getMessage();
-		//Client.getInstance().setGameTimeStart(elapsedTime.longValue());
+		AvionPlayer jugador = Escenario.getInstance().obtenerJugador(message.getIdClient());
+		if(jugador != null)
+			jugador.setInfo((String) message.getMessage());
+	}
+	
+	private static void processAttack(Mensaje message) {
+		Escenario.getInstance().obtenerJugador(message.getIdClient()).dispara((boolean) message.getMessage());
 	}
 }

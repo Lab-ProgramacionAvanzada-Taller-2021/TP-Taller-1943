@@ -40,6 +40,9 @@ public class ProtocoloServidor {
 			case SNC:
 				processSync(caller, message);
 				break;
+			case ATK:
+				processAttack(caller, message);
+				break;
 			}
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -72,8 +75,8 @@ public class ProtocoloServidor {
 			DIRECCION direccion = DIRECCION.valueOf((String) message.getMessage());
 			AvionPlayer jugador = Escenario.getInstance().obtenerJugador(caller.id);
 			jugador.cambiarDireccion(direccion);
-			Servidor.broadcast(
-					(new Gson()).toJson(new Mensaje(TipoMensaje.MOV, caller.id, message.getMessage())));
+			Servidor.broadcast((
+					new Gson()).toJson(new Mensaje(TipoMensaje.MOV, caller.id, message.getMessage())));
 		};
 
 		executorService.schedule(processMovementDelay, 10, TimeUnit.MILLISECONDS);
@@ -93,14 +96,16 @@ public class ProtocoloServidor {
 	}
 
 	private static void processSync(ServerThread caller, Mensaje message) {
-		for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) {
-			Servidor.broadcast((new Gson()).toJson(new Mensaje(TipoMensaje.SNC, jugador.getId(), jugador.getInfo())));
-		}
+		for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) 
+			Servidor.broadcast((
+					new Gson()).toJson(new Mensaje(TipoMensaje.SNC, jugador.getId(), jugador.getInfo())));
+	}
+	
+	private static void processAttack(ServerThread caller, Mensaje message) {
+		Escenario.getInstance().obtenerJugador(caller.id).dispara((boolean) message.getMessage());
 		
-		// This could be used to synchronize everything, such as new players and players
-		// who left the game
-		//long gameTime = System.nanoTime() - Server.getGameTimeStart();
-		//caller.send((new Gson()).toJson(new NetworkMessage(NetworkMessageType.SNC, gameTime)));
+		Servidor.broadcast((
+				new Gson()).toJson(new Mensaje(TipoMensaje.ATK, caller.id, message.getMessage())));
 	}
 
 }
