@@ -29,6 +29,7 @@ public class Servidor extends Thread {
 		try {
 			while (true) {
 				clientSocket = serverSocket.accept();
+				System.out.println("Conexión establecida con: " + serverSocket.getInetAddress().getHostName() + "\n\n\n");
 				ServerThread serverThread = new ServerThread(clientSocket, id++);
 				serverThread.start();
 				serverThreads.add(serverThread);

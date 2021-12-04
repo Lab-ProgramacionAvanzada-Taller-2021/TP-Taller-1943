@@ -38,6 +38,7 @@ public class GameLoopServidor {
 		long next_game_layer = timeStart;
 
 		while (true) {
+			Escenario.getInstance().subirNivelEscenario(nivel);
 			if (System.nanoTime() > next_game_tick) {
 				next_game_tick += NANO_SECONDS_PER_TICK;
 				actualizar(1.0 / TICKS_PER_SECOND);
@@ -95,6 +96,7 @@ public class GameLoopServidor {
 			if (System.nanoTime() > next_game_level) {
 				next_game_level += NANO_SECONDS_PER_LEVEL;
 				nivel++;
+				Escenario.getInstance().subirNivelEscenario(nivel);
 			}
 		}
 	}

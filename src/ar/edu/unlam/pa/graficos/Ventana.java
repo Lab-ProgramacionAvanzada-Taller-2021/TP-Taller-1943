@@ -89,9 +89,13 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 		
 		client.send(TipoMensaje.BYE);
 		System.exit(0);
+		
+		
 	}
 	
 	public void cerrar() {
+		client.send(TipoMensaje.BYE);
+		System.exit(0);
 		enEjecucion = false;
 	}
 	

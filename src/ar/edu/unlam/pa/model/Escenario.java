@@ -95,12 +95,19 @@ public class Escenario {
 	}
 	
 	private void dibujarDebug(Graphics2D g2) {
+		int cont=0;
+		for (Elemento elemento : listaElementos) {
+			if(elemento instanceof AvionEnemigo) {
+				cont++;
+			}
+		}
 		g2.setColor(Color.WHITE);
 		g2.drawString("Nivel: " + this.nivel, Ventana.ANCHO / 2 - 32, 32); 
 		g2.drawString("Jugadores: " + this.listaJugadores.size(), Ventana.ANCHO / 2 - 48, 48);
 		g2.drawString("Islas: " + this.listaElementosCapa1.size(), Ventana.ANCHO / 2 - 48, 64);
 		g2.drawString("Nubes: " + this.listaElementosCapa2.size(), Ventana.ANCHO / 2 - 48, 80);
-		g2.drawString("Elementos: " + this.listaElementos.size(), Ventana.ANCHO / 2 - 48, 96);
+//		g2.drawString("Elementos: " + this.listaElementos.size(), Ventana.ANCHO / 2 - 48, 96);
+		g2.drawString("Enemigos: " + cont, Ventana.ANCHO / 2 - 48, 96);
 	}
 	
 	public synchronized void actualizar(double dt) {

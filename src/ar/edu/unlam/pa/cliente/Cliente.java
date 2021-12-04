@@ -16,7 +16,9 @@ import ar.edu.unlam.pa.graficos.Ventana;
 
 public class Cliente {
 	private static final short PUERTO = 7900;
-	private static final String IP = "localhost";
+//	private static final String IP = "0.0.0.0";
+	private static final String IP ="192.168.0.77";
+//	private static final String IP = "localhost";
 	private static Cliente INSTANCE = null;
 
 	private Socket client;
@@ -36,6 +38,7 @@ public class Cliente {
 	public void connect() {
 		try {
 			client = new Socket(IP, PUERTO);
+			System.out.println("Conectado a :" + client.getInetAddress().getHostName());
 			output = new PrintWriter(client.getOutputStream(), true);
 			input = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			this.id = Integer.parseInt(input.readLine());
