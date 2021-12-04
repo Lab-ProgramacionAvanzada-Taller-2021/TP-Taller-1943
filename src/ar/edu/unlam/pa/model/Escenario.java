@@ -14,8 +14,6 @@ public class Escenario {
 	private static Escenario escenario = null;
 	private final int DESPLAZAMIENTO = 64;
 	private final int VELOCIDAD_Y = 20;
-	private final double INTERVALO_CREAR_ENEMIGO = 10;
-	private final double INTERVALO_SUBIR_NIVEL = 100;
 	
 	private LinkedList<Elemento> listaElementosCapa1;
 	private LinkedList<Elemento> listaElementosCapa2;
@@ -84,7 +82,7 @@ public class Escenario {
 			iter.next().dibujarBarraJugador(g2);
 		}
 	
-		dibujarDebug(g2);
+		//dibujarDebug(g2);
 		
 		dibujarPuntuacionMaxima(g2);
 	}
@@ -159,10 +157,9 @@ public class Escenario {
 			Elemento elemento = it.next();
 			
 			if(elemento.estaDestruido()) {
-				if(elemento instanceof AvionPlayer) {
-					this.listaJugadores.remove(elemento);
+				if(!(elemento instanceof AvionPlayer)) {
+					it.remove();
 				}
-				it.remove();
 			}
 		}
 	}
@@ -177,84 +174,6 @@ public class Escenario {
 	public void subirNivelEscenario(int nivel) {
 		this.nivel = nivel;
 	}
-	/*
-	private void generarEnemigos(double dt) {
-		if(tiempoProximoEnemigo < 0) {
-			switch(nivel) {
-				case 1:
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					break;
-				case 2: 
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
-					break;
-				case 3: 
-					agregarElemento(new AvionEnemigoMedio(this));
-					break;
-				case 4:
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					break;
-				case 5:
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
-					break;
-				case 6:
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
-					break;
-				case 7:
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(new AvionEnemigoMedio(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
-					break;
-				case 8:
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(new AvionEnemigoMedio(this));
-					agregarElemento(new AvionEnemigoMedio(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
-					break;
-				case 9:
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoFrontal(this));
-					agregarElemento(new AvionEnemigoMedio(this));
-					agregarElemento(new AvionEnemigoMedio(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralIzq(this));
-					agregarElemento(AvionEnemigo.AvionEnemigoLateralDer(this));
-					break;
-				case 10:
-					agregarElemento(new AvionEnemigoJefe(this));
-					nivel++;
-				default:
-					break;
-			}
-			
-			agregarElementoCapa1(new Isla());
-			agregarElementoCapa2(new Nube());
-			
-			tiempoProximoEnemigo = INTERVALO_CREAR_ENEMIGO / listaJugadores.size();
-		}else {
-			tiempoProximoEnemigo -= dt;
-		}
-	}*/
 	
 	public void agregarUsuario(int id) {
 		switch(listaJugadores.size()) {

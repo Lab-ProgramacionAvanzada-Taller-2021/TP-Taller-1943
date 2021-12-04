@@ -12,5 +12,6 @@ public enum TipoMensaje {
 	ISL, // Agrega una isla y envia a los clientes.
 	NUB, // Agrega una nube y envia a los clientes.
 	SMA, // Agrega avion enemigo chico y envia a los clientes.
-	MED  // Agrega avion enemigo mediano y envia a los clientes.
+	MED,  // Agrega avion enemigo mediano y envia a los clientes.
+	BOS	// Agrega avion enemigo jefe y envia a los clientes.
 }

@@ -85,6 +85,13 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 				next_game_frame += SKIP_FRAMES;
 				dibujar();
 			}
+			
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		client.send(TipoMensaje.BYE);
@@ -105,6 +112,12 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 	
 	public synchronized void actualizar(double dt) {
 		escenario.actualizar(dt);
+		estaMuerto();
+	}
+	
+	private void estaMuerto() {
+		if(escenario.obtenerJugador((int)client.getId()).estaDestruido())
+			cerrar();
 	}
 
 	@Override
