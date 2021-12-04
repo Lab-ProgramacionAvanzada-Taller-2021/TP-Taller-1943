@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import ar.edu.unlam.pa.compartido.Mensaje;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionEnemigo;
-import ar.edu.unlam.pa.model.AvionEnemigoJefe;
 import ar.edu.unlam.pa.model.AvionEnemigoMedio;
 import ar.edu.unlam.pa.model.Elemento;
 import ar.edu.unlam.pa.model.Escenario;
@@ -50,22 +49,13 @@ public class GameLoopServidor {
 				Elemento elemento;
 				
 				switch(nivel) {
-					default:
-						break;
-					case 9:
-						elemento = new AvionEnemigoJefe(Escenario.getInstance());
-						Escenario.getInstance().agregarElemento(elemento);
-						Servidor.broadcast((
-							new Gson()).toJson(new Mensaje(TipoMensaje.BOS, elemento.getInfo())));
-						nivel++;
-						break;
- 					case 7,8:
+					case 5,6:
 						elemento = new AvionEnemigoMedio(Escenario.getInstance());
 						Escenario.getInstance().agregarElemento(elemento);
 						Servidor.broadcast((
 							new Gson()).toJson(new Mensaje(TipoMensaje.MED, elemento.getInfo())));
 					
-					case 5,6:
+					case 4:
 						elemento = AvionEnemigo.AvionEnemigoLateralDer(Escenario.getInstance());
 						Escenario.getInstance().agregarElemento(elemento);
 						Servidor.broadcast((
@@ -75,11 +65,14 @@ public class GameLoopServidor {
 						Servidor.broadcast((
 							new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
 						
-					case 3,4:
+					case 3:
 						elemento = AvionEnemigo.AvionEnemigoFrontal(Escenario.getInstance());
 						Escenario.getInstance().agregarElemento(elemento);
 						Servidor.broadcast((
 							new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
+						break;
+						
+					default:
 						break;
 				}
 			}

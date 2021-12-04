@@ -82,9 +82,9 @@ public class Escenario {
 			iter.next().dibujarBarraJugador(g2);
 		}
 	
-		//dibujarDebug(g2);
+		dibujarDebug(g2);
 		
-		dibujarPuntuacionMaxima(g2);
+//		dibujarPuntuacionMaxima(g2);
 	}
 	
 	private void dibujarPuntuacionMaxima(Graphics2D g2) {
