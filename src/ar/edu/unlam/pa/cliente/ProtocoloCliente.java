@@ -19,20 +19,11 @@ public class ProtocoloCliente {
 		case NEW:
 			processNew(message);
 			break;
-		case MSG:
-			processMessage(message);
-			break;
 		case MOV:
 			processMovement(message);
 			break;
-		case PAU:
-			processPause(message);
-			break;
 		case BYE:
 			processQuit(message);
-			break;
-		case PNG:
-			processPing(message);
 			break;
 		case SNC:
 			processSync(message);
@@ -67,24 +58,12 @@ public class ProtocoloCliente {
 	
 	}
 
-	private static void processMessage(Mensaje message) {
-		System.out.println(message.getIdClient() + ": " + (String) message.getMessage());
-	}
-
 	private static void processMovement(Mensaje message) {
 		Escenario.getInstance().obtenerJugador(message.getIdClient()).cambiarDireccion(DIRECCION.valueOf((String)message.getMessage()));
 	}
 
-	private static void processPause(Mensaje message) {
-
-	}
-
 	private static void processQuit(Mensaje message) {
 		Escenario.getInstance().eliminarUsuario(message.getIdClient());
-	}
-
-	private static void processPing(Mensaje message) {
-		Cliente.getInstance().refreshPing();
 	}
 
 	private static void processSync(Mensaje message) {
@@ -114,10 +93,10 @@ public class ProtocoloCliente {
 		String[] data = ((String)message.getMessage()).split("\\|");
 		Escenario.getInstance().agregarElemento(
 			new AvionEnemigo(Escenario.getInstance(),
-						Double.parseDouble(data[0]), 
-						Double.parseDouble(data[1]), 
-						DIRECCION.valueOf(data[2]),
-						Integer.parseInt(data[3])));
+				Double.parseDouble(data[0]), 
+				Double.parseDouble(data[1]), 
+				DIRECCION.valueOf(data[2]),
+				Integer.parseInt(data[3])));
 	}
 	
 	private static void processCreateMedium(Mensaje message) {

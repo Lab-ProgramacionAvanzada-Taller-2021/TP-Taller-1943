@@ -17,8 +17,8 @@ import ar.edu.unlam.pa.graficos.Ventana;
 public class Cliente {
 	private static final short PUERTO = 7900;
 //	private static final String IP = "0.0.0.0";
-	private static final String IP ="192.168.0.77";
-//	private static final String IP = "localhost";
+//	private static final String IP ="192.168.0.77";
+	private static final String IP = "localhost";
 	private static Cliente INSTANCE = null;
 
 	private Socket client;
@@ -26,10 +26,6 @@ public class Cliente {
 	private BufferedReader input;
 
 	private int id;
-	private long timeAsked;
-	private long ping;
-	private long elapsedTime;
-	private long elapsedTimeSince;
 
 	public Cliente() {
 		INSTANCE = this;
@@ -42,15 +38,7 @@ public class Cliente {
 			output = new PrintWriter(client.getOutputStream(), true);
 			input = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			this.id = Integer.parseInt(input.readLine());
-/*
-			// Get ping each second
-			ScheduledThreadPoolExecutor executorServicePing = new ScheduledThreadPoolExecutor(1);
-			Runnable processPing = () -> {
-				askPing();
-			};
-			executorServicePing.scheduleWithFixedDelay(processPing, 0, 1, TimeUnit.SECONDS);
-*/
-			// Get sync every ten seconds
+
 			ScheduledThreadPoolExecutor executorServiceSync = new ScheduledThreadPoolExecutor(1);
 			Runnable processSync = () -> {
 				synchronize();
@@ -77,38 +65,13 @@ public class Cliente {
 		this.send(type, null);
 	}
 
-	public void askPing() {
-		this.timeAsked = System.nanoTime();
-		this.send(TipoMensaje.PNG);
-	}
-
 	public void synchronize() {
 		this.send(TipoMensaje.SNC);
 	}
 
-	public void refreshPing() {
-		this.ping = (System.nanoTime() - Cliente.getInstance().getTimeAsked()) / 1_000_000;
-	}
-
-	public long getTimeAsked() {
-		return timeAsked;
-	}
-
-	public long getPing() {
-		return ping;
-	}
 
 	public long getId() {
 		return id;
-	}
-
-	public long getGameTimeStart() {
-		return System.nanoTime() - elapsedTimeSince + elapsedTime;
-	}
-
-	public void setGameTimeStart(long elapsedTime) {
-		this.elapsedTime = elapsedTime;
-		this.elapsedTimeSince = System.nanoTime();
 	}
 
 	public static Cliente getInstance() {

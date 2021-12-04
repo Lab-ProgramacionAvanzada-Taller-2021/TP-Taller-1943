@@ -85,24 +85,14 @@ public class Ventana extends JFrame implements Runnable, KeyListener{
 				next_game_frame += SKIP_FRAMES;
 				dibujar();
 			}
-			
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		client.send(TipoMensaje.BYE);
 		System.exit(0);
-		
-		
 	}
 	
 	public void cerrar() {
 		client.send(TipoMensaje.BYE);
-		System.exit(0);
 		enEjecucion = false;
 	}
 	

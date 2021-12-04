@@ -10,12 +10,7 @@ import com.google.gson.Gson;
 
 import ar.edu.unlam.pa.compartido.Mensaje;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
-import ar.edu.unlam.pa.model.AvionPlayer;
 import ar.edu.unlam.pa.model.Escenario;
-
-//import shared.BallList;
-//import shared.NetworkMessage;
-//import shared.NetworkMessageType;
 
 public class ServerThread extends Thread {
 	private BufferedReader input;
@@ -28,10 +23,6 @@ public class ServerThread extends Thread {
 			this.output = new PrintWriter(clientSocket.getOutputStream(), true);
 			this.id = id;
 			this.send("" + id);
-			/*Escenario.getInstance().agregarUsuario(id);
-			for (AvionPlayer jugador : Escenario.getInstance().obtenerJugadores()) {
-				this.send((new Gson()).toJson(new Mensaje(TipoMensaje.NEW, jugador.getId(), jugador.getInfo())));
-			}*/
 		} catch (IOException e) {
 			System.out.println("Se desconecto el cliente " + this.id + " cuando estaba iniciando");
 			e.printStackTrace();

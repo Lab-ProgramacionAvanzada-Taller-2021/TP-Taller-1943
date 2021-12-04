@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import ar.edu.unlam.pa.compartido.Mensaje;
 import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.model.AvionEnemigo;
+import ar.edu.unlam.pa.model.AvionEnemigoJefe;
 import ar.edu.unlam.pa.model.AvionEnemigoMedio;
 import ar.edu.unlam.pa.model.Elemento;
 import ar.edu.unlam.pa.model.Escenario;
@@ -17,7 +18,7 @@ public class GameLoopServidor {
 	private final long NANO_SECONDS_PER_TICK = NANO_SECONDS_IN_SECOND / TICKS_PER_SECOND;
 	private final long ENEMY_PER_SECOND = 5;
 	private final long NANO_SECONDS_PER_ENEMY = NANO_SECONDS_IN_SECOND * ENEMY_PER_SECOND;
-	private final long LEVEL_PER_SECOND = 90;
+	private final long LEVEL_PER_SECOND = 30;
 	private final long NANO_SECONDS_PER_LEVEL = NANO_SECONDS_IN_SECOND * LEVEL_PER_SECOND;
 	private final long LAYER_PER_SECOND = 20;
 	private final long NANO_SECONDS_PER_LAYER = NANO_SECONDS_IN_SECOND * LAYER_PER_SECOND;
@@ -48,32 +49,37 @@ public class GameLoopServidor {
 				next_game_enemy += NANO_SECONDS_PER_ENEMY;
 				Elemento elemento;
 				
-				switch(nivel) {
-					case 5,6:
-						elemento = new AvionEnemigoMedio(Escenario.getInstance());
-						Escenario.getInstance().agregarElemento(elemento);
-						Servidor.broadcast((
-							new Gson()).toJson(new Mensaje(TipoMensaje.MED, elemento.getInfo())));
-					
-					case 4:
-						elemento = AvionEnemigo.AvionEnemigoLateralDer(Escenario.getInstance());
-						Escenario.getInstance().agregarElemento(elemento);
-						Servidor.broadcast((
-							new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
-						elemento = AvionEnemigo.AvionEnemigoLateralIzq(Escenario.getInstance());
-						Escenario.getInstance().agregarElemento(elemento);
-						Servidor.broadcast((
-							new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
+				if(nivel > 2 && nivel < 8) {
+					elemento = AvionEnemigo.AvionEnemigoFrontal(Escenario.getInstance());
+					Escenario.getInstance().agregarElemento(elemento);
+					Servidor.broadcast((
+						new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
+				}
 						
-					case 3:
-						elemento = AvionEnemigo.AvionEnemigoFrontal(Escenario.getInstance());
-						Escenario.getInstance().agregarElemento(elemento);
-						Servidor.broadcast((
-							new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
-						break;
+				if(nivel > 4 && nivel < 8) {
+					elemento = AvionEnemigo.AvionEnemigoLateralDer(Escenario.getInstance());
+					Escenario.getInstance().agregarElemento(elemento);
+					Servidor.broadcast((
+						new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
+					elemento = AvionEnemigo.AvionEnemigoLateralIzq(Escenario.getInstance());
+					Escenario.getInstance().agregarElemento(elemento);
+					Servidor.broadcast((
+						new Gson()).toJson(new Mensaje(TipoMensaje.SMA, elemento.getInfo())));
+				}
 						
-					default:
-						break;
+				if( nivel > 6 && nivel < 8) {
+					elemento = new AvionEnemigoMedio(Escenario.getInstance());
+					Escenario.getInstance().agregarElemento(elemento);
+					Servidor.broadcast((
+						new Gson()).toJson(new Mensaje(TipoMensaje.MED, elemento.getInfo())));
+				}
+				
+				if( nivel == 8 ) {
+					elemento = new AvionEnemigoJefe(Escenario.getInstance());
+					Escenario.getInstance().agregarElemento(elemento);
+					Servidor.broadcast((
+						new Gson()).toJson(new Mensaje(TipoMensaje.BOS, elemento.getInfo())));
+					nivel++;
 				}
 			}
 			
@@ -84,13 +90,13 @@ public class GameLoopServidor {
 					Elemento isla = new Isla();
 					Escenario.getInstance().agregarElementoCapa1(isla);
 					Servidor.broadcast((
-							new Gson()).toJson(new Mensaje(TipoMensaje.ISL, isla.getInfo())));
+						new Gson()).toJson(new Mensaje(TipoMensaje.ISL, isla.getInfo())));
 				}
 				
 				Elemento nube = new Nube();
 				Escenario.getInstance().agregarElementoCapa2(nube);
 				Servidor.broadcast((
-						new Gson()).toJson(new Mensaje(TipoMensaje.NUB, nube.getInfo())));
+					new Gson()).toJson(new Mensaje(TipoMensaje.NUB, nube.getInfo())));
 			}
 			
 			if (System.nanoTime() > next_game_level) {

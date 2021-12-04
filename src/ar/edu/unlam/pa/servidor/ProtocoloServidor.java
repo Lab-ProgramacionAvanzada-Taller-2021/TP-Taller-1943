@@ -20,20 +20,11 @@ public class ProtocoloServidor {
 			case NEW:
 				processNew(caller, message);
 				break;
-			case MSG:
-				processMessage(caller, message);
-				break;
 			case MOV:
 				processMovement(caller, message);
 				break;
-			case PAU:
-				processPause(caller, message);
-				break;
 			case BYE:
 				processQuit(caller, message);
-				break;
-			case PNG:
-				processPing(caller, message);
 				break;
 			case SNC:
 				processSync(caller, message);
@@ -67,11 +58,6 @@ public class ProtocoloServidor {
 				new Mensaje(TipoMensaje.NEW, jugador.getId(), jugador.getNroJugador()+"|"+jugador.getInfo())));
 	}
 
-	private static void processMessage(ServerThread caller, Mensaje message) {
-		Servidor.broadcast((new Gson()).toJson(
-			new Mensaje(TipoMensaje.MSG, caller.id, message.getMessage())));
-	}
-
 	private static void processMovement(ServerThread caller, Mensaje message) {
 		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
@@ -86,16 +72,8 @@ public class ProtocoloServidor {
 		executorService.shutdown();
 	}
 
-	private static void processPause(ServerThread caller, Mensaje message) {
-		// TODO Game pause
-	}
-
 	private static void processQuit(ServerThread caller, Mensaje message) {
 		caller.close();
-	}
-
-	private static void processPing(ServerThread caller, Mensaje message) {
-		caller.send((new Gson()).toJson(new Mensaje(TipoMensaje.PNG)));
 	}
 
 	private static void processSync(ServerThread caller, Mensaje message) {

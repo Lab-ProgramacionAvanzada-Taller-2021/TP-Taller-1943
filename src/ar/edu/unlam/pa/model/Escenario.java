@@ -2,7 +2,6 @@ package ar.edu.unlam.pa.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,14 +81,14 @@ public class Escenario {
 			iter.next().dibujarBarraJugador(g2);
 		}
 	
-		dibujarDebug(g2);
+		//dibujarDebug(g2);
 		
-//		dibujarPuntuacionMaxima(g2);
+		dibujarPuntuacionMaxima(g2);
 	}
 	
 	private void dibujarPuntuacionMaxima(Graphics2D g2) {
 		g2.setColor(Color.YELLOW);
-		g2.drawString("Puntuacion Maxima: " + this.maximaPuntuacion, Ventana.ANCHO / 2 - 80, 16);	
+		g2.drawString("Puntuacion Maxima: " + this.maximaPuntuacion, Ventana.ANCHO / 2 - 90, 16);	
 	}
 	
 	private void dibujarDebug(Graphics2D g2) {
@@ -110,8 +109,6 @@ public class Escenario {
 	
 	public synchronized void actualizar(double dt) {
 		this.desplazamientoY = (this.desplazamientoY+dt*VELOCIDAD_Y)%DESPLAZAMIENTO;
-		
-		//generarEnemigos(dt);
 		
 		for(Elemento elementoCapa1 : listaElementosCapa1) {
 			elementoCapa1.actualizar(dt);
