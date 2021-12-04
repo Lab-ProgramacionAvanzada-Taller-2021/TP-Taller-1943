@@ -1,13 +1,6 @@
 package ar.edu.unlam.pa.model;
 
-import com.google.gson.Gson;
-
-import ar.edu.unlam.pa.cliente.Cliente;
-import ar.edu.unlam.pa.compartido.Mensaje;
-import ar.edu.unlam.pa.compartido.TipoMensaje;
 import ar.edu.unlam.pa.graficos.Ventana;
-import ar.edu.unlam.pa.model.Elemento.DIRECCION;
-import ar.edu.unlam.pa.servidor.Servidor;
 
 public class AvionEnemigo extends Avion {
 	private static double VELOCIDAD_MOVIMIENTO = 80;
@@ -52,7 +45,7 @@ public class AvionEnemigo extends Avion {
 	}
 	
 	@Override
-	public void colisiono(Elemento otro) {
+	public synchronized void colisiono(Elemento otro) {
 		vidaActual -= 10;
 		
 		if(vidaActual <= 0) {
@@ -73,7 +66,7 @@ public class AvionEnemigo extends Avion {
 	}
 		
 	@Override
-	public void disparar(double dt) {
+	public synchronized void disparar(double dt) {
 		if(tiempoDisparo > 0) {
 			tiempoDisparo -= dt;
 		}else {

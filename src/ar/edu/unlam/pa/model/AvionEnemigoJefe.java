@@ -55,7 +55,7 @@ public class AvionEnemigoJefe extends Avion{
 	}
 	
 	@Override
-	public void disparar(double dt) {
+	public synchronized void disparar(double dt) {
 		if(tiempoDisparo > 0) {
 			tiempoDisparo -= dt;
 		}else {

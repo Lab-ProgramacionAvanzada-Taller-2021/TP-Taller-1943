@@ -59,10 +59,16 @@ public class ProtocoloCliente {
 	}
 
 	private static void processMovement(Mensaje message) {
+		if(Escenario.getInstance().obtenerJugador(message.getIdClient()) == null)
+			return;
+		
 		Escenario.getInstance().obtenerJugador(message.getIdClient()).cambiarDireccion(DIRECCION.valueOf((String)message.getMessage()));
 	}
 
 	private static void processQuit(Mensaje message) {
+		if(Escenario.getInstance().obtenerJugador(message.getIdClient()) == null)
+			return;
+		
 		Escenario.getInstance().eliminarUsuario(message.getIdClient());
 	}
 
@@ -74,6 +80,9 @@ public class ProtocoloCliente {
 	}
 	
 	private static void processAttack(Mensaje message) {
+		if(Escenario.getInstance().obtenerJugador(message.getIdClient()) == null)
+			return;
+		
 		Escenario.getInstance().obtenerJugador(message.getIdClient()).dispara((boolean) message.getMessage());
 	}
 	
